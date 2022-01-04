@@ -1,0 +1,149 @@
+---
+title: "De-bugging exercises: Data visualization"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(ggplot2)
+library(bst290)
+library(dplyr)
+library(magrittr)
+
+data(ess)
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Data visualization
+
+## De-bugging exercises {data-progressive=TRUE}
+
+You should know the drill by now: You get a few code chunks, all of them are supposed to produce `ggplot2` graphs but all of them have some problem(s) in them that generate only error messages. Your job is to fix the bugs and make the code work properly.
+
+### Problem No. 1
+
+Here the task is to create a scatterplot with `geom_point()`, but the points are not shown. This should not be hard to figure out, however:
+```{r ex1, exercise = T}
+ggplot(data = ess, aes(x = height, y = weight))
+  geom_point()
+```
+
+<div id="ex1-hint">
+**Hint:** You need a particular mathematical symbol to add new layers to `ggplot2` graphs.
+</div>
+
+### Problem No. 1: Solution
+
+The problem was a lacking plus sign (`+`) after the first line. Without the `+`, `R` does not understand that the two functions (`ggplot()` & `geom_point()`) belong together and therefore gets confused. 
+
+Once you add the `+`, everything works:
+```{r ex1-a, eval=T, echo=T}
+ggplot(data = ess, aes(x = height, y = weight)) +
+  geom_point()
+```
+
+### Problem No. 2
+
+You are still working with the same scatterplot, and now you are trying to make the graph publication-ready by adding informative labels. Unfortunately, `R` does not seem to like the code that it gets here. Can you find and fix this bug?
+
+```{r ex2, exercise = T}
+ggplot(data = ess, aes(x = height, y = weight)) +
+  geom_point() +
+  xlab(Body height (cm)) +
+  ylab(Body weight (kg)) +
+  theme_bw()
+```
+
+<div id="ex2-hint">
+**Hint:** When you add axis labels, you add text --- and text always goes between...what?
+</div>
+
+### Problem No 2: Solution
+
+The issue: The text you wanted to add with `xlab()` and `ylab()` was not put in parentheses. Therefore, `R` thought that "Body height (cm)" and "Body weight (kg)" would refer to some functions it is supposed to run --- but which obviously do not exist. 
+
+Once you put the text in quotation marks, the graph displays as intended:
+```{r ex2-a, echo=T, eval=T}
+ggplot(data = ess, aes(x = height, y = weight)) +
+  geom_point() +
+  xlab("Body height (cm)") +
+  ylab("Body weight (kg)") +
+  theme_bw()
+```
+
+### Problem No. 3
+
+Here the task is to create a different type of graph, a bar graph showing the number of male and female respondents in the `ess` dataset --- but the right `geom_` still needs to be specified.
+
+```{r ex3, exercise = T}
+ggplot(data = ess, aes(x = gndr))
+```
+
+<div id="ex3-hint">
+**Hint:** Which geometric object or 'geom' produces a bar graph?
+</div>
+
+### Problem No. 3: Solution
+
+You obviously needed to add `geom_bar()` as an additional graph layer. Since you want it to represent the overall numbers --- or 'counts' --- of male and female respondents, you could also be explicit about it and add `stat = "count"` --- but it works also without:
+```{r ex3-a, echo=T, eval=T}
+ggplot(data = ess, aes(x = gndr)) +
+    geom_bar(stat = "count")
+```
+
+### Problem No 4.
+
+To solve this last problem, you need to combine your data cleaning and management skills with your knowledge about data visualization.
+
+You want to create a graph that shows the average ages of respondents, depending on whether or not they were born in Norway. The relevant variables are:
+
+* `agea`, which measures respondents' ages;
+* `brncntr`, which records whether or not respondents were born in Norway;
+
+**Heads up:** This one might take a while to solve...
+```{r ex4, exercise = T}
+ess %>% 
+  group_by() %>% 
+  summarize(mean_age = ) %>% 
+  ggplot(aes(x = , y = mean_age)) +
+    geom_
+```
+
+<div id="ex4-hint">
+**Hint:** You still need to add quite a bit of code. Have a look at Section 4 of the Tutorial.
+</div>
+
+### Problem No 4: Solution
+
+Could you figure it out? If yes, congrats, this one was not that beginner-friendly!
+
+You needed to add:
+
+* Which variable you wanted to `group_by()`: `brncntr`
+* How you wanted to `summarize()` the `agea` variable: `mean_age = mean(agea, na.rm = T)`
+* Which geometric object you wanted to have in the graph: `geom_bar()` and...
+* What the bars are supposed to show: Here, the 'raw' data, which means `stat = "identity"`
+
+Everything together should look like this:
+```{r ex4-a, eval=T, echo=T}
+ess %>% 
+  group_by(brncntr) %>% 
+  summarize(mean_age = mean(agea, na.rm = T)) %>% 
+  ggplot(aes(x = brncntr, y = mean_age)) +
+    geom_bar(stat = "identity")
+```
+
+### Conclusion
+
+**Great job, you are done with these de-bugging exercises**. Now you know the fundamentals of visualizing data with `ggplot2` in `R`!
+
+If you like, you can still polish the last graph a bit to make it publication-ready --- otherwise, get ready for the next part of this course: *Statistical inference*.
+```{r ex5, exercise = T}
+ess %>% 
+  group_by(brncntr) %>% 
+  summarize(mean_age = mean(agea, na.rm = T)) %>% 
+  ggplot(aes(x = brncntr, y = mean_age)) +
+    geom_bar(stat = "identity")
+```

@@ -1,0 +1,140 @@
+---
+title: "De-bugging exercises: Getting your data into R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(haven)
+library(readxl)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Getting your data into R
+
+## De-bugging exercises {data-progressive=TRUE}
+
+When you work with `R` (or any other programming language) you will sooner or later run into "bugs" --- problems with your code that cause error messages and which you need to fix to be able to move on. The process of fixing "bugs" is called "de-bugging".
+
+Error messages can seem quite dramatic when you have not much experience with programming and coding, and it can take a bit to solve any individual "bug". Over time, however, you will learn one very important lesson: **Most "bugs" are simply the result of typos**: You forgot to put a comma where `R` expects a comma to be; you misspelled something; you mixed up commands; you forgot to put text in quotation marks. Simple (and, sometimes, embarrassing) mistakes.
+
+This is the first of several exercises that allow you to practice and gain confidence with "de-bugging". Your progress is always saved, but you can also start over by clicking "Start over" on the left.
+
+You will get little chunks of `R` code that have a "bug" hidden somewhere --- it is your job to "de-bug" the code and get it to work. **You can test if the code works by hitting the "Run" button on the right.**
+
+(Hint: Look for typos, little mix-ups, missing quotation marks, or parentheses.)
+
+### Problem No. 1
+
+In this first problem, we want to download and read the Stata (.dta) version of the *Comparative Political Data Set*, but the code does not seem to work. Can you help?
+```{r ex1, exercise=T}
+cpds <- read_sav("https://www.cpds-data.org/images/Update2020/CPDS_1960-2018_Update_2020.dta")
+
+# This prints the first few observations of the dataset
+head(cpds)
+```
+
+<div id="ex1-hint">
+**Hint:** Check if the function ("command") is correct for the type of dataset file (.dta) you want to read.
+</div>
+
+### Problem No. 1: Solution
+
+The problem: The wrong `read_` function was used. To read a Stata dataset, we need to use the `read_dta()` function, not the `read_sav()` function. This is the correct solution:
+```{r ex1-a, echo=T, eval=F}
+cpds <- read_dta("https://www.cpds-data.org/images/Update2020/CPDS_1960-2018_Update_2020.dta")
+
+# This prints the first few observations of the dataset
+head(cpds)
+```
+
+Recall also what the `head()` function does: It shows you the first few observations in your dataset.
+
+### Problem No. 2
+
+Here is the second problem. Can you fix the bug?
+```{r ex2, exercise=T}
+mepv <- read_sav(http://www.systemicpeace.org/inscr/MEPVv2018.sav)
+
+# This prints the first few observations of the dataset
+head(mepv)
+```
+
+<div id="ex2-hint">
+**Hint:** A link is text, and text always goes between ... marks.
+</div>
+
+### Problem No. 2: Solution
+
+Could you figure out what the problem was? Again one of the most common ones: Missing quotation marks! We have to tell R not to treat the link as a command but to treat it simply like a piece of text.
+
+This is the correct solution
+```{r ex2-a, echo=T, eval=F}
+mepv <- read_sav("http://www.systemicpeace.org/inscr/MEPVv2018.sav")
+
+# This prints the first few observations of the dataset
+head(mepv)
+```
+
+### Problem No. 3
+
+This "bug" can occur anytime, whether you download and read data or work with objects that are already assigned and stored. Do you see where the problem is?
+
+```{r ex3, exercise = T}
+read_dta("https://www.cpds-data.org/images/Update2020/CPDS_1960-2018_Update_2020.dta")
+
+# This prints the first few observations of the dataset
+head(cpds)
+```
+
+<div id="ex3-hint">
+**Hint:** Is the dataset assigned to `cpds`?
+</div>
+
+### Problem No. 3: Solution
+
+This one might have been a bit tricky --- the problem was that the dataset was downloaded but not stored as an object in `R`. You always need to store data, values,... in objects using the assignment operator (`<-`) if you want to use them later:
+```{r ex3-a, eval=F, echo=T}
+cpds <- read_dta("https://www.cpds-data.org/images/Update2020/CPDS_1960-2018_Update_2020.dta")
+
+# This prints the first few observations of the dataset
+head(cpds)
+```
+
+### A quick quiz to wrap up
+
+You made it through the "de-bugging" exercises. If you solved all of them, great job! If you did not manage, do not worry --- this just takes a bit of practice.
+
+Before you finish, can you answer this little quiz?
+
+```{r quiz, echo=F}
+quiz(caption = "Final quiz",
+question("Which package does NOT allow you to directly download datasets from the internet?",
+         answer("`haven`", message = "Not quite. Try again!"),
+         answer("`readxl`", correct = T,
+                message = "Correct! When you use `readxl` to load Excel dataset files, you first need to save them on your computer before you can load them into `R`."),
+         allow_retry = TRUE,
+  random_answer_order = TRUE),
+question("Now a question on how you work with PACKAGES: Which command ('function') do you use to INSTALL packages?",
+         answer("`install()`", message = "Almost, keep trying!"),
+         answer("`load.packages()`", message = "Not quite - you can do this!"),
+         answer("`install.packages()`", message = "Correct! You install packages with `install.packages()`, for example: `install.packages('haven')`.", correct = T),
+         allow_retry = TRUE,
+  random_answer_order = TRUE),
+question("Finally, how do you LOAD a package after you installed it?",
+         answer("`load()`", message = "Not quite - you can do this!"),
+         answer("`load.packages()`", message = "Almost, keep trying!"),
+         answer("`library()`", message = "Correct. You use the library() function, for example: `library(haven)`.",
+                correct = TRUE),
+         allow_retry = TRUE,
+  random_answer_order = TRUE)
+)
+```
+
+### Conclusion
+
+You made it! I hope you see now that error messages --- of which we all get many --- are usually trivial and easily fixed.
+
+Ready to move on to the next tutorial on "Getting to know your data"?
+

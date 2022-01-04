@@ -1,0 +1,120 @@
+---
+title: "De-bugging exercises: Data cleaning & management"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(dplyr)
+library(magrittr)
+library(bst290)
+
+data(ess)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Data cleaning & management 
+
+## De-bugging exercises {data-progressive=TRUE}
+
+Here are again some exercises that require you to fix problems with code chunks. Hint: Look for typos, missing or misplaced symbols, and check the parentheses.
+
+### Problem No. 1
+
+In this scenario, you want to select two variables from the `ess` dataset, but all you get is an error message:
+```{r ex1, exercise = T}
+ess %>% 
+  select(idno,gndr,agea
+```
+
+<div id="ex1-hint">
+**Hint:** Everything that is opened must also be closed...
+</div>
+
+### Problem No. 1: Solution
+
+The last closing parenthesis was of course missing.
+
+```{r ex1-a, eval=T, echo=T}
+ess %>% 
+  select(idno,gndr,agea)
+```
+
+### Problem No. 2
+
+Now you want to link two operations, where the first selects variables and the second filters observations. But, again, something does not work:
+```{r ex2, exercise = T}
+ess %>% 
+  select(idno,cntry,agea,vote,stflife)
+  filter(agea>=25)
+
+```
+
+<div id="ex2-hint">
+**Hint:** Check if there are any missing symbols or operators.
+</div>
+
+### Problem No. 2: Solution
+
+The problem was that the pipe operator was missing at the end of the `select()`-line, and `R` did not understand that the operations should be linked together:
+```{r ex2-a, eval=T, echo=T}
+ess %>% 
+  select(idno,cntry,agea,vote,stflife) %>% 
+  filter(agea>=25)
+
+```
+
+### Problem No. 3
+
+Here you want to filter the data so that only women are left (where `gndr` is equal to `Female`), but somehow `R` refuses to do what you want:
+```{r ex3, exercise = T}
+ess %>% 
+  filter(gndr="Female")
+```
+
+<div id="ex3-hint">
+**Hint:** Read the error message carefully.
+</div>
+
+### Problem No. 3: Solution
+
+The problem was with the equal signs: If you want tell `R` that something *should* or *has to be* equal to something else, you always use double equal signs (`==`).
+
+```{r ex3-a, eval=T, echo=T}
+ess %>% 
+  filter(gndr=="Female")
+```
+
+### Problem No. 4
+
+OK, this one might be a bit mean --- but maybe you can figure it out anyways? 
+
+You want to select some variables from the `ess` dataset, this time without using the pipe but by specifying the dataset explicitly in the `select()` command:
+```{r ex4, exercise = T}
+select(data = ess,
+       agea,idno,gndr)
+```
+
+<div id="ex4-hint">
+**Hint:** Take a close look at the `data=ess` part --- there was a special thing about `select()` and `filter()` where you had to use a specific punctuation symbol...
+</div>
+
+### Problem No. 4: Solution
+
+The problem was the special way you name the dataset you want to use in `select()` (or also `filter()`): You have to add a dot before `data` so that it reads `.data = ess`, not `data = ess`:
+
+```{r ex4-a, eval=F, echo=T}
+select(.data = ess,
+       agea,idno,gndr)
+```
+
+A more convenient alternative is to use the pipe operator from the start:
+```{r ex4-b, eval=T, echo=T}
+ess %>% 
+  select(agea,idno,gndr)
+```
+
+### Conclusion
+
+**That is it for this part!** Next: Data visualization!

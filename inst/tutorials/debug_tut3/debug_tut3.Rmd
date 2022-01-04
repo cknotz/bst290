@@ -1,0 +1,116 @@
+---
+title: "De-bugging exercises: Getting to know your data"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(bst290)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Getting to know your data
+
+## De-bugging exercises {data-progressive=TRUE}
+
+As before: De-bugging is unfortunately a part of working with computer code. In the following exercises, you get a piece of code that does not work and have to figure out how to fix it.
+
+In all exercises, you will work with the small `ess` dataset that you used in the main tutorial and which you should therefore be familiar with (otherwise, quickly go over the main tutorial again to refresh your memory).
+
+### Problem No. 1
+
+Here you want to calculate the average age of your respondents --- but `R` refuses...
+```{r ex1, exercise=T}
+average(ess$agea)
+```
+
+<div id="ex1-hint">
+**Hint:** Was the relevant function really called `average()`? There was also this other word for 'average'...
+</div>
+
+### Problem No. 1: Solution
+
+Obviously, the problem was that the function to calculate an average in `R` is called `mean()`, and not `average()`. You may find that strange or stupid, but it just is that way...
+
+Here is how you make that code work:
+```{r ex1-a, echo=T, eval=F}
+mean(ess$agea)
+```
+
+<!-- ### Problem No. 2 -->
+
+<!-- Now you want to calculate the average level of trust in other people (`ppltrst`). You have the correct function, `mean()`, but you get `NA` as a result. Disappointing. What could be the problem here? -->
+<!-- ```{r ex2, exercise = T} -->
+<!-- mean(ess$ppltrst) -->
+<!-- ``` -->
+
+<!-- <div id="ex2-hint"> -->
+<!-- **Hint:** Use the `oppsumtabell()` function to see if there are any missings (`NA`s) in the data (`oppsumtabell(dataset = ess, variables = "ppltrst")`; you can run this right here in the little console). Can this be the cause of your problem? How could you "remove" the problematic observations? -->
+<!-- </div> -->
+
+<!-- ### Problem No. 2: Solution -->
+
+<!-- The problem was that there was one missing observation (`NA`s) in the `ppltrst` variable. You can see this if you run the `oppsumtabell()` function, listed as `Missings` all the way at the bottom: -->
+<!-- ```{r ex2-a1, echo=T, eval=T} -->
+<!-- oppsumtabell(dataset = ess,  -->
+<!--              variables = "ppltrst") -->
+<!-- ``` -->
+
+<!-- If you now remove this one missing observation from the data before calculating the mean, the problem is fixed. All you need to do is to set the `na.rm` option to `TRUE`: -->
+<!-- ```{r ex2-a2, echo=T, eval=T} -->
+<!-- mean(ess$ppltrst, -->
+<!--      na.rm = TRUE) -->
+<!-- ``` -->
+
+<!-- You also see that the result from the `mean()` function corresponds to the number you get from `oppsumtabell()` (under `Average`) -- this is because `oppsumtabell()` automatically removes any missing observations from the data. -->
+
+### Problem No. 2
+
+You want to see the first 20 observations of the `ess` dataset -- but `R` only shows you the first six. How can you get 20?
+```{r ex3, exercise = T}
+head(ess)
+```
+
+<div id="ex3-hint">
+**Hint:** There is an option for the `head()` function that lets you decide how many observations are printed. `n=`...
+</div>
+
+### Problem No. 3: Solution
+
+This one is solved by setting the number of rows to 20 with the `n` option:
+```{r ex3-a, eval=T, echo=T}
+head(ess,
+     n = 20)
+
+```
+
+### A last quiz
+
+```{r quiz, echo=F}
+quiz(caption = "Final (brief) quiz",
+     question("What is the correct function to get a list of the distinct categories of a variable?",
+              answer("`unique()`", correct = T),
+              answer("`distinct()`", message = "Not quite - try again!"),
+              answer("`categories()`", message = "Unfortunately not - but don't give up, you know this!"),
+              random_answer_order = T,
+              allow_retry = T),
+     question("How does `R` like to store categorical variables?",
+              answer("As *factors*", correct = T),
+              answer("As *categoricals*", message = "Not quite - try again!"),
+              answer("As *levels*", message = "Unfortunately not - but don't give up, you know this!"),
+              random_answer_order = T,
+              allow_retry = T),
+     question("How can you get the last few observations of a dataset?",
+              answer("`tail()`", correct = T),
+              answer("`end()`", message = "Not quite - try again!"),
+              answer("`last()`", message = "Almost...keep trying."),
+              random_answer_order = T,
+              allow_retry = T))
+
+```
+
+### Conclusion
+
+**Congrats, you are done!** Now you know how you can get summary statistics and familiarize yourself with a new dataset.
+
