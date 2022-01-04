@@ -34,13 +34,34 @@ This is how the interactive dashboard with statistics exercises is launched:
 
 ``` r
 library(bst290)
+
 practiceStatistics()
 ```
 
 Loading the included practice dataset:
 
 ``` r
-library(bst290)
-
 data(ess)
+```
+
+Creating a simple summary table using `mtcars`
+
+``` r
+oppsumtabell(dataset = mtcars,
+             variables = c("cyl"))
+```
+
+Creating a cross table
+
+``` r
+krysstabell(dataset = mtcars,
+            rowvar = "gear", colvar = "cyl")
+```
+
+Creating a summary table, by other variable
+
+``` r
+oppsum_grupp(dataset = mtcars,
+          variable = "drat",
+          by.var = "gear")
 ```
