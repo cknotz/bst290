@@ -44,14 +44,14 @@ Loading the included practice dataset:
 data(ess)
 ```
 
-A summary table
+A simple summary table:
 
 ``` r
 oppsumtabell(dataset = ess,
              variables = c("agea","weight","height"))
 ```
 
-A cross table
+A cross table:
 
 ``` r
 krysstabell(dataset = ess,
@@ -59,7 +59,7 @@ krysstabell(dataset = ess,
             colvar = "vote")
 ```
 
-A summary table, stats by other variable
+A summary table, stats by other variable:
 
 ``` r
 oppsum_grupp(dataset = ess,
