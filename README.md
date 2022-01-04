@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-`bst290` is an `R` package developed for the BST290 ("Kvantitativ forskningsmetode"/"Introduction to quantitative methods") course that is taught to BA Political Science (BST) and BA Sociology (BSS) students at the University of Stavanger (UiS), Norway.
+`bst290` is an `R` package developed for the [BST290](https://www.uis.no/nb/course/BST290_1) ("Kvantitativ forskningsmetode"/"Introduction to quantitative methods") course that is taught to BA Political Science ([BST](https://www.uis.no/nb/studietilbud/statsvitenskap-bachelor)) and BA Sociology ([B-SOSIOL](https://www.uis.no/nb/studieprogram-og-emner/sosiologi-bachelorstudium)) students at the University of Stavanger ([UiS](https://www.uis.no/en)), Norway.
 
 The package includes:
 
