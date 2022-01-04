@@ -44,24 +44,25 @@ Loading the included practice dataset:
 data(ess)
 ```
 
-Creating a simple summary table using `mtcars`
+A summary table
 
 ``` r
-oppsumtabell(dataset = mtcars,
-             variables = c("cyl"))
+oppsumtabell(dataset = ess,
+             variables = c("agea","weight","height"))
 ```
 
-Creating a cross table
+A cross table
 
 ``` r
-krysstabell(dataset = mtcars,
-            rowvar = "gear", colvar = "cyl")
+krysstabell(dataset = ess,
+            rowvar = "gndr",
+            colvar = "vote")
 ```
 
-Creating a summary table, by other variable
+A summary table, stats by other variable
 
 ``` r
-oppsum_grupp(dataset = mtcars,
-          variable = "drat",
-          by.var = "gear")
+oppsum_grupp(dataset = ess,
+             variable = "height",
+             by.var = "gndr")
 ```
