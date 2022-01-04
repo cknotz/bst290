@@ -9,15 +9,17 @@
 The package includes:
 
 * Functions to produce simple descriptive tables;
-* An interactive Shiny dashboard featuring statistics exercises and illustrations of statistical distributions, the Central Limit Theorem, and confidence intervals;
+* An interactive `Shiny` dashboard featuring statistics exercises and illustrations of statistical distributions, the Central Limit Theorem, and confidence intervals;
 * De-bugging exercises in the form of interactive `learnr` tutorials, in which students have to solve problems with incomplete or erroneous code chunks;
 * A practice dataset, a subset of the *European Social Survey* ([ESS](https://www.europeansocialsurvey.org/)) with a small number of respondents and variables;
 
 **Important:** This is the first version. Everything important should work, but expect typos, weird formulations,...!
 
+
+
 ## Installation
 
-You can install the development version of bst290 using this code:
+You can install the development version of `bst290` using the following code:
 
 ``` r
 # Requires devtools to install from Github
