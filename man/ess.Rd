@@ -32,13 +32,17 @@ A data frame with 143 rows (observations) and 38 columns (variables):
 }
 }
 \source{
-\url{https://www.europeansocialsurvey.org/}
+ESS Round 7: European Social Survey Round 7 Data (2014).
+Data file edition 2.2. NSD - Norwegian Centre for Research Data, Norway –
+Data Archive and distributor of ESS data for ESS ERIC.
+\url{http://dx.doi.org/10.21338/NSD-ESS7-2014}; distributed under the
+\href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0 license}.
 }
 \usage{
 ess
 }
 \description{
-A subset of the 2014 (round 7) European Social Survey dataset, limited to
+A subset of the 2014 (round 7) European Social Survey, limited to
 143 respondents from Norway and 22 variables.
 }
 \keyword{datasets}
