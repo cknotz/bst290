@@ -17,7 +17,7 @@ The package includes:
 
 ## Installation
 
-You can install the development version of bst290 like so:
+You can install the development version of bst290 using this code:
 
 ``` r
 # Requires devtools to install from Github
@@ -25,7 +25,7 @@ if(!require(devtools)){
   install.packages("devtools")
 }
 
-devtools::install_github()
+devtools::install_github("https://github.com/cknotz/bst290")
 ```
 
 ## Examples
@@ -39,7 +39,7 @@ practiceStatistics()
 
 Loading the included practice dataset:
 
-``` r 
+``` r
 library(bst290)
 
 data(ess)
