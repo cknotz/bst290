@@ -11,7 +11,7 @@ The package includes:
 * Functions to produce simple descriptive tables;
 * An interactive `Shiny` dashboard featuring statistics exercises and illustrations of statistical distributions, the Central Limit Theorem, and confidence intervals;
 * De-bugging exercises in the form of interactive `learnr` tutorials, in which students have to solve problems with incomplete or erroneous code chunks;
-* A practice dataset, a subset of the *European Social Survey* ([ESS](https://www.europeansocialsurvey.org/)) with a small number of respondents and variables;
+* A practice dataset, a subset of the *European Social Survey* (see also below) with a small number of respondents and variables;
 
 **Important:** This is the first version. Everything important should work, but expect typos, weird formulations,...!
 
@@ -68,3 +68,7 @@ oppsum_grupp(dataset = ess,
              variable = "height",
              by.var = "gndr")
 ```
+
+## References
+
+Data source: ESS Round 7: European Social Survey Round 7 Data (2014). Data file edition 2.2. NSD - Norwegian Centre for Research Data, Norway – Data Archive and distributor of ESS data for ESS ERIC. [doi:10.21338/NSD-ESS7-2014](http://dx.doi.org/10.21338/NSD-ESS7-2014).
