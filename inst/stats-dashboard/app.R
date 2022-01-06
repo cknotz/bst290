@@ -632,7 +632,7 @@ ui <- dashboardPage(
                   ),
               box(width = NULL,title = "Solution",collapsible = F,solidHeader = F,
                   textOutput(outputId = "result")),
-              box(width = NULL,title = "The detailed solution",collapsible = T,
+              box(width = NULL,title = "Detailed solution",collapsible = T,
                     collapsed = T,solidHeader = F,
                     uiOutput("cor_detail1"),
                     uiOutput("cor_detail2"),
