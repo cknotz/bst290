@@ -100,19 +100,18 @@ ui <- dashboardPage(
                                 see themselves as 'not a math' person, an attitude that might stem from bad experiences in school.</p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
                            title = "Statistics can be learned",
-                                HTML("<p><strong>Statistics can be learned and mastered, even by people who see themselves as 'not a math person'.</strong>
-                                The idea that someone is simply unable to do math is <i>wrong</i> (according to <a target = '_blank'
-                                href='https://www.aft.org/sites/default/files/periodicals/willingham.pdf'>cognitive scientists</a>!).
-                                But what many people who struggle with mathematical concepts and procedures might need more of is simply: <i>practice</i>.</p>
+                                HTML("<p><strong>What many people who struggle with mathematical concepts and procedures might need more of is simply: <i>practice</i>.</strong></p>
                                 <p>Many statistics textbooks are typically focused on explaining the basic ideas behind the various statistics and
                                 methods &mdash; the <i>conceptual</i> side of things. In statistics courses, teachers likewise emphasize conceptual
                                 understanding and often even leave out all equations, in the hope that this helps the 'not a math person'
                                 students.</p>
                                 <p>To be clear, developing a sound conceptual understanding is very important &mdash; but it is also important
                                 to practice actually 'doing the math'. Here is why: Research has shown that students can really improve their understanding of
-                                a particular method or concepts simply by 'crunching the numbers' a few times. By doing calculations, you literally force
+                                a particular method or concepts simply by 'crunching the numbers' a few times (see e.g., <a target = '_blank'
+                                href='https://www.aft.org/sites/default/files/periodicals/willingham.pdf'>here</a>). By doing calculations, you literally force
                                 your brain to engage deeply with the material you are studying, and this can help you to better understand the logic behind
-                                a particular procedure or concepts.</po>
+                                a particular procedure or concepts.
+                                But </po>
                                 <p>Also, after a few calculations, equations that at first sight seemed impenetrable
                                 and perhaps even scary become manageable and intuitive. You learn that you can actually understand and master seemingly complicated material.
                                 In consequence, you gain confidence that will help you tackle the more complicated concepts and procedures.</p>")),
