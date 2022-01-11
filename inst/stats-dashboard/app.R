@@ -289,9 +289,8 @@ ui <- dashboardPage(
                            therefore obviously important &mdash; but can also be
                                 challenging.</p>
                                 <p>This panel allows you to approach the Central
-                                Limit Theorem via a simulation of a social science survey, in which you measure the ideological
-                                left-right self-placement of a fictional population.</p>
-                                <p>Specifically, you can simulate what happens when you
+                                Limit Theorem via a simulation of a social science survey, in which you measure the average level of happiness of a fictional population.</p>
+                                <p>You can simulate what happens when you
                                 do a survey with a random sample of respondents, how the
                                 results vary when you repeat your survey 10, 100, 1000,
                                 10.000, or 100.000 times, and what happens when your
@@ -345,7 +344,7 @@ ui <- dashboardPage(
                                 and misinterpret.</p>
                                 <p>This panel allows you to visualize a confidence
                                 interval around a fixed sample mean (using simulated data
-                                about people's left-right self-placement)
+                                about people's level of happiness)
                                 and how the confidence interval is related to
                                 sampling distributions.</p>
                                 <p>You can also change the size of the sample that
@@ -819,9 +818,9 @@ output$clt_popplot <- renderPlot({
     geom_vline(xintercept = mean(vals$cltpop), color = "#b34e24", size = 1.25) +
     scale_x_continuous(breaks = seq(10,100,10),
                        limits = c(5,105)) +
-    labs(x = "Left-right self-placement",
+    labs(x = "''How happy are you?''",
          y = "Frequency",
-         title = "The 'true' population (N=2000) with our target: the population mean",
+         title = "The 'true' population with our target: the population mean",
          caption = paste0("The orange line indicates the 'true' population mean: ",round(mean(vals$cltpop), digits = 2))) +
     theme_darkgray()
   }else{
@@ -935,7 +934,7 @@ observeEvent(input$ci_size,{
                      color = "grey15", size = 1.25) +
           scale_x_continuous(limits = c(5,105),
                              breaks = seq(10,100,10)) +
-          labs(x = "Left-right self-placement",
+          labs(x = "''How happy are you?''",
                y = "Number of samples",
                caption = paste0("The gray solid line indicates the POSSIBLE true population mean: ",round(mean(sims$means), digits = 2),
                                 "\n The green dashed line indicates the MEASURED sample mean: 34.1")) +
