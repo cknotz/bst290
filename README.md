@@ -11,7 +11,7 @@ The package includes:
 * Functions to produce simple descriptive tables;
 * An interactive `Shiny` dashboard featuring statistics exercises and illustrations of statistical distributions, the Central Limit Theorem, and confidence intervals;
 * De-bugging exercises in the form of interactive `learnr` tutorials, in which students have to solve problems with incomplete or erroneous code chunks;
-* A practice dataset, a subset of the *European Social Survey*<sup>[1]</sup> with a small number of respondents and variables;
+* A practice dataset, a subset of the *European Social Survey*<sup>[1]</sup>, including a small number of respondents and variables;
 
 **Important:** This is the first version. Everything important should work, but expect typos, weird formulations,...!
 
@@ -27,7 +27,7 @@ if(!require(devtools)){
   install.packages("devtools")
 }
 
-devtools::install_github("https://github.com/cknotz/bst290")
+devtools::install_github("cknotz/bst290")
 ```
 
 ## Examples
@@ -68,6 +68,9 @@ oppsum_grupp(dataset = ess,
              variable = "height",
              by.var = "gndr")
 ```
+
+To access the `learnr` tutorials, navigate to the *Tutorial* tab in **RStudio** (upper-right corner of the screen) and look for "De-bugging exercises". You may have to install the `learnr`-package, but **RStudio** should help you with that.
+
 
 ## References
 
