@@ -19,7 +19,7 @@ The package includes:
 
 ## Installation
 
-You can install the development version of `bst290` using the following code:
+You can install the current version of `bst290` using the following code:
 
 ``` r
 # Requires devtools to install from Github
