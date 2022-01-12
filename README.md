@@ -69,8 +69,9 @@ oppsum_grupp(dataset = ess,
              by.var = "gndr")
 ```
 
-To access the `learnr` tutorials, navigate to the *Tutorial* tab in **RStudio** (upper-right corner of the screen) and look for "De-bugging exercises". You may have to install the `learnr`-package, but **RStudio** should help you with that.
+## De-bugging tutorials
 
+To access the `learnr` tutorials, navigate to the *Tutorial* tab in **RStudio** (upper-right corner of the screen) and look for "De-bugging exercises". You may have to install the `learnr`-package, but **RStudio** should help you with that.
 
 ## References
 
