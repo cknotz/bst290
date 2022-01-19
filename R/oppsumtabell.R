@@ -138,7 +138,7 @@ oppsumtabell <- function(dataset,variables,export=NULL) {
     sumtab.df <- as.data.frame(sumtab)
     sumtab.df <- cbind(stats,sumtab.df)
     rownames(sumtab.df) <- NULL
-    colnames(sumtab.df) <- c("Statistic",variables)
+    colnames(sumtab.df) <- c("Variable",variables)
 
     # Regular export
     if(export==T){
@@ -207,7 +207,7 @@ oppsumtabell <- function(dataset,variables,export=NULL) {
     sumtab.df <- as.data.frame(sumtab)
     sumtab.df <- cbind(stats,sumtab.df)
     rownames(sumtab.df) <- NULL
-    colnames(sumtab.df) <- c("Statistic",variables)
+    colnames(sumtab.df) <- c("Variable",variables)
 
     # Regular export
     if(export==T){
