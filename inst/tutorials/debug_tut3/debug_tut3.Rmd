@@ -76,13 +76,32 @@ head(ess)
 **Hint:** There is an option for the `head()` function that lets you decide how many observations are printed. `n=`...
 </div>
 
-### Problem No. 3: Solution
+### Problem No. 2: Solution
 
 This one is solved by setting the number of rows to 20 with the `n` option:
 ```{r ex3-a, eval=T, echo=T}
 head(ess,
      n = 20)
 
+```
+
+### Problem No. 3
+
+You want to calculate the standard deviation of the `agea` variable, and you definitely have the correct function and variable --- but something still causes an error:
+
+```{r ex4, exercise = T}
+sd(ess@agea)
+```
+
+<div id="ex4-hint">
+**Hint:** Which symbol do you need to use to select a specific variable from a dataset?
+</div>
+
+### Problem No. 3: Solution
+
+The issue was that the wrong symbol was used to indicate that `R` should use a specific variable from the `ess` dataset: This is done with the `$` symbol, not with `@`:
+```{r ex4-a, eval=T, echo=T}
+sd(ess$agea)
 ```
 
 ### A last quiz
