@@ -13,9 +13,6 @@ The package includes:
 * De-bugging exercises in the form of interactive `learnr` tutorials, in which students have to solve problems with incomplete or erroneous code chunks;
 * A practice dataset, a subset of the *European Social Survey*<sup>[1]</sup> dataset, including a small number of respondents and variables;
 
-**Important:** This is the first version. Everything important should work, but expect typos, weird formulations,...!
-
-
 
 ## Installation
 
