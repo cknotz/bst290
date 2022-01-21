@@ -44,6 +44,9 @@ Loading the included practice dataset:
 
 ``` r
 data(ess)
+
+# Alternative:
+ess <- bst290::ess
 ```
 
 A simple summary table:
