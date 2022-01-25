@@ -89,7 +89,7 @@ ui <- dashboardPage(
                                 is discrimination and bias against immigrants or minorities are nowadays answered with experiments and
                                 statistical analyses. </p>
                                 <p>In addition, the internet is creating an ever increasing amount of
-                                data about human behavior than wants to be analyzed and used. Data science and machine learning methods,
+                                data about human behavior that wants to be analyzed and used. Data science and machine learning methods,
                                 which build to a large extent on statistical methods, are now routinely used by many businesses, and NGOs active in the
                                 aid and development sector are also increasingly relying on data scientists to do and evalute their
                                 project work (e.g., <a target='_blank' href='https://correlaid.org/'>correlaid.org</a> or
