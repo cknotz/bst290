@@ -19,12 +19,12 @@ The package includes:
 You can install the current version of `bst290` using the following code:
 
 ``` r
-# Requires devtools to install from Github
-if(!require(devtools)){
-  install.packages("devtools")
+# Requires devtools or remotes to install from Github
+if(!require(remotes)){
+  install.packages("remotes")
 }
 
-devtools::install_github("cknotz/bst290")
+remotes::install_github("cknotz/bst290")
 ```
 
 ## Examples
