@@ -14,6 +14,8 @@
 #' @param dataset Your dataset (a data.frame-type object).
 #' @param variables The variables from your dataset for which you want
 #' summary statistics. Specify them as a string or a string vector.
+#' @param variable Alias for `variables`. One of `variable` or `variables` must
+#' be used.
 #' @param export Should the table be made export-ready (TRUE/FALSE)?
 #'
 #' @return A data.frame or, if export function is switched on (export=TRUE), a
@@ -43,14 +45,25 @@
 #' @importFrom utils write.table
 #'
 #' @export
-oppsumtabell <- function(dataset,variables,export=NULL) {
-
+oppsumtabell <- function(dataset,variables=NULL,export=NULL,variable=NULL) {
 
   # Helper function (from https://stackoverflow.com/questions/14469522/stop-an-r-program-without-error)
   stop_quietly <- function() {
     opt <- options(show.error.messages = FALSE)
     on.exit(options(opt))
     stop()
+  }
+
+  # Aliasing variable & variables
+  if(is.null(variables) & !is.null(variable)){
+    variables <- variable
+    variable <- NULL
+  }
+
+  if(is.null(variables) & is.null(variable)){
+    warning(call. = F,
+            "You need to specify one more variables that you want to get summary statistics for! See also '?oppsumtabell' for help.")
+    stop_quietly()
   }
 
   # Labels
