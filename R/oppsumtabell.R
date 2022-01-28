@@ -45,7 +45,7 @@
 #' @importFrom utils write.table
 #'
 #' @export
-oppsumtabell <- function(dataset,variables=NULL,export=NULL,variable=NULL) {
+oppsumtabell <- function(dataset,variables=NULL,variable=NULL,export=NULL) {
 
   # Helper function (from https://stackoverflow.com/questions/14469522/stop-an-r-program-without-error)
   stop_quietly <- function() {
@@ -64,6 +64,12 @@ oppsumtabell <- function(dataset,variables=NULL,export=NULL,variable=NULL) {
     warning(call. = F,
             "You need to specify one more variables that you want to get summary statistics for! See also '?oppsumtabell' for help.")
     stop_quietly()
+  }
+
+  if(!is.null(variable) & !is.null(variables)){
+    variable <- NULL
+    warning(call. = F,
+            "It looks like you specified both the 'variable' and the 'variables' option. You should only use one of them at a time. The table uses now only the variable(s) listed under 'variables', and everything specified under 'variable' is ignored.")
   }
 
   # Labels

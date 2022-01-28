@@ -4,7 +4,7 @@
 \alias{oppsumtabell}
 \title{Create univariate summary tables}
 \usage{
-oppsumtabell(dataset, variables = NULL, export = NULL, variable = NULL)
+oppsumtabell(dataset, variables = NULL, variable = NULL, export = NULL)
 }
 \arguments{
 \item{dataset}{Your dataset (a data.frame-type object).}
@@ -12,10 +12,10 @@ oppsumtabell(dataset, variables = NULL, export = NULL, variable = NULL)
 \item{variables}{The variables from your dataset for which you want
 summary statistics. Specify them as a string or a string vector.}
 
-\item{export}{Should the table be made export-ready (TRUE/FALSE)?}
-
 \item{variable}{Alias for \code{variables}. One of \code{variable} or \code{variables} must
 be used.}
+
+\item{export}{Should the table be made export-ready (TRUE/FALSE)?}
 }
 \value{
 A data.frame or, if export function is switched on (export=TRUE), a
