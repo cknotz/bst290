@@ -58,7 +58,7 @@ visfactor <- function(variable,dataset,detail=NULL,nrows=NULL){
 
   # Check if is.factor, stop otherwise
   if(!is.factor(newset[,c(variable)])){
-    warning("It looks like your variable is not a factor. This function only works with factor-type variables.")
+    warning("It looks like your variable is not a factor. This function only works with factor-type variables.\n Use class() to check if your variable is a factor. For example: class(ess$vote)")
     stop_quietly()
   }
 
