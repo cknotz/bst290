@@ -62,7 +62,7 @@ ggplot(data = ess, aes(x = height, y = weight)) +
 
 ### Problem No 2: Solution
 
-The issue: The text you wanted to add with `xlab()` and `ylab()` was not put in parentheses. Therefore, `R` thought that "Body height (cm)" and "Body weight (kg)" would refer to some functions it is supposed to run --- but which obviously do not exist. 
+The issue: The text you wanted to add with `xlab()` and `ylab()` was not put in quotation marks. Therefore, `R` thought that *Body height (cm)* and *Body weight (kg)* would refer to some functions it is supposed to run --- but which obviously do not exist. 
 
 Once you put the text in quotation marks, the graph displays as intended:
 ```{r ex2-a, echo=T, eval=T}
@@ -97,7 +97,7 @@ ggplot(data = ess, aes(x = gndr)) +
 
 To solve this last problem, you need to combine your data cleaning and management skills with your knowledge about data visualization.
 
-You want to create a graph that shows the average ages of respondents, depending on whether or not they were born in Norway. The relevant variables are:
+You want to create a *bar graph* that shows the average ages of respondents, depending on whether or not they were born in Norway. The relevant variables are:
 
 * `agea`, which measures respondents' ages;
 * `brncntr`, which records whether or not respondents were born in Norway;
@@ -123,7 +123,7 @@ You needed to add:
 
 * Which variable you wanted to `group_by()`: `brncntr`
 * How you wanted to `summarize()` the `agea` variable: `mean_age = mean(agea, na.rm = T)`
-* Which geometric object you wanted to have in the graph: `geom_bar()` and...
+* Which geometric object you wanted to have in the bar graph: `geom_bar()`, obviously, and...
 * What the bars are supposed to show: Here, the 'raw' data, which means `stat = "identity"`
 
 Everything together should look like this:
