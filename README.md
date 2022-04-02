@@ -79,6 +79,10 @@ visfactor(dataset = ess, variable = "vote")
 
 To access the `learnr` tutorials, navigate to the *Tutorial* tab in **RStudio** (upper-right corner of the screen) and look for "De-bugging exercises". You may have to install the `learnr`-package, but **RStudio** should help you with that.
 
+## Acknowledgments
+
+*This package has been made better by input and feedback from:* Liv Sunnerkrantz, Fredrik Myklebust Iversen, and Knut Solvig. All remaining errors or problems are mine.
+
 ## References
 
 [1] ESS Round 7: European Social Survey Round 7 Data (2014). Data file edition 2.2. NSD - Norwegian Centre for Research Data, Norway – Data Archive and distributor of ESS data for ESS ERIC. [doi:10.21338/NSD-ESS7-2014](http://dx.doi.org/10.21338/NSD-ESS7-2014). Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
