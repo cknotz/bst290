@@ -81,7 +81,7 @@ To access the `learnr` tutorials, navigate to the *Tutorial* tab in **RStudio** 
 
 ## Acknowledgments
 
-*This package has been made better by input and feedback from:* Liv Sunnerkrantz, Fredrik Myklebust Iversen, and Knut Solvig. All remaining errors or problems are mine.
+*This package has been made better by input and feedback from:* Liv Sunnerkrantz, Fredrik Myklebust Iversen, and Knut Solvig. All remaining errors are mine.
 
 ## References
 
