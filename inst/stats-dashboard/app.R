@@ -93,35 +93,36 @@ ui <- dashboardPage(
                                 which build to a large extent on statistical methods, are now routinely used by many businesses, and NGOs active in the
                                 aid and development sector are also increasingly relying on data scientists to do and evalute their
                                 project work (e.g., <a target='_blank' href='https://correlaid.org/'>correlaid.org</a> or
-                                <a target='_blank' href='https://data.org/'>data.org</a>). <strong>Clearly, being able to use statistical methods is an extremely powerful skill &mdash; now and in the future.</strong></p>
-                                <p>Unfortunately, statistics is also something many students (especially in the social sciences)
-                                are not exactly looking forward to engaging with. Some may see statistics as irrelevant to them, but
-                                many others are simply afraid of the math. Many students, again especially in the social sciences,
-                                see themselves as 'not a math' person, an attitude that might stem from bad experiences in school.</p>")),
+                                <a target='_blank' href='https://data.org/'>data.org</a>). <strong>Clearly, being able to use statistical methods is an extremely powerful skill &mdash; now and in the future.</strong></p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
-                           title = "Statistics can be learned",
-                                HTML("<p><strong>What many people who struggle with mathematical concepts and procedures might need more of is simply: <i>practice</i>.</strong></p>
-                                <p>Many statistics textbooks are typically focused on explaining the basic ideas behind the various statistics and
-                                methods &mdash; the <i>conceptual</i> side of things. In statistics courses, teachers likewise emphasize conceptual
-                                understanding and often even leave out all equations, in the hope that this helps the 'not a math person'
+                           title = "You can learn statistics",
+                                HTML("
+                                <p>Unfortunately, many students are not excited about statistics. Some may see statistics as irrelevant, but
+                                many others are simply afraid of the math. Many students
+                                see themselves as 'not a math' person, an attitude that might stem from bad experiences in high school.</p>
+                                <p>The math-component of statistics is also often downplayed or entirely eliminated in teaching. Many statistics textbooks are mostly focused on explaining the basic ideas behind the various statistics and
+                                methods &mdash; the <i>conceptual</i> side of things &mdash; but do not include many exercises with which students could practice the actual calculations. Many statistics teachers likewise emphasize conceptual
+                                understanding and often even leave out all math in the hope that this helps the 'not a math person'
                                 students.</p>
+                                <p><strong>But: Many of those who struggle with mathematical concepts and procedures might simply need more <i>practice</i>.</strong></p>
                                 <p>To be clear, developing a sound conceptual understanding is very important &mdash; but it is also important
                                 to practice actually 'doing the math'. Here is why: Research has shown that students can really improve their understanding of
-                                a particular method or concepts simply by 'crunching the numbers' a few times (see e.g., <a target = '_blank'
+                                a particular method or concept simply by 'crunching the numbers' a few times (see e.g., <a target = '_blank'
                                 href='https://www.aft.org/sites/default/files/periodicals/willingham.pdf'>here</a>). By doing calculations, you literally force
                                 your brain to engage deeply with the material you are studying, and this can help you to better understand the logic behind
-                                a particular procedure or concepts.
-                                But </po>
+                                a particular procedure or concepts.</p>
                                 <p>Also, after a few calculations, equations that at first sight seemed impenetrable
                                 and perhaps even scary become manageable and intuitive. You learn that you can actually understand and master seemingly complicated material.
                                 In consequence, you gain confidence that will help you tackle the more complicated concepts and procedures.</p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
                            title = "The purpose of this application",
-                                HTML("<p><strong>And this is the purpose of this application: To let you practice</strong> beginner-level statistical
-                                methods by hand. It will give you brief instructions and then keeping spitting out new numbers for
-                                you to crunch until you feel that you really understand a given technique. In addition, it features a panel
-                                to simulate the logic behind the Central Limit Theorem and confidence intervals. Finally, you can visualize
-                                central statistical distributions, which can help you to understand how to interpret the results of statistical
+                                HTML("<p><strong>And this is the purpose of this application: To let you practice</strong> calculating beginner-level statistical
+                                methods by hand. You can choose between several types of statistics and statistical tests via the menu on the right. Each of the panels
+                                will then give you a brief introduction and a set of (random) numbers to calculate with. Once you are done with your calculation
+                                (or in case you get stuck) you can reveal a brief and a detailed solution to each exercise. And you can repeat this as many
+                                times as you like &mdash; the application will spit out numbers for you to crunch until you feel that you really understand each calculation.</p>
+                                <p>In addition, it features a panel to simulate the logic behind the Central Limit Theorem and confidence intervals. Finally, you can visualize
+                                central statistical distributions, which can help you to better understand how to interpret the results of statistical
                                 tests.</p>")
               ))
               )),
@@ -339,72 +340,59 @@ ui <- dashboardPage(
                            collapsed = T, solidHeader = F,
                            HTML("<p>Confidence intervals are a very important tool in
                                 statistical analysis. Unfortunately, they are also
-                                difficult to really understand &mdash; or, to put
-                                it differently, they are very easy to misunderstand
-                                and misinterpret.</p>
-                                <p>This panel allows you to visualize a confidence
-                                interval around a fixed sample mean (using simulated data
-                                about people's level of happiness)
-                                and how the confidence interval is related to
-                                sampling distributions.</p>
-                                <p>You can also change the size of the sample that
-                                you work with or the level of confidence to see how
-                                this changes the size of the confidence interval.</p>")),
+                                difficult to really understand. <strong>This panel allows you to explore the logic of
+                                confidence intervals via simulation.</strong></p>
+                                <p> You pretend to be a researcher who is trying to measure
+                                the average level of happiness in a population (e.g., in Norway).
+                                You start by doing your study a single time: You collect your data
+                                and then calculate the mean level of happiness and a confidence interval
+                                for the mean. Then you can see what happens if you would <strong>repeat</strong>
+                                your study up to 100 times: How many out of all confidence intervals you
+                                calculate cover the true population mean?</p>
+                                <p>You can also change the level of confidence to see how
+                                this changes the size of your confidence intervals.</p>")),
                        box(width = NULL, title = "Controls", collapsible = T,
                            collapsed = F,
                            sliderInput("ci_size",
-                                       "Size of each sample",
-                                       min = 5,
-                                       max = 125,
-                                       value = 18,
-                                       ticks = F),
-                           sliderInput("ci_diff",
-                                       "Move location of potential true population mean",
-                                       min = -50,
-                                       max = 50,
-                                       value = 0,
-                                       step = 1,
+                                       "Number of repetitions",
+                                       min = 1,
+                                       max = 100,
+                                       value = 1,
                                        ticks = F),
                            radioGroupButtons("ci_level",
                                         label = "Confidence level",
-                                        choices = c("90%" = 1.645,
-                                                    "95%" = 1.960,
-                                                    "99%" = 2.576),
-                                        selected = 1.960,
+                                        choices = c("90%" = .9,
+                                                    "95%" = .95,
+                                                    "99%" = .99),
+                                        selected = .95,
                                         justified = T,
                                         checkIcon = list(
                                           yes = icon("ok",
                                                      lib = "glyphicon"))
                                         ),
-                           radioGroupButtons(inputId = "show_ci",
-                                        label = "Show confidence interval",
-                                        choices = c("No" = F,
-                                                    "Yes" = T),
-                                        selected = F,
-                                        justified = T,
-                                        checkIcon = list(
-                                          yes = icon("ok",
-                                                     lib = "glyphicon")))
                            )),
                 column(width = 8,
                        plotOutput("ci_plot"),
                        br(),
                        box(width = NULL, title = "Making sense of what you see", collapsible = T, solidHeader = T,
                            collapsed = T,
-                           HTML("<p>If you move the slider on the left ('Move location of population mean')
-                                to the left and right,
-                                you can simulate different scenarios for where the 'true'
-                                population mean is located. As you move the slider,
-                                ask yourself: If the 'true' population mean were located
-                                at this point, would it be likely or unlikely that we
-                                measured our given sample mean (given the sample size and chosen confidence level)?</p>
-                                <p>If you then let the graph show the confidence interval,
-                                you should notice that this interval corresponds to
-                                those possible true population means where you said they are
-                                plausible given our sample mean and the sampling distribution. In other words,
-                                you should notice that the confidence interval includes the
-                                <strong>range of potential 'true' population values
-                                that are plausible, given the sample size and level of confidence.</strong></p>")))
+                           HTML("<p>When you start, you see only a single confidence interval (the horizontal white line).
+                           This is result of your first study: You collected some data, calculated the mean, and then the
+                           confidence interval around this mean. <strong>Most likely,</strong> this first confidence interval will
+                           overlap with the true population mean (the orange line). This means that your study ''captured'' the true mean.</p>
+                           <p>You can then simulate what would happen if you repeated your study up to 100 times.
+                           To do this, you use the slider on the right. If you increase the number of studies, the computer
+                           ''collects'' as many new datasets as you choose and calculates a confidence interval for each of the datasets.</p>
+                           <p>Look carefully at the different confidence intervals and ask yourself: How many of these do <strong>not</strong>
+                           include the true population mean?</p>
+                           <p><i>Statistically speaking</i>, if you choose a 95% confidence level and repeat your study 100 times,
+                           then 95 of your confidence intervals will include the true population mean &mdash; and 5 will not!</p>
+                           <p>If you would increase your level of confidence to 99%, only 1 confidence interval will not include the true mean.
+                           But if you go for a 90% confidence level, 10 of your intervals will not include the true mean.</p>
+                          <p>The main lesson: <strong>If you conduct a single study and calculate a 95% confidence interval, then this
+                          interval has a 95% chance of including the true population value &mdash; and a 5% chance that it does not.</strong>
+                          In other words, any given confidence interval includes the true population value with a probability
+                                that you choose (e.g., 95 or 99%)</p>")))
               )
               ),
 
@@ -882,7 +870,7 @@ observeEvent(input$button_clt,{
   })
 })
 
-# Simulation graph, CI
+# Simulation graph, CI (based on: EV Nordheim, MK Clayton & BS Yandell, Appendix)
 set.seed(42)
 vals$cipop <- 10*sample(seq(1,10,1),
                  125,
@@ -890,71 +878,58 @@ vals$cipop <- 10*sample(seq(1,10,1),
                  prob = c(.02,.20,.29,.13,.10,.09,.09,.04,.03,0.01))
 
 observeEvent(input$ci_size,{
+# Sampling
+n.draw <- input$ci_size
+mu <- mean(vals$cipop)
+n <- 125
+SD <- sd(vals$cipop)
 
 
+draws <-matrix(rnorm(n.draw * n, mu, SD), n)
 
-  # Simulate repeat sampling
-  vals$means <- sapply(seq(1,2500,1),
-                  function(x){
-                    sample <- sample(vals$cipop,
-                                     size = input$ci_size,
-                                     replace = F)
-                    return(mean(sample))
-                  })
+observeEvent(input$ci_level,{
+  cl <- as.numeric(input$ci_level)
+vals$conf.int  <-  as.data.frame(t(apply(draws, 2, function(x){
+  t.test(x,conf.level = cl)$conf.int
+})))
 
-  sims <- data.frame(means = vals$means-10,
-                     draws = seq(1,length(vals$means),1))
+output$ci_plot <- renderPlot({
 
-  sims_sd <- stats::sd(sims$means)
-  sims_mean <- mean(sims$means)
+# For integer breaks (from https://joshuacook.netlify.app/post/integer-values-ggplot-axis/)
+integer_breaks <- function(n = 5, ...) {
+  fxn <- function(x) {
+    breaks <- floor(pretty(x, n, ...))
+    names(breaks) <- attr(breaks, "labels")
+    breaks
+  }
+  return(fxn)
+}
+
+if(n.draw==1){
+auttit <- paste0("Confidence interval from ",n.draw," simulated study")
+} else {
+auttit <- paste0("Confidence intervals from ",n.draw," simulated studies")
+}
+
+vals$conf.int %>%
+  mutate(round = seq(1:n.draw)) %>%
+  ggplot(aes(y = round, xmin = V1,xmax = V2)) +
+  geom_linerange(color = "#d3d3d3", size = 1.25) +
+  geom_vline(xintercept = mu, color = "#b34e24",
+            size = 1.5) +
+  scale_y_continuous(breaks = integer_breaks()) +
+  labs(x = "''How happy are you?''", y = "Study No.",
+       caption = "The orange line indicates the TRUE population mean.",
+       title = auttit) +
+  theme_darkgray() +
+  theme(panel.grid.major = element_blank(),
+        plot.title = element_text(hjust = 0),
+        plot.caption = element_text(hjust = 1))
 
 
-
-  isolate(sims)
-  #rm(vals$means)
-
-  observeEvent(input$ci_level,{
-    sims$within <- ifelse(sims$means<=sims_mean + as.numeric(input$ci_level)*sims_sd &
-                            sims$means>= sims_mean - as.numeric(input$ci_level)*sims_sd,
-                          "Yes","No")
-    observeEvent(input$ci_diff,{
-      sims$means <- sims$means+input$ci_diff
-
-      output$ci_plot <- renderPlot({
-        g <- sims %>%
-          ggplot(mapping = aes(x=means,fill=within)) +
-          geom_bar(stat = "count",
-                   width = 1) +
-          scale_fill_manual(values = c("#b34e24","#d3d3d3"),
-                            labels = c(paste0("Outer ",round(200*(1-stats::pnorm(as.numeric(input$ci_level))),digits = 1),"%")
-                                       ,paste0("Inner ",100-round(200*(1-stats::pnorm(as.numeric(input$ci_level))),digits = 1),"%"))) +
-          geom_vline(xintercept = 34.1,
-                     color = "#1b9e77", size = 1.25, linetype = "dashed") +
-          geom_vline(xintercept = mean(sims$means),
-                     color = "grey15", size = 1.25) +
-          scale_x_continuous(limits = c(5,105),
-                             breaks = seq(10,100,10)) +
-          labs(x = "''How happy are you?''",
-               y = "Number of samples",
-               caption = paste0("The gray solid line indicates the POSSIBLE true population mean: ",round(mean(sims$means), digits = 2),
-                                "\n The green dashed line indicates the MEASURED sample mean: 34.1")) +
-          theme_darkgray() +
-          theme(legend.title = element_blank(),
-                legend.position = "bottom")
-
-        if(input$show_ci=="TRUE"){
-          g +geom_errorbarh(size = 1, height = 10, color = "#1b9e77", aes(y=30,
-                                xmin = 34.1 - as.numeric(input$ci_level)*(stats::sd(sims$means)/sqrt(length(input$ci_size))),
-                                xmax = 34.1 + as.numeric(input$ci_level)*(stats::sd(sims$means)/sqrt(length(input$ci_size)))
-          ))
-        }else{
-          g
-        }
-      })
-    })
-  })
 })
-
+})
+})
 
 
 # Statistical distributions

@@ -1,6 +1,6 @@
 Package: bst290
 Title: An R Package To Complement the BST290 (UiS) Course
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person("Carlo", "Knotz", , "carlo.knotz@uis.no", role = c("aut", "cre"),
            comment = c(ORCID = " https://orcid.org/0000-0003-0042-3065"))
