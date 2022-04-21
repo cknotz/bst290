@@ -38,13 +38,13 @@ ui <- dashboardPage(
   dashboardHeader(title="Practice Statistics!"),
   dashboardSidebar(collapsed = F,
     sidebarMenu(
-      menuItem("Start",tabName = "start", selected = T),
+      menuItem("Start",tabName = "start"),
       menuItem("Mathematical notation", tabName = "math"),
       menuItem("Measures of central tendency",tabName = "cent"),
       menuItem("Measures of spread",tabName = "spread"),
       menuItem("Statistical distributions", tabName = "dist"),
       menuItem("The Central Limit Theorem", tabName = "clt"),
-      menuItem("Confidence intervals", tabName = "ci"),
+      menuItem("Confidence intervals", tabName = "ci", selected = T),
       menuItem("p-value calculator", tabName = "p"),
       menuItem("Chi-squared test",tabName = "chi"),
       menuItem("Difference of means test",tabName = "ttest"),
@@ -336,25 +336,18 @@ ui <- dashboardPage(
       ###############
               fluidRow(
                 column(width = 4,
-                       box(width = NULL,title = "Confidence intervals", collapsible = T,
-                           collapsed = T, solidHeader = F,
+                       box(width = NULL,title = "Confidence intervals", collapsible = F,
+                           collapsed = F, solidHeader = F,
                            HTML("<p>Confidence intervals are a very important tool in
                                 statistical analysis. Unfortunately, they are also
                                 difficult to really understand. <strong>This panel allows you to explore the logic of
-                                confidence intervals via simulation.</strong></p>
-                                <p> You pretend to be a researcher who is trying to measure
-                                the average level of happiness in a population (e.g., in Norway).
-                                You start by doing your study a single time: You collect your data
-                                and then calculate the mean level of happiness and a confidence interval
-                                for the mean. Then you can see what happens if you would <strong>repeat</strong>
-                                your study up to 100 times: How many out of all confidence intervals you
-                                calculate cover the true population mean?</p>
-                                <p>You can also change the level of confidence to see how
-                                this changes the size of your confidence intervals.</p>")),
-                       box(width = NULL, title = "Controls", collapsible = T,
+                                confidence intervals via simulation.</strong> A heads-up: This is abstract and
+                                difficult stuff. You will probably have to go over this a few times until you
+                                <i>really</i> understand everything.</p>")),
+                       box(width = NULL, title = "Controls", collapsible = F,
                            collapsed = F,
                            sliderInput("ci_size",
-                                       "Number of repetitions",
+                                       "Number of times you repeat your study",
                                        min = 1,
                                        max = 100,
                                        value = 1,
@@ -372,6 +365,28 @@ ui <- dashboardPage(
                                         ),
                            )),
                 column(width = 8,
+                       box(width = NULL, title = "Scenario & instructions", collapsible = T, solidHeader =T,
+                           collapsed = T,
+                           HTML("<p>You are a researcher who is trying to measure
+                                an unknown population value: the average level of happiness in the Norwegian population.</p>
+                                <p>You do a survey in which you ask a random sample of
+                                Norwegians about how happy they are on a scale from 10 (''very unhappy'')
+                                to 100 (''very happy''). Once you have your data collected, you calculate the mean (''average'') level
+                                of happiness in your dataset, and then the confidence interval
+                                for this mean level.</p>
+                                <p>In the graph below, you can see if your confidence interval
+                                overlaps with the true population mean &mdash; if that is the case, then your study was
+                                successfully and you have ''captured'' the true population value. If your confidence interval does
+                                not include the true mean, then your results are wrong.</p>
+                                <p> Next &mdash; and this is the central part &mdash; you explore what happens if you would <strong>repeat</strong>
+                                your study (up to 100 times). <strong>Focus on this:</strong> When you repeat your study many, many times,
+                                how many of the confidence intervals you get do <strong>not</strong> overlap with the true population mean?</p>
+                                <p>Then adjust the confidence level and see how the results change. How does the number of non-overlapping intervals change?</p>
+                                <p><strong>The main questions to ask:</strong> 1) How does the confidence level correspond to the number
+                                of non-overlapping (''incorrect'') confidence intervals? 2) What is the probability of each individual
+                                confidence interval to be incorrect? 3) If you do a single study and get a single confidence interval &mdash; what
+                                is the probability that this confidence interval ''captures'' the true population value?</p>")),
+                       br(),
                        plotOutput("ci_plot"),
                        br(),
                        box(width = NULL, title = "Making sense of what you see", collapsible = T, solidHeader = T,
@@ -388,11 +403,21 @@ ui <- dashboardPage(
                            <p><i>Statistically speaking</i>, if you choose a 95% confidence level and repeat your study 100 times,
                            then 95 of your confidence intervals will include the true population mean &mdash; and 5 will not!</p>
                            <p>If you would increase your level of confidence to 99%, only 1 confidence interval will not include the true mean.
-                           But if you go for a 90% confidence level, 10 of your intervals will not include the true mean.</p>
-                          <p>The main lesson: <strong>If you conduct a single study and calculate a 95% confidence interval, then this
-                          interval has a 95% chance of including the true population value &mdash; and a 5% chance that it does not.</strong>
-                          In other words, any given confidence interval includes the true population value with a probability
-                                that you choose (e.g., 95 or 99%)</p>")))
+                           If you go for a 90% confidence level, around 10 of your intervals will not include the true mean. </p>
+                          <p>The main lesson: <strong>If you conduct a single study and calculate a 95% confidence interval, then &mdash;<i>statistically speaking</i> &mdash; this
+                          interval has a 95% chance of including the true population value and a 5% chance of being wrong.</strong>
+                          In other words, any single confidence interval includes the true population value with a probability
+                                that you choose (e.g., 95 or 99%).</p>
+                                <p>And this is also how you interpret a confidence interval: It is the range of values within which
+                                the true population value is &mdash; with a given probability.</p>
+                          <p>Notice also this: If you choose a higher level of confidence, your intervals get wider. This means that
+                                you can be more certain to have the correct result &mdash; but your prediction becomes less accurate.
+                                If you choose a lower level of confidence, the interval is more narrow and your prediction more accurate &mdash; but you
+                                can be less confident in it. This reflects a general rule: The more accurate and specific our predictions,
+                                the more likely they are wrong. The more vague and general, the more likely they are true. (If I say
+                                ''Tomorrow the temperature will be above 0 degrees''; I am probably correct. But it is also not a very
+                                precise forecast. If, on the other hand, I say ''The temperature will be exactly 26.872 degrees.'',
+                                my forecast is very precise &mdash; but also very probably wrong).</p>")))
               )
               ),
 
