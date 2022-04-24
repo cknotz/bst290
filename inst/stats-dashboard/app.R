@@ -376,8 +376,7 @@ ui <- dashboardPage(
                                 for this mean level.</p>
                                 <p>In the graph below, you can see if your confidence interval
                                 overlaps with the true population mean &mdash; if that is the case, then your study was
-                                successfully and you have ''captured'' the true population value. If your confidence interval does
-                                not include the true mean, then your results are wrong.</p>
+                                successfully and you have ''captured'' the true population value.</p>
                                 <p> Next &mdash; and this is the central part &mdash; you explore what happens if you would <strong>repeat</strong>
                                 your study (up to 100 times). <strong>Focus on this:</strong> When you repeat your study many, many times,
                                 how many of the confidence intervals you get do <strong>not</strong> overlap with the true population mean?</p>
@@ -909,7 +908,7 @@ mu <- mean(vals$cipop)
 n <- 125
 SD <- sd(vals$cipop)
 
-
+rm(.Random.seed, envir=globalenv())
 draws <-matrix(rnorm(n.draw * n, mu, SD), n)
 
 observeEvent(input$ci_level,{
