@@ -1,0 +1,219 @@
+---
+title: "De-bugging exercises: Bivariate linear regression"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(ggplot2)
+library(bst290)
+library(dplyr)
+library(magrittr)
+
+data(ess)
+
+# linear happiness variable
+ess$happy_num <- as.numeric(ess$happy)-1
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Introduction
+
+In this de-bugging exercise, you will practice estimating *and interpreting* bivariate linear regression models. Full disclosure: This tutorial is less about fixing code problems and more about understanding how OLS regression works --- so there will be more quizzes to answer than bugs to fix. 
+
+## Research question and data
+
+You will work with the small practice dataset that you also used in earlier tutorials (`ess`), and you will try to answer the following research question is: *Are taller people happier than shorter people?* To do this, you will work with two variables:
+
+1. `happy_num`: In the `ess` dataset, there is a variable called `happy` that measures how happy respondents felt at the time of the survey, ranging from 0 ("Extremely unhappy") to 1 ("Extremely happy"). The original variable is stored as a factor, but I have transformed it for you into a numeric variable called `happy_num`. 
+2. `height`: This variable measures how tall (in centimeters) respondents are.
+
+
+Just so you see what you are working with, the first graph below shows the distribution of the `happy_num` variable:
+```{r happydist, echo=F, eval=T, warning=F}
+ess %>% 
+  ggplot(aes(x = happy_num)) +
+    geom_bar() +
+    scale_x_continuous(breaks = seq(0,10,1),
+                       limits = c(0,10),
+                       labels = c("Extr. unhappy",
+                                  seq(1,9,1),"Extr. happy")) +
+    labs(x = "''How happy are you?''", y = "Observations") +
+    theme_bw() 
+```
+
+And this graph shows how the `height` variable is distributed:
+```{r heightdist, echo=F, eval=T, warning=F}
+ess %>% 
+  ggplot(aes(x = height)) +
+    geom_histogram(color = "black", bins = 20) +
+    scale_x_continuous(breaks = seq(140,210,10)) +
+    labs(x = "''Body height (cm)''", y = "Observations") +
+    theme_bw()
+```
+
+###
+
+### A first quiz
+
+Now that you know what the variables are, you can start thinking about your regression model. First a quick question: If the *hypothesis* is that body height affects happiness --- that taller people are happier:
+```{r depvarqu, echo=F}
+question("Which is the *dependent* and which is the *independent* variable?",
+         answer("Body height is the *dependent* variable, happiness is the *independent* variable."),
+         answer("Body height is the *independent* variable, happiness is the *dependent* variable.",
+                correct = T, message = "Happiness is the variable that, we believe, is affected by --- or *depends on* --- body height. Therefore, it is the *dependent* variable. Body height is then the *independent* variable, because in our model here it does not depend on other things."),
+         incorrect = "No, that is not correct. Maybe you need to look again at Kellstedt & Whitten (2018, p.8)? ",
+         allow_retry = T,random_answer_order = T)
+```
+
+### The model formula
+
+OK, we have established what the dependent and independent variables are:
+
+1. Happiness (`happy_num`) is the *dependent* variable because we believe its value *depends* on how tall people are.
+2. Body height (`height`) is then the *independent* variable. In our model (and only there, of course), body height only affects other things but is not itself influenced by other variables --- it is *independent*.
+
+If you would now translate this into a model formula for `R`, how would the correct formula look like?
+```{r formquiz, echo=F}
+question("",
+         answer("`happy_num ~ height`", correct = T,
+                message = "The dependent variable comes first, and the independent variable(s) come after the tilde."),
+         answer("`height ~ happy_num`"),
+         incorrect = "No, that is not correct. That formula would mean that you believe that people's body height is affected by how happy they are. Does that make sense?",
+         random_answer_order = T, allow_retry = T)
+
+```
+
+## Analysis {data-progressive=TRUE}
+
+Now we have the variables and the model formula all set up --- time to get estimating! 
+
+There are two things to do here:
+
+1. Can you add the correct model formula to the code below?
+2. Somehow the results are not being shown? Can you add code to get `R` to print out a summary of the estimation results?
+
+```{r mod1, exercise = T}
+model1 <- lm( ,
+              data = ess)
+
+```
+
+<div id="mod1-hint">
+**Hint:** See the tutorial for this week, section 4.1.
+</div>
+
+###
+
+###
+
+This is how everything should look like:
+
+```{r mod1a, warning=F, echo=T}
+# We estimate the model with the correct formula and store the result
+model1 <- lm(happy_num ~ height,
+              data = ess)
+
+summary(model1) # This prints out a summary of the result
+
+```
+
+`lm()` by itself only estimates the regression model --- it does not give you any output. To see the results, you need to store them with the assignment operator (`<-`) and then use `summary()` to print them out in the console.
+
+## Interpretation {data-progressive=TRUE}
+
+Now that we have the results, let's interpret what we found.
+```{r olsre0, echo=F}
+summary(model1)
+```
+
+```{r olsqs1, echo=F}
+     question("First, when you look at the ''Coefficients'', how do you interpret the ''Estimate'' for `height`?",
+              answer("As happiness increases by one, body height increases by 0.026 cm.", 
+                     message = "No, that is not correct. Remember: Which variable is supposed to affect which other?"),
+              answer("The correlation between happiness and body height is 0.026.",
+                     message = "No, that is not true. Regression coefficients are not the same as correlation coefficients! Maybe take another look at Kellstedt & Whitten (2018, Chapters 8 & 9)."),
+              answer("As body height increases by one cm, happiness increases by 0.026 points.",
+                     correct = T, message = "The ''Estimate'' for `height` tells you which effect `height` has on the dependent variable, `happy_num`. In this case, `height` has a small *positive* effect: As `height` increases by one unit (1 cm), happiness increases by 0.026 points."),
+              random_answer_order = T, allow_retry = T)
+```
+
+###
+
+###
+
+```{r olsre1, echo=F}
+summary(model1)
+```
+
+```{r olsqs2, echo=F}
+question("Now take a look at the ''Estimate'' for the `(Intercept)` --- how do you interpret this? Important: More than one statement can be true!",
+              answer("The intercept indicates the predicted value of the dependent variable (happiness) when all independent variables are exactly 0.", correct = T),
+              answer("The intercept does not always have a meaningful interpretation.", correct = T),
+              answer("The intercept indicates the average value of the dependent variable",
+                     message = "This is not usually true. Only if you would estimate an ''empty'' model with no independent variables (which you can do) would the intercept be the predicted mean value of the dependent variable. But models usually have independent variables in them, in which case the interpretation is different."),
+              answer("The intercept indicates the minimum predicted value implied by the model.", 
+                     message = "If you are unsure about how to interpret the intercept, please take another look at the relevant chapter in Kellstedt & Whitten."),
+              allow_retry = T, random_answer_order = T)
+```
+
+###
+
+```{r olsre2, echo=F}
+summary(model1)
+```
+
+```{r olsqs3, echo=F}
+question("Let's look at the *statistical significance* of the coefficient estimates. First, where in the output can you see if an effect estimate is statistically significant? Again, more than one of these statements can be true.",
+         answer("In the column labeled `Pr(>|t|)`.", correct = T),
+         answer("By looking at the symbols at the end of the ''Coefficients'' table and the legend titled ''Signif. codes'', which shows which symbol corresponds to a given significance level.", correct = T),
+         answer("The output does not show what is statistically significant. We need to calculate this by hand.",
+                message = "Luckily, `R` does this for you. But you can also do it by hand. All you need is the ''*t*-value'', the degrees of freedom, and the table of critical values of the *t*-distribution in Kellstedt & Whitten (2018)."),
+         answer("This is easy! It says `p-value` right at the bottom of the output. This value indicates statistical significance.",
+                message = "It is correct that this *p*-value indicates statistical significance --- but of the *entire* model, not of individual coefficients!"),
+         random_answer_order = T, allow_retry = T)
+```
+
+###
+```{r olsre3, echo=F}
+summary(model1)
+```
+
+```{r olsqs4, echo=F}
+question("Now that you know where to look for information on statistical significance: Can you indicate which of the following statements about interpreting the significance of the coefficients is true? As before, more than one can be true.",
+         answer("The coefficient estimate for `height` is statistically significant at the 0.1 level.",
+                correct = T),
+         answer("The coefficient estimate for `height` is statistically significant at the 0.05 level",
+                correct = F, message = "Maybe you need to take another look at how *p*-values correspond to statistical significance levels --- see Kellstedt & Whitten (2018, Chapter 8)."),
+         answer("The intercept is not statistically significant.", correct = T),
+         answer("No estimate is significant at the 0.01 level.", correct = T),
+         allow_retry = T, random_answer_order = T)
+```
+
+###
+
+```{r olsre4, echo=F}
+summary(model1)
+```
+
+```{r olsqs5, echo=F}
+question("What does it mean, in substantive terms, that the intercept is not statistically significant?",
+         answer("It means that we cannot say with sufficient confidence that the true intercept value in the population is different from 0.", correct = T),
+         answer("It means that the intercept has (probably) no effect on the dependent variable",
+                message = "That would only be true if we were talking about the coefficient of a real independent variable. In the case of the intercept, it is not really correct to speak of an ''effect'' --- it only indicates what the predicted value of the dependent variable is when all independent variables are exactly 0."),
+         answer("It means that there is something wrong with our regression model. Maybe we need to add more independent variables?",
+                message = "Whether or not the intercept is statistically significant says nothing about the quality of the regression model."),
+         allow_retry = T, random_answer_order = T)
+```
+
+## Wrapping up
+
+You made it through this tutorial! If you managed to get the quiz questions right (without guessing), then congrats --- you understand how to interpret the coefficient estimates from a linear regression model.
+
+*If you struggled with the questions and/or found all the statistical gibberish confusing:* First, this is normal. Many struggle with this when they start. Second, make sure you have really understood the explanations in Kellstedt & Whitten. Third, ask about things you cannot figure out by yourself in class! (Many other students will probably be thankful if you do!)
+

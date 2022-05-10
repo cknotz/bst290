@@ -1,0 +1,206 @@
+---
+title: "De-bugging exercises: Multivariate linear regression"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(ggplot2)
+library(bst290)
+library(dplyr)
+library(magrittr)
+
+data(ess)
+
+# linear happiness variable
+ess$happy_num <- as.numeric(ess$happy)-1
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction {data-progressive=TRUE}
+
+In this (last) interactive tutorial, we will continue with the analysis that we did in the previous interactive tutorial on *bivariate* linear regression models: *We will use the small `ess` dataset to study why some people are happier than others.*
+
+Just to refresh your memory: In the last tutorial, we tested if taller people are happier than shorter ones. We used a numeric version of the `happy` variable from the `ess` dataset to measure people's level of happiness. That numeric version of `happy` was called `happy_num`. We also used the `height` variable from the same dataset to measure how tall (in centimeters) people are. 
+
+The two graphs below show how the variables are distributed:
+```{r happydist, echo=F, eval=T, warning=F}
+ess %>% 
+  ggplot(aes(x = happy_num)) +
+    geom_bar() +
+    scale_x_continuous(breaks = seq(0,10,1),
+                       limits = c(0,10),
+                       labels = c("Extr. unhappy",
+                                  seq(1,9,1),"Extr. happy")) +
+    labs(x = "''How happy are you?''", y = "Observations") +
+    theme_bw() 
+```
+
+```{r heightdist, echo=F, eval=T, warning=F}
+ess %>% 
+  ggplot(aes(x = height)) +
+    geom_histogram(color = "black", bins = 20) +
+    scale_x_continuous(breaks = seq(140,210,10)) +
+    labs(x = "''Body height (cm)''", y = "Observations") +
+    theme_bw()
+```
+
+###
+
+### Previous results
+
+Our main finding was that body height does indeed have a small positive effect on people's level of happiness. The regression result we got is shown below:
+```{r mod1}
+# We estimate the model:
+model1 <- lm(happy_num ~ height,
+              data = ess)
+
+summary(model1) # This prints out a summary of the result
+```
+
+The output tells us that for every centimeter increase in body height, a person's level of happiness increases by 0.026 points. That effect is statistically significant at the 10% level --- which means that we can be *relatively* confident that the true effect of body height on happiness in the wider population is probably not 0.
+
+### From bi- to multivariate regression
+
+The previous analysis involved only two variables: One *dependent* variable (happiness) and one *independent* variable (height). Since it involved only two variables, the analysis was *bi*variate.
+
+But what if there are alternative explanations for our previous result? For example, maybe what we found is really the effect of *gender*: Women are, on average, shorter than men and they also have to deal with a few more disadvantages compared to men (see e.g., [Blau & Kahn, 2000](https://doi.org/10.1257/jep.14.4.75); [Cejka & Eagly, 1999](https://doi.org/10.1177/0146167299025004002); but see also [Steffensmeier et al., 1993](https://doi.org/10.1111/j.1745-9125.1993.tb01136.x)), which could reduce their happiness. Therefore, it is possible that gender is a *confounding* variable.
+
+If we want to be more confident in our finding, we need to check if the positive relationship between body height and happiness remains the same ("is robust") when we also control for gender. 
+
+And to do this, we need to estimate a *multivariate* regression model, which includes both height and gender as independent variables. This is what we will do now.
+
+Gender is measured via the `gndr` variable in the `ess` dataset, which is distributed as shown in the table below:
+```{r gentab, echo=T}
+table(ess$gndr)
+```
+
+## Estimating the model {data-progressive=TRUE}
+
+Now over to you: Below is the code we used for our earlier *bivariate* regression model --- can you modify it so that the model also includes gender (`gndr`) as an additional independent variable?
+```{r mod2, exercise = T}
+model2 <- lm(happy_num ~ height,
+             data = ess)
+
+summary(model2)
+```
+
+###
+
+###
+
+This should not have been too difficult. You just add `+ gndr` behind `height` into the model formula:
+```{r mod2a}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+
+summary(model2)
+```
+
+Next comes the tricky part: *interpreting the results*.
+
+## Interpretation {data-progressive=TRUE}
+
+```{r mod2-1, echo=F}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+summary(model2)
+```
+
+Let's start with interpreting the coefficient of the variable that we had earlier, `height`:
+```{r quiz2, echo=F}
+question("Which of the following interpretations is correct?",
+         answer("The coefficient of `height` is interpreted in exactly the same was as it was in the bivariate model.",
+                message = "The interpretation is *a bit* different. We also have to account for the fact that the model now includes gender as an additional independent variable."),
+         answer("The coefficient for `height` is now the effect of height *when holding constant* gender.",
+                correct = T, message = "The *holding constant* is important! Another way to think about it is that the coefficient is now the estimated effect of height after the effect of gender has been removed."),
+         random_answer_order = T, allow_retry = T)
+```
+
+###
+
+###
+
+```{r mod2-2, echo=F}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+summary(model2)
+```
+
+Now to the new coefficient, the effect of gender. The output already suggests that its interpretation involves ''female'', but what does that mean exactly?
+```{r quiz3, echo=F}
+question("Which of the following statements are true?",
+         answer("The coefficient is the estimated difference in happiness between women and men, while holding height constant.",
+                message = "Because the `gndr` variable is stored as a *factor* in the dataset, `R` has automatically recognized that this variable is *categorical* and has two categories, men and women. `R` then automatically converted the `gndr` variable into a *dummy* variable that has the value 1 for ''Female'' and 0 for ''Male''. This means that men are the *baseline* category in this model and the coefficient for `gndrFemale` shows the difference of the ''Female'' category to this baseline. Therefore, the coefficient is the difference between ''Female'' and ''Male'' --- of course, after removing the effect of height!", correct = T),
+         answer("The coefficient is the predicted average level of happiness for women, while holding height constant.",
+                message = "That would be true when we talk about *predicted values* or the intercept --- but we are here talking about a coefficient estimate. Maybe take another look at Chapter 11.2 in Kellstedt & Whitten (2018)."),
+         allow_retry = T, random_answer_order = T)
+```
+
+###
+
+```{r mod2-3, echo=F}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+summary(model2)
+```
+
+We now know that women are about 0.098 points *happier* than men, holding constant body height --- and that every additional centimeter of body height makes a person about 0.029 points happier, holding constant gender.
+
+The one parameter that is left is the ''Estimate'' for the intercept. How do we interpret this?
+```{r quiz4, echo=F}
+question("Which of the following statements are true?",
+         answer("The intercept is the predicted level of happiness when the two other variables are equal to zero.", correct = T,
+                message = "And think about what that really means: The intercept is the predicted value of the `happy_num` variable for a man (`gndrFemale=0`) whose body height is 0 (`height=0`). This is not really a meaningful prediction --- no one has a body height of 0 cm! This is just to remind you that the intercept does not always have a meaningful interpretation."),
+         answer("The intercept is the predicted level of happiness for men.",
+                message = "Careful! This would be true if the model would only include gender as an independent variable --- but the model also includes height, and you need to take this into account when interpreting the intercept."),
+         random_answer_order = T, allow_retry = T)
+```
+
+###
+
+O.K., we have the coefficient estimates and the intercept covered. One thing you might have noticed is that the two effects are really tiny. The coefficients we found are a fraction of a whole point on the entire scale of the dependent variable, and that scale goes from 0 to 10!
+
+```{r mod2-4, echo=F}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+summary(model2)
+```
+
+Can we at least say that the effects, tiny as they may be, are different from 0?
+```{r quiz5, echo=FALSE}
+question("Which is correct?",
+         answer("Yes, we can totally say that --- after all, `R` estimated that the coefficients are 0.029 and 0.098, not 0!",
+                message = "Careful! There is a specific procedure we use to *test* if our coefficient estimates are really different from 0. See Kellstedt & Whitten (2018, Chapter 9.4.6)."),
+         answer("No, we cannot say that.", correct = T,
+                message = "Great, it looks like you can interpret the statistical significance of regression coefficients! You probably remember from Kellstedt & Whitten (2018, Chapter 9.4.6) that we always use a *t*-test to see if the true coefficient estimates in the population are different from 0. In this test, we divide the coefficient estimate by its standard error (`Std. Error`) to get a t-ratio (`t value`). Then we check if this *t*-value is higher than a given critical value (usually 1.96). If it is, then the test is significant and we conclude that the true population value of the coefficient is different from 0. **But:** In the model here, no *t*-value is higher than 1.96. This means that we can in no case reject the Null hypothesis that the true population value is really just 0. You have probably also noticed that the *p*-values associated with the two coefficients and the intercept are well above the critical values of 0.05 and 0.1. This tells us just the same: in the case here, the *p*-value is the probability that we get our result *if the true population value is equal to 0*. And because we are *very* cautious, we want that probability to be *very* low --- below 5% (<0.05). But this is not the case here, so we stay on the safe side and conclude that the true population values are really 0."),
+         allow_retry = T, random_answer_order = T)
+```
+
+###
+
+```{r mod2-5, echo=F}
+model2 <- lm(happy_num ~ height + gndr,
+             data = ess)
+summary(model2)
+```
+
+Finally, let's take a look at the overall model fit. `R` reports the R-squared (`Mutiple R-squared`).
+```{r quiz6, echo=F}
+question("How do you interpret the R-squared?",
+           answer("The R-squared is the amount of variation in the dependent variable that the regression model can explain.", correct = T,
+                  message = "And you probably also see that the R-squared value here is very small: about 2.3% of the total variation in people's happiness can be explained with our model. That is not exactly great..."),
+           answer("The R-squared is the correlation between the dependent and the independent variables.",
+                  message = "This is not exactly true. The R-squared is *related* to the correlation coefficient --- both say something about the shared variation or *covariation* between variables --- but they are not the same thing."),
+         random_answer_order = T, allow_retry = T)
+```
+
+## Wrapping up
+
+You made it to the end! If you could estimate the regression model and got the quiz questions right, you should have a good understanding of how multivariate linear regression works. 
+
+But if this still all looks like gibberish and nerdy hair-splitting: Keep working on it --- go over Kellstedt & Whitten again, and don't hesitate to ask if you get really stuck! 
