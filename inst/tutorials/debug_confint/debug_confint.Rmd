@@ -116,10 +116,13 @@ Let's take another look at the 95% percent confidence interval:
 t.test(x = ess$weight, conf.level = 0.95)
 ```
 ```{r quiz2}
-question("What is the correct interpretation of this confidence interval? (More than one of these are true!)",
-         answer("95% of our observations lie within the confidence interval."),
-         answer("This particular confidence interval includes the true population value with a probability of 95%.", correct = T),
-         answer("If we would collect 100 datasets and calculate confidence intervals for each of them, then *statistically speaking* 95 of these 100 confidence intervals would include the true population value.", correct = T),
+question("What is the correct interpretation of this confidence interval? (Only one of these is true!)",
+         answer(paste0("95% of our observations lie within the confidence interval from ",round(t.test(ess$weight)$conf.int[1],digits = 2)," to ",round(t.test(ess$weight)$conf.int[2],digits = 2),"."),
+                message = "Maybe you thought about the ''68-95-99 rule'', which predicts that 95% of the data of a normally distributed variable are within 2 standard deviations from the mean? That rule is of course true, but: In this particular context here, we apply this rule not to the sample data (''our observations'') but to the distribution of all possible measurements of the sample mean - the ''sampling distribution''. This is an important difference, and is explained in Kellstedt & Whitten (2018, p. 152)."),
+         answer(paste0("The confidence interval from ",round(t.test(ess$weight)$conf.int[1],digits = 2)," to ",round(t.test(ess$weight)$conf.int[2],digits = 2)," includes the true population mean with a probability of 95%."), correct = T,
+                message = "If you could really see that this, and only this, is the correct interpretation: Congrats, very well done! Interpreting confidence intervals is really tricky. Just always keep in mind: We are saying something about the confidence interval, this interval, and nothing else."),
+         answer(paste0("With a 95% probability, the true population mean lies within the interval from ",round(t.test(ess$weight)$conf.int[1],digits = 2)," to ",round(t.test(ess$weight)$conf.int[2],digits = 2),"."),
+                message = "Don't worry: This is a very common misinterpretation, and the issue is a really tiny nuance in the formulation. But nuances matter a lot here! When we interpret a confidence interval, we are always focusing on the interval itself: This interval includes the true mean with a given probability - and that is all we can say. With the statement here, however, we are trying to say something about the value of the true population mean and that is strictly speaking not correct because we will never know the value of the true mean, not even with a probability."),
          allow_retry = T, random_answer_order = T)
 ```
 
