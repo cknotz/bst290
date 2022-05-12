@@ -203,7 +203,7 @@ summary(model1)
 
 ```{r olsqs5, echo=F}
 question("What does it mean, in substantive terms, that the intercept is not statistically significant?",
-         answer("It means that we cannot say with sufficient confidence that the true intercept value in the population is different from 0.", correct = T),
+         answer("It means that we cannot say with sufficient confidence that the true intercept value in the population is really different from 0.", correct = T),
          answer("It means that the intercept has (probably) no effect on the dependent variable",
                 message = "That would only be true if we were talking about the coefficient of a real independent variable. In the case of the intercept, it is not really correct to speak of an ''effect'' --- it only indicates what the predicted value of the dependent variable is when all independent variables are exactly 0."),
          answer("It means that there is something wrong with our regression model. Maybe we need to add more independent variables?",

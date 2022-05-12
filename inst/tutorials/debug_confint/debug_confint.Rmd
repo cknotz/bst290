@@ -1,0 +1,126 @@
+---
+title: "De-bugging exercises: Confidence intervals"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(ggplot2)
+library(bst290)
+library(dplyr)
+library(magrittr)
+knitr::opts_chunk$set(echo = FALSE)
+
+ess <- bst290::ess
+
+```
+
+
+## Introduction {data-progressive=TRUE}
+
+In this set of exercises, you practice calculating and interpreting confidence intervals. 
+
+To keep things simple, we will work with the small `ess` practice dataset from the `bst290` package, and use the `weight` variable that measures people's body weight (in kg). This means we want to estimate the average weight in the entire Norwegian population using our sample data.
+
+The variable is already a numeric one (so no transformations are needed!) and distributed as shown below:
+```{r lrgraph, echo=T, eval=T, warning=F}
+ess %>% 
+  ggplot(aes(x = weight)) +
+    geom_histogram(color = "black", bins = 30) +
+    labs(x = "Body weight (kg)",
+         y = "Observations") +
+    theme_bw()
+
+```
+
+## Analysis {data-progressive=TRUE}
+
+Since we want the confidence interval *for the sample mean*, we should first find out what the sample mean is. Can you add code below to calculate the mean of the `weight` variable in the `ess` dataset?
+```{r sammean, exercise = T}
+
+```
+
+###
+
+###
+
+Obviously, you just needed to use the `mean()` function --- and because the variable contains some missing values (`NA`), you needed to set the `na.rm` option to `TRUE`:
+```{r sammeana, eval=T, echo=TRUE}
+mean(ess$weight, na.rm = TRUE)
+```
+
+###
+
+Now that we have the mean value, we can calculate a confidence interval for it. But let's do a quick quiz before we get to coding:
+```{r quiz1, echo=F}
+question("Which function would you use to let `R` calculate a confidence interval for a sample mean?",
+         answer("`conf.int()`"),
+         answer("`t.test()`", correct = T,
+                message = "This might be a bit confusing, but the correct function is indeed the `t.test()` function that you also use to calculate *t*-tests. You will understand better why that is when we talk about the *t*-test in a few days."),
+         answer("`ci()`"),
+         random_answer_order = T, allow_retry = T)
+```
+
+###
+
+Since you know what the right function is (or your memory has been refreshed now), can you use the correct function to calculate a 95% confidence interval for the sample mean of the `weight` variable?
+```{r ci1, exercise = T}
+
+
+```
+
+###
+
+This is also straightforward: You just use the `t.test()` function and specify the `weight` variable from the `ess` dataset as your `x`-variable. The function calculates a 95% confidence interval by default, so you don't need to do anything about that.
+```{r ci1a, echo=T, eval=T}
+t.test(x = ess$weight)
+```
+
+###
+
+Can you now change the confidence level to 99%?
+```{r ci2, exercise = T}
+t.test(x = ess$weight)
+```
+
+###
+
+Obviously, all you needed to do was to set the `conf.level` option to `0.99`:
+```{r ci2a, echo=T, eval=T}
+t.test(x = ess$weight, conf.level = 0.99)
+```
+
+###
+
+Can you also set the confidence level to 83%?
+```{r ci3, exercise = T}
+t.test(x = ess$weight, conf.level = 0.99)
+```
+
+###
+
+Also easy: You just adjust the `conf.level` option:
+```{r ci3a, echo=T, eval=T}
+t.test(x = ess$weight, conf.level = 0.83)
+```
+
+This was just to show you that you can set that level to really any number between 0 and 1 (i.e., 0 and 100 percent).
+
+###
+
+Let's take another look at the 95% percent confidence interval:
+```{r ci4, echo=T, eval=T}
+t.test(x = ess$weight, conf.level = 0.95)
+```
+```{r quiz2}
+question("What is the correct interpretation of this confidence interval? (More than one of these are true!)",
+         answer("95% of our observations lie within the confidence interval."),
+         answer("This particular confidence interval includes the true population value with a probability of 95%.", correct = T),
+         answer("If we would collect 100 datasets and calculate confidence intervals for each of them, then *statistically speaking* 95 of these 100 confidence intervals would include the true population value.", correct = T),
+         allow_retry = T, random_answer_order = T)
+```
+
+This might be tricky --- but if you get it right (and you also understand why), then you *really* understand confidence intervals. If you are unsure, you can look at the confidence interval simulation in the *Practice Statistics* dashboard (`bst290::practiceStatistics()`).

@@ -372,18 +372,17 @@ ui <- dashboardPage(
                                 <p>You do a survey in which you ask a random sample of
                                 Norwegians about how happy they are on a scale from 10 (''very unhappy'')
                                 to 100 (''very happy''). Once you have your data collected, you calculate the mean (''average'') level
-                                of happiness in your dataset, and then the confidence interval
+                                of happiness in your dataset, and then a confidence interval
                                 for this mean level.</p>
                                 <p>In the graph below, you can see if your confidence interval
-                                overlaps with the true population mean &mdash; if that is the case, then your study was
-                                successfully and you have ''captured'' the true population value.</p>
+                                overlaps with the true population mean &mdash; if that is the case, then you have ''captured'' the true population value.</p>
                                 <p> Next &mdash; and this is the central part &mdash; you explore what happens if you would <strong>repeat</strong>
                                 your study (up to 100 times). <strong>Focus on this:</strong> When you repeat your study many, many times,
                                 how many of the confidence intervals you get do <strong>not</strong> overlap with the true population mean?</p>
                                 <p>Then adjust the confidence level and see how the results change. How does the number of non-overlapping intervals change?</p>
                                 <p><strong>The main questions to ask:</strong> 1) How does the confidence level correspond to the number
                                 of non-overlapping (''incorrect'') confidence intervals? 2) What is the probability of each individual
-                                confidence interval to be incorrect? 3) If you do a single study and get a single confidence interval &mdash; what
+                                confidence interval to be correct? 3) If you do a single study and get a single confidence interval &mdash; what
                                 is the probability that this confidence interval ''captures'' the true population value?</p>")),
                        br(),
                        plotOutput("ci_plot"),
@@ -407,8 +406,6 @@ ui <- dashboardPage(
                           interval has a 95% chance of including the true population value and a 5% chance of being wrong.</strong>
                           In other words, any single confidence interval includes the true population value with a probability
                                 that you choose (e.g., 95 or 99%).</p>
-                                <p>And this is also how you interpret a confidence interval: It is the range of values within which
-                                the true population value is &mdash; with a given probability.</p>
                           <p>Notice also this: If you choose a higher level of confidence, your intervals get wider. This means that
                                 you can be more certain to have the correct result &mdash; but your prediction becomes less accurate.
                                 If you choose a lower level of confidence, the interval is more narrow and your prediction more accurate &mdash; but you
