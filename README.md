@@ -29,12 +29,11 @@ remotes::install_github("cknotz/bst290")
 
 ## Examples
 
-This is how the interactive dashboard with statistics exercises is launched:
+Launching the interactive dashboard with statistics exercises:
 
 ``` r
-library(bst290)
 
-practiceStatistics()
+bst290::practiceStatistics()
 ```
 
 Loading the included practice dataset:
@@ -49,14 +48,14 @@ ess <- bst290::ess
 A simple summary table:
 
 ``` r
-oppsumtabell(dataset = ess,
+bst290::oppsumtabell(dataset = ess,
              variables = c("agea","weight","height"))
 ```
 
 A cross table:
 
 ``` r
-krysstabell(dataset = ess,
+bst290::krysstabell(dataset = ess,
             rowvar = "gndr",
             colvar = "vote")
 ```
@@ -64,7 +63,7 @@ krysstabell(dataset = ess,
 A summary table, stats by other variable:
 
 ``` r
-oppsum_grupp(dataset = ess,
+bst290::oppsum_grupp(dataset = ess,
              variable = "height",
              by.var = "gndr")
 ```
@@ -72,7 +71,7 @@ oppsum_grupp(dataset = ess,
 Showing numerical values and text labels of factor-type variable:
 
 ``` r
-visfactor(dataset = ess, variable = "vote")
+bst290::visfactor(dataset = ess, variable = "vote")
 ```
 
 ## De-bugging tutorials
