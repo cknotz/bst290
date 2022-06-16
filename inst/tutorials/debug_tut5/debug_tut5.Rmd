@@ -51,8 +51,8 @@ You are still working with the same scatterplot, and now you are trying to make 
 ```{r ex2, exercise = T}
 ggplot(data = ess, aes(x = height, y = weight)) +
   geom_point() +
-  xlab(Body height (cm)) +
-  ylab(Body weight (kg)) +
+  labs(x = Body height (cm),
+       y = Body weight (kg)) +
   theme_bw()
 ```
 
@@ -68,8 +68,8 @@ Once you put the text in quotation marks, the graph displays as intended:
 ```{r ex2-a, echo=T, eval=T}
 ggplot(data = ess, aes(x = height, y = weight)) +
   geom_point() +
-  xlab("Body height (cm)") +
-  ylab("Body weight (kg)") +
+  labs(x = "Body height (cm)",
+       y = "Body weight (kg)") +
   theme_bw()
 ```
 

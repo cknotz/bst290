@@ -22,7 +22,7 @@ Here are again some exercises that require you to fix problems with code chunks.
 
 ### Problem No. 1
 
-In this scenario, you want to select two variables from the `ess` dataset, but all you get is an error message:
+In this scenario, you want to select three variables from the `ess` dataset, but all you get is an error message:
 ```{r ex1, exercise = T}
 ess %>% 
   select(idno,gndr,agea
@@ -74,7 +74,7 @@ ess %>%
 ```
 
 <div id="ex3-hint">
-**Hint:** Read the error message carefully.
+**Hint:** How do you tell `R` that two things *should* be equal?
 </div>
 
 ### Problem No. 3: Solution

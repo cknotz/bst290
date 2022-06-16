@@ -1,0 +1,166 @@
+---
+title: "De-bugging exercises: Tabular analysis"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+
+library(bst290)
+
+ess <- bst290::ess
+```
+
+
+## Introduction {data-progressive=TRUE}
+
+In these de-bugging exercises, you continue the analysis of relationship between gender and political participation, and you will look at one of the most central forms of political participation: voting in a national election.
+
+Unlike in the main tutorial, you will here work with the small practice dataset (`ess`) that is included in the `bst290` package.
+
+## Variables {data-progressive=TRUE}
+
+The two variables you will work with are:
+
+1. `gndr`, the respondent's gender;
+2. `vote`, whether or not the respondent participated in the most recent national election in Norway;
+
+```{r varsquiz}
+question("Which variable is the *dependent* and which is the *independent* variable?",
+         answer("`gndr` is the dependent variable, `vote` is the independent variable",
+                message = "Nope, wrong! Think again: Which variable is the one that is affected  --- or *depends* on another?"),
+         answer("`gndr` is the independent variable, `vote` is the dependent variable",
+                correct = T),
+         random_answer_order = T, allow_retry = T)
+
+```
+
+## Analysis {data-progressive=TRUE}
+
+### Frequency table
+
+First, let's create a simple cross tabulation of the two variables that shows *frequencies*. The code chunk below is almost complete, but you still have to add one variable:
+```{r ctab, exercise = T}
+table(ess$vote, )
+```
+
+<div id="ctab-hint">
+**Hint:** Which variable was the independent variable?
+</div>
+
+###
+
+This should not have been too difficult: You just needed to add the independent variable, `gndr` into the `table()` call:
+```{r ctab-a, eval=T, echo=T}
+table(ess$vote,ess$gndr)
+```
+
+### Percentage table
+
+A percentage table showing column percentages is a better way to show the relationship between the two categorical variables. Can you complete the code below --- and make sure that you place the variables in the correct positions!
+```{r ktab, exercise = T}
+bst290::krysstabell(dataset = ess,
+                    rowvar = ,
+                    colvar = )
+```
+
+<div id="ktab-hint">
+**Hint:** See also Kellstedt and Whitten (2018, p. 168).
+</div>
+
+###
+
+This should also not have been difficult: The dependent variable, `vote,` goes into the row; the independent variable, `gndr`, goes into the columns:
+```{r ktab-a, eval = T, echo=T}
+bst290::krysstabell(dataset = ess,
+                    rowvar = "vote",
+                    colvar = "gndr")
+```
+
+### Running a $\chi^2$ test
+
+The code below is not quite complete --- can you make it run?
+```{r chitest, exercise = T}
+table(ess$vote,ess$gndr)
+chisq.test()
+```
+
+<div id="chitest-hint">
+**Hint:** See the main tutorial, section 4.2.
+</div>
+
+###
+
+As shown in the main tutorial, you first create the cross table, store it, and then use it in the `chisq.test()` function:
+```{r chitest-a, eval=T, echo=T}
+crosstab <- table(ess$vote,ess$gndr)
+chisq.test(crosstab)
+```
+
+This would also be correct:
+```{r chitest-a2, eval=T, echo=T}
+chisq.test(table(ess$vote,ess$gndr))
+```
+Here, you would directly use the `table()` result within the `chisq.test()` call.
+
+## Interpretation {data-progressive=TRUE}
+
+Now to the more interesting part: Making sense of the results!
+
+### Is the test significant?
+
+First, can you tell if the test is significant?
+```{r chitest-a3, eval=T, echo=F}
+chisq.test(table(ess$vote,ess$gndr))
+```
+```{r chiquiz2}
+question("Is the test significant at a conventional level of significance?",
+         answer("Yes, because we get a super high *p*-value of around .75!",
+                message = "That is not a correct reading of *p*-values. Maybe you should go over Kellstedt and Whitten (2018, Chapter 8.3) again?"),
+         answer("No, because we get a super high *p*-value of around .75!",
+                correct = T),
+         random_answer_order = T, allow_retry = T)
+```
+
+### The critical $\chi^2$ value
+
+Apparently, the test is not significant. But what would have been the critical $\chi^2$ value for this test and a 0.05 level of significance? (Feel free to use the table shown in Kellstedt and Whitten, Appendix A)
+```{r chitest-a4, eval=T, echo=F}
+chisq.test(table(ess$vote,ess$gndr))
+```
+```{r chiquiz3}
+question("The critical value is:",
+         answer("3.841",
+                message = "Not quite. This would be true at 1 degree of freedom."),
+         answer("5.991",
+                correct = T,
+                message = "Yes, the critical value at 2 degrees of freedom and a 0.05 level of significance is 5.991."),
+         answer("7.378",
+                message = "No, that is not it. Make sure you use the correct level of significance."),
+         answer("42",
+                message = "It may be the answer to life, the universe, and everthing  -- but unfortunately not to this question..."),
+         random_answer_order = T, allow_retry = T)
+```
+
+### Writing up
+
+Now, finally, how would you formulate your interpretation in a paper or report?
+```{r chitest-a5, eval=T, echo=F}
+chisq.test(table(ess$vote,ess$gndr))
+```
+```{r chiquiz4}
+question("I would write:",
+         answer("''The test indicates that the relationship between gender and voting is not statistically significant at conventional levels. We can therefore reject the null hypothesis.''",
+                message = "Careful! What is the null hypothesis, and when can we reject it?"),
+         answer("''The test indicates that the relationship between gender and voting is statistically significant at conventional levels. We can therefore not reject the null hypothesis''",
+                message = "Maybe check again: Is the test really significant?"),
+         answer("''The test indicates that the relationship between gender and voting is not statistically significant. We can therefore not reject the null hypothesis''",
+         correct = T),
+         random_answer_order = T, allow_retry = T)
+```
+
+## Wrapping up
+
+And that is it! Hopefully, you feel like you now have a solid understanding of how to conduct a tabular analysis in `R` and how to interpret the results of a $\chi^2$ test.

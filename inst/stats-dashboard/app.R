@@ -828,20 +828,21 @@ output$clt_popplot <- renderPlot({
     scale_x_continuous(breaks = seq(10,100,10),
                        limits = c(5,105)) +
     labs(x = "''How happy are you?''",
-         y = "Frequency",
+         y = "Observations",
          title = "The 'true' population with our target: the population mean",
          caption = paste0("The orange line indicates the 'true' population mean: ",round(mean(vals$cltpop), digits = 2))) +
     theme_darkgray()
   }else{
     ggplot(NULL, aes(c(-4,4))) +
       geom_text(label = "?", color = "#d3d3d3",size = 40,
-                aes(y = 2, x = 0)) +
+                aes(y = 2, x = 55)) +
+      scale_x_continuous(limits = c(5,105),
+                         breaks = seq(10,100,10)) +
       theme_darkgray() +
-      labs(title = "The true population data (still unknown!)") +
-      theme(axis.line = element_blank(),
-            axis.text = element_blank(),
-            panel.grid.major = element_blank(),
-            axis.title = element_blank())
+      labs(title = "The true population data (still unknown!)",
+           x = "''How happy are you?''",
+           y = "Observations") +
+      theme(axis.text.y = element_text(color = "#343e48"))
   }
 })
 })

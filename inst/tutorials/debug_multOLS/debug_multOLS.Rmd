@@ -62,7 +62,7 @@ model1 <- lm(happy_num ~ height,
 summary(model1) # This prints out a summary of the result
 ```
 
-The output tells us that for every centimeter increase in body height, a person's level of happiness increases by 0.026 points. That effect is statistically significant at the 10% level --- which means that we can be *relatively* confident that the true effect of body height on happiness in the wider population is probably not 0.
+The output tells us that for every centimeter that someone's body height increases, that person's level of happiness also increases by 0.026 points on the 0-10 measurement scale. That effect is statistically significant at the 10% level --- which means that we can be *relatively* confident that the true effect of body height on happiness in the wider population is probably not 0.
 
 ### From bi- to multivariate regression
 

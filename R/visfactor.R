@@ -71,8 +71,11 @@ visfactor <- function(variable,dataset,detail=NULL,nrows=NULL){
   }
 
   if(detail==F){
-    return(data.frame(values = seq_along(levels(newset[,c(variable)])),
+    invisible(data.frame(values = seq_along(levels(newset[,c(variable)])),
                       labels = levels(newset[,c(variable)])))
+    print(data.frame(values = seq_along(levels(newset[,c(variable)])),
+               labels = levels(newset[,c(variable)])),
+          row.names = F)
   }else{
     head(data.frame(original = newset[,c(variable)],
                     labels = as.character(newset[,c(variable)]),

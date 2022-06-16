@@ -1,0 +1,181 @@
+---
+title: "De-bugging exercises: Correlation"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(bst290)
+knitr::opts_chunk$set(echo = FALSE)
+
+ess <- bst290::ess
+```
+
+
+## Introduction {data-progressive=TRUE}
+
+In this de-bugging tutorial, you will practice calculating Pearson's correlation coefficient in `R`, testing if it is statistically significant, and interpreting the results.
+
+You will work with two variables from the small `ess` practice dataset that is included in the `bst290` package: 
+
+* `height`, which measures the body height (in cm) of a given respondent;
+* `weight`, which measures the weight (in kg) of a given respondent;
+
+The guiding question for this tutorial is: *Are taller people also heavier? In other words, is there a correlation between body height and body weight?*
+
+###
+
+### A quick look at the two variables and their association
+
+You might remember that you already worked with the two variables in Tutorial 4 on data visualization --- there, you created a scatterplot that showed the association between the two variables.
+
+Just to refresh your memory, here is the scatterplot (and the code to create it):
+```{r scat, eval=T, echo=T, collapse=TRUE, warning=F}
+ess %>% 
+  ggplot(aes(x = height, y = weight)) +
+    geom_point() +
+    labs(x = "Body height (cm)", y = "Body weight (kg)") +
+    theme_bw()
+```
+
+###
+
+```{r scat2, eval=T, echo=F, collapse=TRUE, warning=F}
+ess %>% 
+  ggplot(aes(x = height, y = weight)) +
+    geom_point() +
+    labs(x = "Body height (cm)", y = "Body weight (kg)") +
+    theme_bw()
+```
+
+What would you say based on the graph:
+```{r quiz1}
+question("Are the two variables...",
+         answer("*negatively* related?",
+                message = "Really? Take another look at the graph and imagine you would draw a line through the points: Does this line go up or down, or is it flat? If the line goes up, the relationship is *positive*; if it goes down, it is *negative*, and if the line is flat, then there is no relationship."),
+         answer("*positively* related?",
+                correct = T, message = "Yes - or at least it *looks* like they are based on the graph."),
+         answer("*not* related?",
+                message = "Really? Take another look at the graph and imagine you would draw a line through the points: Does this line go up or down, or is it flat? If the line goes up, the relationship is *positive*; if it goes down, it is *negative*, and if the line is flat, then there is no relationship."),
+         random_answer_order = T, allow_retry = T)
+```
+
+## The Pearson correlation coefficient
+
+OK, so the descriptive analysis suggests that there is a positive association between the two variables. Let's see if we can confirm this when we calculate the Pearson correlation coefficient.
+
+First, another quick quiz:
+```{r quiz2}
+question("When two variables are *positively* related, then the Pearson correlation coefficient is...",
+         answer("...a number higher than 0 but lower than or equal to 1",
+                correct = T, message = "Yes, a positive correlation coefficient is higher than 0 and can go up to 1 (1 means a perfect correlation)."),
+         answer("...exactly 0.",
+                message = "No, that is not correct. Take another look at Kellstedt and Whitten (2018, Chapter 8.4.3)"),
+         answer("...a number smaller than 0 but higher than or equal to -1.",
+                message = "No, that is not correct. Take another look at Kellstedt and Whitten (2018, Chapter 8.4.3)"),
+         random_answer_order = T, allow_retry = T)
+```
+
+##
+
+OK, you should now have an idea of what to expect: a *positive* relationship, meaning a Pearson correlation coefficient that is between 0 and 1. Let's see if this is true by calculating it. Can you complete the code below to get the correlation coefficient:
+```{r cor, exercise = T}
+cor(x = , y = ,
+    use = "complete.obs")
+```
+
+## 
+
+This was not a problem, was it? All you needed to do was to plug in the two variables (plus tell `R` that they are part of the `ess` dataset):
+```{r cor-a, eval=T, echo=T, collapse=T}
+cor(x = ess$height, y = ess$weight,
+    use = "complete.obs")
+```
+
+```{r cor-sto, eval=T, echo=F, results='hide'}
+res <- cor(x = ess$height, y = ess$weight,
+    use = "complete.obs")
+```
+
+Now we know the exact correlation coefficient (*r* = `r round(res, digits = 3)`). Because this value is between 0 and 1, we can tell that `height` and `weight` are indeed positively related --- as the graph also indicated.
+
+## Statistical significance
+
+The next question is: *Is this correlation significant?* Does this finding reflect a systematic relationship in the underlying population, or does this just reflect the fact that we are working with a sample that contains "noise"?
+
+To conduct a formal test for the statistical significance of a correlation coefficient, you would use the `cor.test()` function. Can you complete the code below to make the function run?
+```{r corest, exercise = T}
+cor.test(x = , y = )
+```
+
+##
+
+And, as before, you just have to plug the two variables into the function:
+```{r corest-a, eval=T, echo=T, collapse=T}
+cor.test(x = ess$height, y = ess$weight)
+```
+
+##
+
+
+Now to making sense of the results. You have now gone over a few different statistical tests and their results, so this should get at least a bit easier to read.
+
+```{r corest-b, eval=T, echo=T, collapse=T}
+cor.test(x = ess$height, y = ess$weight)
+```
+```{r quizcor1}
+question("Where in the result can you see the correlation coefficient?",
+         answer("Under `sample estimates:`",
+                correct = T),
+         answer("Under `95 percent confidence interval`",
+                message = "Not really, unfortunately. But this this interval contains the true correlation coefficient in the population with a probability of 95%."),
+         random_answer_order = T, allow_retry = T)
+```
+
+##
+
+```{r corest-b2, eval=T, echo=T, collapse=T}
+cor.test(x = ess$height, y = ess$weight)
+```
+```{r quizcor2}
+question("And where in the results can you see if the test is significant?",
+         answer("By looking at the *p*-value (`p-value`).",
+                correct = T),
+         answer("It says it right after `alternative hypothesis`: ''The true correlation is not equal to 0'', so therefore the test must be significant!",
+                message = "This line only tells you what you are *testing* here. Your *hypothesis* is that the true correlation coefficient is not equal to 0."),
+         random_answer_order = T, allow_retry = T)
+```
+
+##
+
+```{r corest-b3, eval=T, echo=T, collapse=T}
+cor.test(x = ess$height, y = ess$weight)
+```
+```{r corest-sto, eval=T, echo=T, collapse=T}
+res <- cor.test(x = ess$height, y = ess$weight)
+```
+
+
+OK, you know that you need to look at the *p*-value...
+```{r quizcor3}
+question("...but what does the number here mean?",
+         answer("`e-10`...something?!? No idea!",
+                message = "Come on, you can do this!"),
+         answer("It is a very small number --- so the test is significant.",
+                correct = T, message = paste0("If you write it out, the *p*-value is: ",format(res$p.value, scientific = F),". And this means that the probability that you found this result here just by accident while the true correlation coefficient in the population is really equal to 0 is very, very low.")),
+         answer("It is a very small number --- so the test is not significant.",
+                message = "What does a very small *p*-value mean again? Maybe take another look at Kellstedt and Whitten (2018, p. 164)."),
+         random_answer_order = T, allow_retry = T)
+```
+
+## Wrapping up
+
+Now you should know how you can let `R` calculate a Pearson correlation coefficient, how you test if it is statistically significant, and how you interpret the results of that test. 
+
+This is a big step, not only because you now know about three important statistical tests (the $\chi^2$ test, the difference-of-means *t*-test, and the correlation coefficient) but also because understanding the correlation coefficient is critical for the next part: **Linear regression!**
+
+

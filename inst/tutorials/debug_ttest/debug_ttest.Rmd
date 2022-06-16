@@ -1,0 +1,133 @@
+---
+title: "De-bugging exercises: t-test"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(learnr)
+library(tidyverse)
+
+library(bst290)
+
+ess <- bst290::ess
+```
+
+
+## Introduction {data-progressive=TRUE}
+
+You have now learned in the main tutorial how to test if two groups differ significantly in some numeric attribute --- for example, if men and women differ in their religiosity.
+
+In this de-bugging tutorial, you can practice this a bit more using the small `ess` dataset. Specifically, you will look if men and women differ in their average body heights.
+
+## 
+
+First, a quick quiz: If we think that there is a difference in the average *body height* between *genders*,...
+```{r quiz}
+question("...which is the *dependent* and which is the *independent variable* here?",
+         answer("Gender is the dependent variable, body height is the independent variable.",
+                message = "Unfortunately not. Please make sure to review what the difference between a dependent and independent variable is!"),
+         answer("Gender is the independent variable, body height is the dependent variable.",
+                correct = T),
+         random_answer_order = T, allow_retry = T)
+```
+
+## Descriptive analysis {data-progressive=TRUE}
+
+As in the main tutorial, let's first look at the differences descriptively. The code below should use the `ess` data, group the data by gender (`gndr`), and then calculate the average value of body height (`height`) for each group --- can you complete it?
+```{r plyr, exercise = T}
+ess %>% 
+  group_by() %>% 
+  summarize()
+```
+
+<div id="plyr-hint">
+**Hint:** See the main tutorial for this part, or Tutorial 3.
+</div>
+
+###
+
+###
+
+This should not have taken long, if you have done all previous exercises:
+```{r plyr-a, echo=T, eval=T}
+ess %>% 
+  group_by(gndr) %>% 
+  summarize(avgheight = mean(height, na.rm = T))
+```
+
+##
+
+Now that we have the summary statistics, it would be great to be able to show them in a bar graph. Can you complete the code to do that?
+```{r gr1, exercise = T}
+ess %>% 
+  group_by(gndr) %>% 
+  summarize(avgheight = mean(height, na.rm = T)) %>% 
+  ggplot()
+```
+
+<div id="gr1-hint">
+**Hint:** See the main tutorial for this part, or Tutorial 4.
+</div>
+
+##
+
+And again, you just have to implement what you learned in the main tutorial:
+```{r gr1-a, eval=T, echo=T}
+ess %>% 
+  group_by(gndr) %>% 
+  summarize(avgheight = mean(height, na.rm = T)) %>% 
+  ggplot(aes(x = gndr, y = avgheight)) +
+    geom_bar(stat = "identity")
+```
+
+*Important*: You need to add `stat = "identity"` to the `geom_bar()` call.
+
+## Statistical test {data-progressive=TRUE}
+
+So, there is a difference in the average height of men compared to women (surprise, surprise...). But, as before: is that difference also *statistically significant*?
+
+Let's find out! Can you complete the code to run a *t*-test with `t.test()`? The variables are `gndr` and `height`, and the dataset is `ess`:
+```{r ttest, exercise = T}
+t.test()
+```
+
+<div id="ttest-hint">
+**Hint:** See the main tutorial, section 5.1.
+</div>
+
+###
+
+###
+
+The main task was to get the *formula* right: We want to see if `height` differs by `gndr`, so we need to specify: `height ~ gndr`:
+```{r ttest-a, eval=T, echo=T}
+t.test(height ~ gndr,
+       data = ess)
+```
+
+###
+
+Now to the interpretation:
+```{r ttest-int, eval=T, echo=T}
+t.test(height ~ gndr,
+       data = ess)
+```
+
+```{r quiz2}
+question("What does the test result say?",
+         answer("`R` estimated a ''Welch's test'', which means that the two groups have unequal variances.",
+                message = "Not quite. See the voluntary last part of the main tutorial on the Welch test and what it means."),
+         answer("The test produces a very low *p*-value. This means that the probability to observe the differences we see here if the true difference in the population was equal to 0 is very low. There is a significant difference between men and women.",
+                correct = T),
+         answer("The test produces a very low *p*-value. This means that it is very unlikely that we found the correct result.",
+                message = "That is not what the *p*-value means. See Kellstedt and Whitten (Chapter 8)."),
+         answer("The test produces a very high *p*-value. This means that the probability that the true difference in the population is not equal to 0 is very high. There is a significant difference between men and women.",
+                message = "Careful: The *p*-value here is very, very *small*! Plus, this is also not how you interpret a *p*-value!"),
+         random_answer_order = T, allow_retry = T)
+```
+
+## Summing up
+
+And done! Now you should know how you can see if two groups differ in some numeric attribute with `R`.
