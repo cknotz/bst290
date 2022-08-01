@@ -30,7 +30,7 @@ In this de-bugging exercise, you will practice estimating *and interpreting* biv
 
 You will work with the small practice dataset that you also used in earlier tutorials (`ess`), and you will try to answer the following research question is: *Are taller people happier than shorter people?* To do this, you will work with two variables:
 
-1. `happy_num`: In the `ess` dataset, there is a variable called `happy` that measures how happy respondents felt at the time of the survey, ranging from 0 ("Extremely unhappy") to 1 ("Extremely happy"). The original variable is stored as a factor, but I have transformed it for you into a numeric variable called `happy_num`. 
+1. `happy_num`: In the `ess` dataset, there is a variable called `happy` that measures how happy respondents felt at the time of the survey, ranging from 0 ("Extremely unhappy") to 10 ("Extremely happy"). The original variable is stored as a factor, but I have transformed it for you into a numeric variable called `happy_num`. 
 2. `height`: This variable measures how tall (in centimeters) respondents are.
 
 
