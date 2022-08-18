@@ -6,15 +6,15 @@
 # Start date: Feb 22, 2021
 # First complete version: Nov 3, 2021
 
-library(MASS)
-  library(shiny)
-  library(shinydashboard)
-  library(shinyWidgets)
-  library(dashboardthemes)
-  library(shinyjs)
-  library(ggplot2)
-  library(dplyr)
-  library(xtable)
+# library(MASS)
+library(shiny)
+library(shinydashboard)
+library(shinyWidgets)
+library(dashboardthemes)
+library(shinyjs)
+library(ggplot2)
+library(dplyr)
+library(xtable)
 
 # Matching color scheme for graphs
 theme_darkgray <- function(){
@@ -37,20 +37,20 @@ theme_darkgray <- function(){
 ui <- dashboardPage(
   dashboardHeader(title="Practice Statistics!"),
   dashboardSidebar(collapsed = F,
-    sidebarMenu(
-      menuItem("Start",tabName = "start", selected = T),
-      menuItem("Mathematical notation", tabName = "math"),
-      menuItem("Measures of central tendency",tabName = "cent"),
-      menuItem("Measures of spread",tabName = "spread"),
-      menuItem("Statistical distributions", tabName = "dist"),
-      menuItem("The Central Limit Theorem", tabName = "clt"),
-      menuItem("Confidence intervals", tabName = "ci"),
-      menuItem("p-value calculator", tabName = "p"),
-      menuItem("Chi-squared test",tabName = "chi"),
-      menuItem("Difference of means test",tabName = "ttest"),
-      menuItem("Correlation",tabName = "corr"),
-      menuItem("Contact & feedback",tabName = "contact")
-    )
+                   sidebarMenu(
+                     menuItem("Start",tabName = "start", selected = T),
+                     menuItem("Mathematical notation", tabName = "math"),
+                     menuItem("Measures of central tendency",tabName = "cent"),
+                     menuItem("Measures of spread",tabName = "spread"),
+                     menuItem("Statistical distributions", tabName = "dist"),
+                     menuItem("The Central Limit Theorem", tabName = "clt"),
+                     menuItem("Confidence intervals", tabName = "ci"),
+                     menuItem("p-value calculator", tabName = "p"),
+                     menuItem("Chi-squared test",tabName = "chi"),
+                     menuItem("Difference of means test",tabName = "ttest"),
+                     menuItem("Correlation",tabName = "corr"),
+                     menuItem("Contact & feedback",tabName = "contact")
+                   )
   ),
   dashboardBody(
     shinyjs::useShinyjs(),
@@ -79,7 +79,7 @@ ui <- dashboardPage(
               .js-irs-3 .irs-min {font-family: 'arial'; color: white;}"),
     tabItems(
       tabItem(tabName = "start",
-      ###############
+              ###############
               fluidRow(
                 column(width = 12,
                        box(width = NULL, title = "Why you need statistics skills", collapsible = T, collapsed = T,
@@ -96,7 +96,7 @@ ui <- dashboardPage(
                                 <a target='_blank' href='https://data.org/'>data.org</a>). <strong>Clearly, being able to use statistical methods is an extremely powerful skill &mdash; now and in the future.</strong></p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
                            title = "You can learn statistics",
-                                HTML("
+                           HTML("
                                 <p>Unfortunately, many students are not excited about statistics. Some may see statistics as irrelevant, but
                                 many others are simply afraid of the math. Many students
                                 see themselves as 'not a math' person, an attitude that might stem from bad experiences in high school.</p>
@@ -116,7 +116,7 @@ ui <- dashboardPage(
                                 In consequence, you gain confidence that will help you tackle the more complicated concepts and procedures.</p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
                            title = "The purpose of this application",
-                                HTML("<p><strong>And this is the purpose of this application: To let you practice</strong> calculating beginner-level statistical
+                           HTML("<p><strong>And this is the purpose of this application: To let you practice</strong> calculating beginner-level statistical
                                 methods by hand. You can choose between several types of statistics and statistical tests via the menu on the right. Each of the panels
                                 will then give you a brief introduction and a set of (random) numbers to calculate with. Once you are done with your calculation
                                 (or in case you get stuck) you can reveal a brief and a detailed solution to each exercise. And you can repeat this as many
@@ -124,14 +124,14 @@ ui <- dashboardPage(
                                 <p>In addition, it features a panel to simulate the logic behind the Central Limit Theorem and confidence intervals. Finally, you can visualize
                                 central statistical distributions, which can help you to better understand how to interpret the results of statistical
                                 tests.</p>")
-              ))
+                       ))
               )),
       ###############
 
       ###############
 
       tabItem(tabName = "math",
-      ###############
+              ###############
               fluidRow(
                 column(width = 6,
                        box(width = NULL, collapsible = T, collapsed = T, solidHeader = F,
@@ -175,11 +175,11 @@ ui <- dashboardPage(
                            HTML("<p>Two vertical bars indicate that we are talking about the <i>absolute value</i> of a number.</p>
                                 <p>For example: |-2| = 2 and |2| = 2.</p>")))
               )
-              ),
+      ),
       ##############
 
       tabItem(tabName = "cent",
-      ##############
+              ##############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "Measures of central tendency",
@@ -224,11 +224,11 @@ ui <- dashboardPage(
                            uiOutput("cent_sol_det")))
               )
 
-              ),
+      ),
       ##############
 
       tabItem(tabName = "spread",
-      ##############
+              ##############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "Measures of spread",
@@ -276,11 +276,11 @@ ui <- dashboardPage(
                            tableOutput("spread_sol_det2"),
                            uiOutput("spread_sol_det3")))
               )
-              ),
+      ),
       #############
 
       tabItem(tabName = "clt",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "The Central Limit Theorem",
@@ -315,25 +315,25 @@ ui <- dashboardPage(
                                        value = 20,
                                        ticks = F),
                            disabled(actionButton("button_clt",
-                                        "Do your survey(s)")),
+                                                 "Do your survey(s)")),
                            br(),br(),
                            disabled(radioGroupButtons(inputId = "clt_reveal",
-                                             label = "Reveal population",
-                                             choices = c("No",
-                                                         "Yes"),
-                                             selected = "No"))
-                           )),
+                                                      label = "Reveal population",
+                                                      choices = c("No",
+                                                                  "Yes"),
+                                                      selected = "No"))
+                       )),
                 column(width = 8,
                        box(width = NULL, title = "Simulate surveys with random respondent samples", collapsible = F, solidHeader = F,
                            plotOutput("clt_popplot",
                                       height = "200px"),
                            plotOutput("clt_distPlot")
-                           ))
+                       ))
               )),
       ###############
 
       tabItem(tabName = "ci",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
                        box(width = NULL,title = "Confidence intervals", collapsible = F,
@@ -353,17 +353,17 @@ ui <- dashboardPage(
                                        value = 1,
                                        ticks = F),
                            radioGroupButtons("ci_level",
-                                        label = "Confidence level",
-                                        choices = c("90%" = .9,
-                                                    "95%" = .95,
-                                                    "99%" = .99),
-                                        selected = .95,
-                                        justified = T,
-                                        checkIcon = list(
-                                          yes = icon("ok",
-                                                     lib = "glyphicon"))
-                                        ),
-                           )),
+                                             label = "Confidence level",
+                                             choices = c("90%" = .9,
+                                                         "95%" = .95,
+                                                         "99%" = .99),
+                                             selected = .95,
+                                             justified = T,
+                                             checkIcon = list(
+                                               yes = icon("ok",
+                                                          lib = "glyphicon"))
+                           ),
+                       )),
                 column(width = 8,
                        box(width = NULL, title = "Scenario & instructions", collapsible = T, solidHeader =T,
                            collapsed = T,
@@ -415,12 +415,12 @@ ui <- dashboardPage(
                                 precise forecast. If, on the other hand, I say ''The temperature will be exactly 26.872 degrees.'',
                                 my forecast is very precise &mdash; but also very probably wrong).</p>")))
               )
-              ),
+      ),
 
       ###############
 
       tabItem(tabName = "dist",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "Statistical distributions",
@@ -454,18 +454,18 @@ ui <- dashboardPage(
                            numericInput(inputId = "dist_valselect",
                                         label = "Enter your test statistic (optional)",
                                         value = NULL)
-                           )),
+                       )),
                 column(width = 8,
                        box(width = NULL,title = "", collapsible = F,solidHeader = T,
                            plotOutput("distplot")
-                           ))
+                       ))
               )
 
-              ),
+      ),
       ###############
 
       tabItem(tabName = "p",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "p-values",
@@ -501,11 +501,11 @@ ui <- dashboardPage(
                                         value = NULL),
                            verbatimTextOutput("p_value")))
               )
-              ),
+      ),
       ###############
 
       tabItem(tabName = "ttest",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, title = "Difference-of-means t-test",
@@ -537,20 +537,20 @@ ui <- dashboardPage(
                 column(width = 8,
                        box(width = 0, title = "Is there a significant difference?", collapsible = F, solidHeader = F,
                            tableOutput("tt_table")
-                           ),
+                       ),
                        box(width = NULL, title = "Solution", collapsible = T,
                            solidHeader = F,
                            uiOutput("tt_result_brief")),
                        box(width = NULL, title = "Detailed solution", collapsible = T, collapsed = T,
                            solidHeader = T,
                            uiOutput("tt_result_det"))
-                       )
+                )
               )
-              ),
+      ),
       ###############
 
       tabItem(tabName = "chi",
-      ##############
+              ##############
               fluidRow(
                 column(width = 4,
                        box(width = NULL, solidHeader = F, collapsible = T, collapsed = T,
@@ -591,16 +591,16 @@ ui <- dashboardPage(
                            tableOutput("extab_calc"),
                            uiOutput("chicalc")))
               )
-              ),
+      ),
       ##############
 
       tabItem(tabName = "corr",
-      ###############
+              ###############
               fluidRow(
                 column(width = 4,
-                box(width=NULL,title = "Correlation coefficient",collapsible = T,
-                    solidHeader = F, collapsed = T,
-                    HTML("<p>The correlation coefficient is a measure of how strongly
+                       box(width=NULL,title = "Correlation coefficient",collapsible = T,
+                           solidHeader = F, collapsed = T,
+                           HTML("<p>The correlation coefficient is a measure of how strongly
                          two metric (or continuous, linear) variables are associated
                          with each other. In this exercise, you calculate some correlation
                          coefficients by hand.</p>
@@ -618,47 +618,47 @@ ui <- dashboardPage(
                          <p>If you want a more detailed step-by-step explanation, you can expand the box below
                          by clicking on the 'plus' symbol on the right. See also the explanation in
                          Kellstedt & Whitten.</p>")),
-                box(width=NULL,title = "Controls",collapsible = T,solidHeader = F, collapsed = F,
-                    actionBttn(inputId = "cor_sim",
-                               label = "Give me some data!",
-                               style="material-flat",
-                               color="danger",
-                               size = "xs"),
-                    br(),br(),
-                    disabled(actionBttn(inputId = "cor_solution",
-                                        label = "Show me the solution!",
-                                        style = "material-flat",
-                                        color = "warning",
-                                        size = "xs"))
-              )
-              ),
-              column(width=8,
-              box(width=NULL,title = "Is there a significant correlation?",collapsible = F,solidHeader = F,
-                  column(3,tableOutput(outputId = "tab")),
-                  column(9,plotOutput(outputId = "plot"))
-                  ),
-              box(width = NULL,title = "Solution",collapsible = F,solidHeader = F,
-                  textOutput(outputId = "result")),
-              box(width = NULL,title = "Detailed solution",collapsible = T,
-                    collapsed = T,solidHeader = F,
-                    uiOutput("cor_detail1"),
-                    uiOutput("cor_detail2"),
-                    uiOutput("cor_detail3"),
-                    uiOutput("cor_detail4"),
-                    tableOutput("cor_tab1"),
-                    uiOutput("cor_detail5"),
-                    tableOutput("cor_tab2"),
-                    uiOutput("cor_detail6"),
-                    uiOutput("cor_detail7"),
-                    uiOutput("cor_detail8"),
-                    uiOutput("cor_detail9"),
-                    uiOutput("cor_detail10"))
-              )
-    )),
+                       box(width=NULL,title = "Controls",collapsible = T,solidHeader = F, collapsed = F,
+                           actionBttn(inputId = "cor_sim",
+                                      label = "Give me some data!",
+                                      style="material-flat",
+                                      color="danger",
+                                      size = "xs"),
+                           br(),br(),
+                           disabled(actionBttn(inputId = "cor_solution",
+                                               label = "Show me the solution!",
+                                               style = "material-flat",
+                                               color = "warning",
+                                               size = "xs"))
+                       )
+                ),
+                column(width=8,
+                       box(width=NULL,title = "Is there a significant correlation?",collapsible = F,solidHeader = F,
+                           column(3,tableOutput(outputId = "tab")),
+                           column(9,plotOutput(outputId = "plot"))
+                       ),
+                       box(width = NULL,title = "Solution",collapsible = F,solidHeader = F,
+                           textOutput(outputId = "result")),
+                       box(width = NULL,title = "Detailed solution",collapsible = T,
+                           collapsed = T,solidHeader = F,
+                           uiOutput("cor_detail1"),
+                           uiOutput("cor_detail2"),
+                           uiOutput("cor_detail3"),
+                           uiOutput("cor_detail4"),
+                           tableOutput("cor_tab1"),
+                           uiOutput("cor_detail5"),
+                           tableOutput("cor_tab2"),
+                           uiOutput("cor_detail6"),
+                           uiOutput("cor_detail7"),
+                           uiOutput("cor_detail8"),
+                           uiOutput("cor_detail9"),
+                           uiOutput("cor_detail10"))
+                )
+              )),
       ###############
 
       tabItem(tabName = "contact",
-      ##############
+              ##############
               fluidRow(
                 column(width = 12,
                        box(width = NULL, title = "Questions & Feedback",
@@ -672,115 +672,115 @@ ui <- dashboardPage(
                            HTML("<p>If you feel that this application lacks some functionality or could be improved
                                 in some way (which it probably can!), you can access and 'fork' the code on
                                 <a href='https://github.com/cknotz/bst290/blob/master/R/practiceStatistics.R' target='_blank'>Github</a>.</p>"))
-              ))
-              )
+                ))
+      )
       ##############
 
-)))
+    )))
 
 server <- function(input,output,session){
 
   vals <- reactiveValues()
 
 
-# Central tendency - Data
-observeEvent(input$cent_sim,{
-  shinyjs::enable("cent_solution")
-output$centvals <- renderText({
+  # Central tendency - Data
+  observeEvent(input$cent_sim,{
+    shinyjs::enable("cent_solution")
+    output$centvals <- renderText({
 
-  set.seed(NULL)
-  vals$cent <- sample(seq(1,50,1),
-                      size = 9)
+      set.seed(NULL)
+      vals$cent <- sample(seq(1,50,1),
+                          size = 9)
 
-  paste0("X = (",paste0(vals$cent,collapse = "; "),")")
+      paste0("X = (",paste0(vals$cent,collapse = "; "),")")
 
-})
-})
+    })
+  })
 
-# Central tendency - Solution
-observeEvent(input$cent_solution,{
+  # Central tendency - Solution
+  observeEvent(input$cent_solution,{
 
-cent <- isolate(vals$cent)
+    cent <- isolate(vals$cent)
 
-output$cent_sol_det <- renderUI({
-  HTML(paste0("<p>Calculating the mean ('average') should be easy: You calculate the sum
+    output$cent_sol_det <- renderUI({
+      HTML(paste0("<p>Calculating the mean ('average') should be easy: You calculate the sum
               of all the values in X and then divide the result by the overall number of values (9):</p>",
-              paste0(cent, collapse = " + ")," = ",sum(cent),
-              br(),br(),
-              sum(cent),"/9 = ",round(sum(cent)/9, digits = 1),br(),br(),
-              "<p>Identifying the median is a bit more interesting: You first have to arrange all the values
+                  paste0(cent, collapse = " + ")," = ",sum(cent),
+                  br(),br(),
+                  sum(cent),"/9 = ",round(sum(cent)/9, digits = 1),br(),br(),
+                  "<p>Identifying the median is a bit more interesting: You first have to arrange all the values
               from lowest to highest:</p>",
-              br(),
-              "(",paste0(sort(cent), collapse = "; "),")",
-              br(),br(),
-              "<p>Then you identify the value in the middle &mdash; the one that divides the data in half.
+                  br(),
+                  "(",paste0(sort(cent), collapse = "; "),")",
+                  br(),br(),
+                  "<p>Then you identify the value in the middle &mdash; the one that divides the data in half.
               In this case, this is: ",paste0(stats::median(cent)),".</p>
               <p><strong>Note:</strong> We are working here with an <i>uneven</i> number of values, 9! If we would have an
               even number such as 10 or 6, we would take the two middle values and calculate the average of these
               two (see also Kellstedt & Whitten 2018, 133).</p>"))
-})
+    })
 
-output$cent_sol <- renderUI({
-  HTML(paste0("<p>The mean of X is: ",round(mean(cent), digits = 1),".</p>
+    output$cent_sol <- renderUI({
+      HTML(paste0("<p>The mean of X is: ",round(mean(cent), digits = 1),".</p>
               <p>The median of X is: ",stats::median(cent),".</p>"))
-})
+    })
 
-})
-
-
-# Measures of spread - Data
-observeEvent(input$spread_sim,{
-  shinyjs::enable("spread_solution")
-
-  output$spreadvals <- renderText({
-    set.seed(NULL)
-    vals$spread <- sample(seq(1,50,1),
-                          size = 10)
-    paste0("X = (",paste0(vals$spread,collapse = "; "),")")
   })
 
 
-})
+  # Measures of spread - Data
+  observeEvent(input$spread_sim,{
+    shinyjs::enable("spread_solution")
 
-# Measures of spread - Solution
-observeEvent(input$spread_solution,{
-  spread <- isolate(vals$spread)
+    output$spreadvals <- renderText({
+      set.seed(NULL)
+      vals$spread <- sample(seq(1,50,1),
+                            size = 10)
+      paste0("X = (",paste0(vals$spread,collapse = "; "),")")
+    })
 
-  spreadmat <- data.frame(X = spread,
-                          meanX = rep(mean(spread),length(spread)))
 
-  spreadmat %>%
-    mutate(diff = X - meanX,
-           diff_squared = diff^2) -> spreadmat
+  })
 
-  sumdiffsq <- sum(spreadmat$diff_squared)
-  spread_var <- sumdiffsq/(length(spread)-1)
+  # Measures of spread - Solution
+  observeEvent(input$spread_solution,{
+    spread <- isolate(vals$spread)
 
-output$spread_sol <- renderUI({
-  HTML(paste0("<p>The variance is: ",round(stats::var(spread), digits = 1),".</p>
+    spreadmat <- data.frame(X = spread,
+                            meanX = rep(mean(spread),length(spread)))
+
+    spreadmat %>%
+      mutate(diff = X - meanX,
+             diff_squared = diff^2) -> spreadmat
+
+    sumdiffsq <- sum(spreadmat$diff_squared)
+    spread_var <- sumdiffsq/(length(spread)-1)
+
+    output$spread_sol <- renderUI({
+      HTML(paste0("<p>The variance is: ",round(stats::var(spread), digits = 1),".</p>
               <p>The standard deviation is: ",round(stats::sd(spread), digits = 1),".</p>"))
 
-})
+    })
 
-output$spread_sol_det1 <- renderUI({
-  withMathJax("We start by calculating the variance of X. The formula is as follows:
+    output$spread_sol_det1 <- renderUI({
+      withMathJax("We start by calculating the variance of X. The formula is as follows:
                        $$s^2 = \\frac{\\sum_{i=1}^N (X_i - \\bar{X})^2}{N-1}$$
                        In human language: We calculate the mean of X, and then we calculate the
                        difference of each value in X from this mean. Then we square each of the
                        resulting numbers. Finally, we add them all up and then divide the
                        result by N-1. The calculation is a bit tedious and easier to follow
                        when it is presented in a table:")
-})
+    })
 
-output$spread_sol_det2 <- renderTable({
-  spreadmat
-}, rownames = T, include.colnames = F,
-width = "100%",hover = T,digits = 1,
-add.to.row = list(pos = list(0),
-                  command = " <tr> <th> </th><th>X</th><th>X&#772;</th><th>(X<sub>i</sub> - X&#772;)</th><th>(X<sub>i</sub> - X&#772;)<sup>2</sup></th> </tr>"))
+    output$spread_sol_det2 <- renderTable({
+      spreadmat
+    }, rownames = T, include.colnames = F,
+    width = "100%",hover = T,digits = 1,
+    add.to.row = list(pos = list(0),
+                      command = " <tr> <th> </th><th>X</th><th>X&#772;</th><th>(X<sub>i</sub> - X&#772;)</th><th>(X<sub>i</sub> - X&#772;)<sup>2</sup></th> </tr>"))
 
-output$spread_sol_det3 <- renderUI({
-  HTML(paste0("<p>If we now calculate the sum of all the values in the last table column
+    output$spread_sol_det3 <- renderUI({
+      HTML(paste0("<p>If we now calculate the sum of all the values in the last table column
               (the one furthest to the right), we get the sum of the squared differences
               from the mean: ",round(sumdiffsq,digits=1),".</p>
               <p>Then we divide this by 9 (the number of values in X minus 1).
@@ -792,478 +792,478 @@ output$spread_sol_det3 <- renderUI({
               <i>average deviation from the mean</i>: the <strong>standard deviation</strong>.
               This statistic is much more intuitive to interpret.</p>
               <p>In our case, this is: <math><msqrt><mn>",paste0(round(spread_var, digits=1)),"</mn></msqrt></math> = ",round(sd(spread),digits=1),"</p>"))
-})
+    })
 
-})
-
-
-# Central Limit Theorem - population data
-observeEvent(input$button_pop,{
-  shinyjs::enable("button_clt")
-  shinyjs::enable("clt_reveal")
-
-  set.seed(NULL)
-  lambda <- sample(seq(1,10,1),
-                   1,
-                   replace = F)
-
-  pois <- 10*stats::rpois(100,lambda)
-
-  vals$cltpop <- sample(pois[which(pois<=100)], 2000, replace = T)
-
-
-  vals$cltdata <- data.frame(pop = vals$cltpop,
-                             idno = seq(1,length(vals$cltpop),1))
-
-# "True" population - plot
-output$clt_popplot <- renderPlot({
-
-  if(input$clt_reveal=="Yes"){
-  vals$cltdata %>%
-    group_by(pop) %>%
-    summarize(n = n()) %>%
-    ggplot(aes(x=pop,y=n)) +
-    geom_bar(stat = "identity", fill = "#d3d3d3") +
-    geom_vline(xintercept = mean(vals$cltpop), color = "#b34e24", size = 1.25) +
-    scale_x_continuous(breaks = seq(10,100,10),
-                       limits = c(5,105)) +
-    labs(x = "''How happy are you?''",
-         y = "Observations",
-         title = "The 'true' population with our target: the population mean",
-         caption = paste0("The orange line indicates the 'true' population mean: ",round(mean(vals$cltpop), digits = 2))) +
-    theme_darkgray()
-  }else{
-    ggplot(NULL, aes(c(-4,4))) +
-      geom_text(label = "?", color = "#d3d3d3",size = 40,
-                aes(y = 2, x = 55)) +
-      scale_x_continuous(limits = c(5,105),
-                         breaks = seq(10,100,10)) +
-      theme_darkgray() +
-      labs(title = "The true population data (still unknown!)",
-           x = "''How happy are you?''",
-           y = "Observations") +
-      theme(axis.text.y = element_text(color = "#343e48"))
-  }
-})
-})
-
-# Simulation graph, CLT
-observeEvent(input$button_clt,{
-
-  if(input$clt_samples>=10000){
-    showModal(modalDialog("Simulation is running, please wait...", footer=NULL))
-  }
-
-  # Simulate repeat sampling
-  vals$means <- sapply(seq(1,input$clt_samples,1),
-                  function(x){
-                    sample <- sample(vals$cltpop,
-                                     size = input$clt_size,
-                                     replace = F)
-                    return(mean(sample))
-                  })
-
-  isolate(sims <- data.frame(means = vals$means,
-                             draws = seq(1,length(vals$means),1)))
-
-  if(input$clt_samples>=10000){
-    removeModal()
-  }
-
-  output$clt_distPlot <- renderPlot({
-    p <- sims %>%
-      ggplot(mapping = aes(x=means)) +
-      geom_bar(stat = "count",
-               width = 1, fill = "#d3d3d3") +
-      geom_vline(xintercept = mean(sims$means),
-                 color = "#b34e24", size = 1.25, linetype = "dashed") +
-      ylab("Number of samples") +
-      xlab("Sample mean(s)") +
-      labs(title = "Our measurement(s) of the population mean: Light gray line(s)",
-           caption = paste0("The orange dashed line indicates the average measurement: ",round(mean(sims$means), digits = 2))) +
-      scale_x_continuous(limits = c(5,105),
-                         breaks = seq(10,100,10)) +
-      theme_darkgray()
-
-    if(input$clt_samples<30){
-      p <- p + scale_y_continuous(breaks = function(x) seq(ceiling(x[1]), floor(x[2]), by = 1))
-    }
-    p
-  })
-})
-
-# Simulation graph, CI (based on: EV Nordheim, MK Clayton & BS Yandell, Appendix)
-set.seed(42)
-vals$cipop <- 10*sample(seq(1,10,1),
-                 125,
-                 replace = T,
-                 prob = c(.02,.20,.29,.13,.10,.09,.09,.04,.03,0.01))
-
-observeEvent(input$ci_size,{
-# Sampling
-n.draw <- input$ci_size
-mu <- mean(vals$cipop)
-n <- 125
-SD <- sd(vals$cipop)
-
-rm(.Random.seed, envir=globalenv())
-draws <-matrix(rnorm(n.draw * n, mu, SD), n)
-
-observeEvent(input$ci_level,{
-  cl <- as.numeric(input$ci_level)
-vals$conf.int  <-  as.data.frame(t(apply(draws, 2, function(x){
-  t.test(x,conf.level = cl)$conf.int
-})))
-
-output$ci_plot <- renderPlot({
-
-# For integer breaks (from https://joshuacook.netlify.app/post/integer-values-ggplot-axis/)
-integer_breaks <- function(n = 5, ...) {
-  fxn <- function(x) {
-    breaks <- floor(pretty(x, n, ...))
-    names(breaks) <- attr(breaks, "labels")
-    breaks
-  }
-  return(fxn)
-}
-
-if(n.draw==1){
-auttit <- paste0("Confidence interval from ",n.draw," simulated study")
-} else {
-auttit <- paste0("Confidence intervals from ",n.draw," simulated studies")
-}
-
-vals$conf.int %>%
-  mutate(round = seq(1:n.draw)) %>%
-  ggplot(aes(y = round, xmin = V1,xmax = V2)) +
-  geom_linerange(color = "#d3d3d3", size = 1.25) +
-  geom_vline(xintercept = mu, color = "#b34e24",
-            size = 1.5) +
-  scale_y_continuous(breaks = integer_breaks()) +
-  labs(x = "''How happy are you?''", y = "Study No.",
-       caption = "The orange line indicates the TRUE population mean.",
-       title = auttit) +
-  theme_darkgray() +
-  theme(panel.grid.major = element_blank(),
-        plot.title = element_text(hjust = 0),
-        plot.caption = element_text(hjust = 1))
-
-
-})
-})
-})
-
-
-# Statistical distributions
-output$distplot <- renderPlot({
-
-  if(input$dist_distselect=="Normal"){
-    shinyjs::disable(id = "dist_dfselect")
-    shinyjs::enable(id = "dist_hypselect")
-    if(input$dist_hypselect=="Two-sided"){
-    ggplot(NULL, aes(c(-4,4))) +
-      geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                xlim = c(-4, stats::qnorm(as.numeric(input$dist_signselect)/2)), color = "black") +
-      geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                xlim = c(stats::qnorm(as.numeric(input$dist_signselect)/2),stats::qnorm(1-(as.numeric(input$dist_signselect)/2))), color = "black") +
-      geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect)/2)),4), color = "black") +
-      annotate("segment", x = stats::qnorm(as.numeric(input$dist_signselect)/2), xend = stats::qnorm(1-as.numeric(input$dist_signselect)/2),
-               y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2)), yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)/2)), arrow = arrow(ends='both'),
-               size = 1.5, color = "grey15") +
-      annotate("text", x=0, y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
-               color="grey15", fontface = "bold") +
-      geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                 size=1.5) +
-      labs(x = "", y = "Density",
-           title = paste0("Normal distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided): ",
-                          round(stats::qnorm(as.numeric(input$dist_signselect)/2), digits = 3)," & ",
-                          round(stats::qnorm(1-as.numeric(input$dist_signselect)/2), digits = 3))) +
-      theme_darkgray() +
-      theme(axis.text = element_text(size=12))
-    }
-    else if(input$dist_hypselect=="Larger than"){
-      ggplot(NULL, aes(c(-4,4))) +
-        geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                  xlim = c(-4,stats::qnorm(1-(as.numeric(input$dist_signselect)))), color = "black") +
-        geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                  xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect))),4), color = "black") +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                   size=1.5) +
-        annotate("segment", x = -3.99, xend = stats::qnorm(1-as.numeric(input$dist_signselect)),
-                 y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
-                 size = 1.5, color = "grey15") +
-        annotate("text", x=0, hjust = 1,
-                 y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
-                 color="grey15", fontface = "bold") +
-        labs(x = "", y = "Density",
-             title = paste0("Normal distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than): ",
-                            round(stats::qnorm(1-as.numeric(input$dist_signselect)), digits = 3))) +
-        theme_darkgray() +
-        theme(axis.text = element_text(size=12))
-    }
-    else if(input$dist_hypselect=="Smaller than"){
-      ggplot(NULL, aes(c(-4,4))) +
-        geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                  xlim = c(-4,stats::qnorm((as.numeric(input$dist_signselect)))), color = "black") +
-        geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                  xlim = c(stats::qnorm((as.numeric(input$dist_signselect))),4), color = "black") +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                   size=1.5) +
-        annotate("segment", x = 3.99, xend = stats::qnorm(as.numeric(input$dist_signselect)),
-                 y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
-                 size = 1.5, color = "grey15") +
-        annotate("text", x=0, hjust = 0,
-                 y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
-                 color="grey15", fontface = "bold") +
-        labs(x = "", y = "Density",
-             title = paste0("Normal distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than): ",
-                            round(stats::qnorm(as.numeric(input$dist_signselect)), digits = 3))) +
-        theme_darkgray() +
-        theme(axis.text = element_text(size=12))
-    }
-
-  }else if(input$dist_distselect=="t"){
-    shinyjs::enable(id = "dist_dfselect")
-    shinyjs::enable(id = "dist_hypselect")
-    if(input$dist_hypselect=="Two-sided"){
-
-      ggplot(NULL, aes(c(-4,4))) +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
-                  xlim = c((stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)))-5,
-                           stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
-                  xlim = c(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                           stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
-                  xlim = c(stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                           stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))+5), color = "black") +
-        annotate("segment", x = stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                 xend = stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                 y = stats::dt(qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
-                 yend = stats::dt(-qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
-                 size = 1.5, color = "grey15") +
-        annotate("text", x=0, y=stats::dt(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
-                 label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                   size=1.5) +
-        labs(x = "", y = "Density",
-             title = paste0("t-distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided; df = ",as.numeric(input$dist_dfselect),"): ",
-                            round(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), digits = 3)," & ",
-                            round(stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), digits = 3))) +
-        theme_darkgray() +
-        theme(axis.text = element_text(size=12))
-    }
-    else if(input$dist_hypselect=="Larger than"){
-      ggplot(NULL, aes(c(-4,4))) +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
-                  xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
-                           stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
-                  xlim = c(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                           stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
-        annotate("segment", x = (stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-4.99,
-                 xend = stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                 y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
-                 yend = stats::dt(-stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
-                 size = 1.5, color = "grey15") +
-        annotate("text", x=0, hjust=1,
-                 y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
-                 label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                   size=1.5) +
-        labs(x = "", y = "Density",
-             title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than; df = ",as.numeric(input$dist_dfselect),"): ",
-                            round(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
-        theme_darkgray() +
-        theme(axis.text = element_text(size=12))
-    }
-    else if(input$dist_hypselect=="Smaller than"){
-      ggplot(NULL, aes(c(-4,4))) +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
-                  xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
-                           stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
-        geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
-                  xlim = c(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                           stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
-        annotate("segment", x = (stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))+4.99,
-                 xend = stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                 y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
-                 yend = stats::dt(-stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
-                 size = 1.5, color = "grey15") +
-        annotate("text", x=0, hjust=0,
-                 y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
-                 label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                   size=1.5) +
-        labs(x = "", y = "Density",
-             title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than; df = ",as.numeric(input$dist_dfselect),"): ",
-                            round(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
-        theme_darkgray() +
-        theme(axis.text = element_text(size=12))
-    }
-
-  }else if(input$dist_distselect=="Chi-squared"){
-    shinyjs::enable(id = "dist_dfselect")
-    shinyjs::disable(id = "dist_hypselect")
-
-    ggplot(NULL, aes(c(0,5))) +
-      geom_area(stat = "function", fun = stats::dchisq, fill = "#d3d3d3", color = "black",
-                xlim = c(0, stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
-                args = list(df=as.numeric(input$dist_dfselect))) +
-      geom_area(stat = "function", fun = stats::dchisq, fill = "#b34e24", color = "black",
-                xlim = c(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                         stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+.5*stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
-                args = list(df=as.numeric(input$dist_dfselect))) +
-      geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
-                 size=1.5) +
-      annotate("segment", arrow = arrow(ends = "both"), size = 1.5, color = "grey15",
-               x = 0, xend = stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-               y = stats::dchisq(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df = as.numeric(input$dist_dfselect)),
-               yend = stats::dchisq(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df = as.numeric(input$dist_dfselect))) +
-      labs(y = "Density",
-           caption = paste0("Gray arrow indicates ",100*(1-as.numeric(input$dist_signselect))," % of data"),
-           title = paste0("Critical value = ",round(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),digits = 3),
-                          " for df=",as.numeric(input$dist_dfselect)," and a ",as.numeric(input$dist_signselect)," level of confidence")) +
-      xlab(~ paste(chi ^ 2, "-value")) +
-      theme_darkgray() +
-      theme(axis.text = element_text(size=14))
-  }
   })
 
-# p-value calculator: Adjust UI to selected distribution
-observeEvent(input$p_dist,{
-  if(input$p_dist=="t"){
-    shinyjs::enable("p_dfselect")
-    shinyjs::enable("p_hyp")
-  }else if(input$p_dist=="Chi-squared"){
-    shinyjs::disable("p_hyp")
-    shinyjs::enable("p_dfselect")
-  }else {
-    shinyjs::disable("p_dfselect")
-    shinyjs::enable("p_hyp")
-  }
-})
 
-# p-value calculator: Calculate
-observeEvent(input$p_valselect,{
+  # Central Limit Theorem - population data
+  observeEvent(input$button_pop,{
+    shinyjs::enable("button_clt")
+    shinyjs::enable("clt_reveal")
 
-output$p_value <- renderText({
-  if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Two-sided"){
-    paste0("Your p-value: ",format.pval(2 * stats::pnorm(q = abs(input$p_valselect), lower.tail = F),
-                digits = 3,
-                eps = 0.001))
-  }else if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Larger-than"){
-    paste0("Your p-value: ",format.pval(stats::pnorm(q = input$p_valselect, lower.tail = F),
-                digits = 3,
-                eps = 0.001))
-  }else if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Smaller-than"){
-    paste0("Your p-value: ",format.pval(stats::pnorm(q = input$p_valselect, lower.tail = T),
-                digits = 3,
-                eps = 0.001))
-  }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Two-sided"){
-    paste0("Your p-value: ",format.pval(2 * stats::pt(q = abs(input$p_valselect), lower.tail = F,df=input$p_dfselect),
-                digits = 3,
-                eps = 0.001))
-  }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Larger-than"){
-    paste0("Your p-value: ",format.pval(stats::pt(q = input$p_valselect, lower.tail = F, df=input$p_dfselect),
-                digits = 3,
-                eps = 0.001))
-  }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Smaller-than"){
-    paste0("Your p-value: ",format.pval(stats::pt(q = input$p_valselect, lower.tail = T, df=input$p_dfselect),
-                digits = 3,
-                eps = 0.001))
-  }else if(!is.na(input$p_valselect) & input$p_dist=="Chi-squared"){
-    paste0("Your p-value: ",format.pval(stats::pchisq(q=input$p_valselect,df=input$p_dfselect,lower.tail = F),
-                digits = 3,
-                eps = 0.001))
-  }
+    set.seed(NULL)
+    lambda <- sample(seq(1,10,1),
+                     1,
+                     replace = F)
+
+    pois <- 10*stats::rpois(100,lambda)
+
+    vals$cltpop <- sample(pois[which(pois<=100)], 2000, replace = T)
 
 
-})
-})
+    vals$cltdata <- data.frame(pop = vals$cltpop,
+                               idno = seq(1,length(vals$cltpop),1))
 
-# t-test - data
-observeEvent(input$tt_sim,{
-  enable("tt_solution")
-set.seed(NULL)
-n_1 <- format(sample(seq(75,150,1),1), nsmall = 0) # "sample" sizes
-n_2 <- format(sample(seq(75,150,1),1), nsmall = 0)
+    # "True" population - plot
+    output$clt_popplot <- renderPlot({
 
-m_1 <- sample(seq(100,500,.1),1)
-m_2 <- sample(c(m_1 + sample(seq(0.3,92.17,.1),1),
-                m_1 - sample(seq(0.3,92.17,.1),1)),
-              1)
-format(m_1, nsmall = 1)
-format(m_2, nsmall = 1)
+      if(input$clt_reveal=="Yes"){
+        vals$cltdata %>%
+          group_by(pop) %>%
+          summarize(n = n()) %>%
+          ggplot(aes(x=pop,y=n)) +
+          geom_bar(stat = "identity", fill = "#d3d3d3") +
+          geom_vline(xintercept = mean(vals$cltpop), color = "#b34e24", size = 1.25) +
+          scale_x_continuous(breaks = seq(10,100,10),
+                             limits = c(5,105)) +
+          labs(x = "''How happy are you?''",
+               y = "Observations",
+               title = "The 'true' population with our target: the population mean",
+               caption = paste0("The orange line indicates the 'true' population mean: ",round(mean(vals$cltpop), digits = 2))) +
+          theme_darkgray()
+      }else{
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_text(label = "?", color = "#d3d3d3",size = 40,
+                    aes(y = 2, x = 55)) +
+          scale_x_continuous(limits = c(5,105),
+                             breaks = seq(10,100,10)) +
+          theme_darkgray() +
+          labs(title = "The true population data (still unknown!)",
+               x = "''How happy are you?''",
+               y = "Observations") +
+          theme(axis.text.y = element_text(color = "#343e48"))
+      }
+    })
+  })
 
-sd_1 <- sample(seq(75,225,.1),1) # "sample" SDs
-sd_2 <- sd_1 + round(runif(1),digits = 1)
-format(sd_1, nsmall = 1)
-format(sd_2, nsmall = 1)
+  # Simulation graph, CLT
+  observeEvent(input$button_clt,{
 
-vals$mat <- isolate(matrix(data = c(n_1,n_2,m_1,m_2,sd_1,sd_2),
-              nrow = 2,byrow = F))
-colnames(vals$mat) <- c("Observations","Mean","Standard deviation")
-rownames(vals$mat) <- c("Group 1", "Group 2")
+    if(input$clt_samples>=10000){
+      showModal(modalDialog("Simulation is running, please wait...", footer=NULL))
+    }
 
-output$tt_table <- renderTable({
-  vals$mat
-},align = c('c'), rownames = T, colnames = T)
+    # Simulate repeat sampling
+    vals$means <- sapply(seq(1,input$clt_samples,1),
+                         function(x){
+                           sample <- sample(vals$cltpop,
+                                            size = input$clt_size,
+                                            replace = F)
+                           return(mean(sample))
+                         })
 
-})
+    isolate(sims <- data.frame(means = vals$means,
+                               draws = seq(1,length(vals$means),1)))
 
-# t-test - solution
-observeEvent(input$tt_solution,{
+    if(input$clt_samples>=10000){
+      removeModal()
+    }
 
-# Calculation
+    output$clt_distPlot <- renderPlot({
+      p <- sims %>%
+        ggplot(mapping = aes(x=means)) +
+        geom_bar(stat = "count",
+                 width = 1, fill = "#d3d3d3") +
+        geom_vline(xintercept = mean(sims$means),
+                   color = "#b34e24", size = 1.25, linetype = "dashed") +
+        ylab("Number of samples") +
+        xlab("Sample mean(s)") +
+        labs(title = "Our measurement(s) of the population mean: Light gray line(s)",
+             caption = paste0("The orange dashed line indicates the average measurement: ",round(mean(sims$means), digits = 2))) +
+        scale_x_continuous(limits = c(5,105),
+                           breaks = seq(10,100,10)) +
+        theme_darkgray()
 
-t_m1 <- as.numeric(vals$mat[1,2])
-t_m2 <- as.numeric(vals$mat[2,2])
+      if(input$clt_samples<30){
+        p <- p + scale_y_continuous(breaks = function(x) seq(ceiling(x[1]), floor(x[2]), by = 1))
+      }
+      p
+    })
+  })
 
-t_n1 <- as.numeric(vals$mat[1,1])
-t_n2 <- as.numeric(vals$mat[2,1])
+  # Simulation graph, CI (based on: EV Nordheim, MK Clayton & BS Yandell, Appendix)
+  set.seed(42)
+  vals$cipop <- 10*sample(seq(1,10,1),
+                          125,
+                          replace = T,
+                          prob = c(.02,.20,.29,.13,.10,.09,.09,.04,.03,0.01))
 
-t_sd1 <- as.numeric(vals$mat[1,3])
-t_sd2 <- as.numeric(vals$mat[2,3])
+  observeEvent(input$ci_size,{
+    # Sampling
+    n.draw <- input$ci_size
+    mu <- mean(vals$cipop)
+    n <- 125
+    SD <- sd(vals$cipop)
 
-ttdiff <- as.numeric(vals$mat[1,2]) - as.numeric(vals$mat[2,2]) # difference
+    rm(.Random.seed, envir=globalenv())
+    draws <-matrix(rnorm(n.draw * n, mu, SD), n)
 
-tt_se <- sqrt(((as.numeric(vals$mat[1,1])-1)*as.numeric(vals$mat[1,3])^2 + (as.numeric(vals$mat[2,1])-1)*as.numeric(vals$mat[2,3])^2)/(as.numeric(vals$mat[1,1]) + as.numeric(vals$mat[2,1]) - 2)) * sqrt((1/as.numeric(vals$mat[1,1])) + (1/as.numeric(vals$mat[2,1])))
+    observeEvent(input$ci_level,{
+      cl <- as.numeric(input$ci_level)
+      vals$conf.int  <-  as.data.frame(t(apply(draws, 2, function(x){
+        t.test(x,conf.level = cl)$conf.int
+      })))
 
-tt_tval <- round(ttdiff/tt_se, digits = 2)
+      output$ci_plot <- renderPlot({
 
-tt_df <- as.numeric(vals$mat[1,1]) + as.numeric(vals$mat[2,1]) - 2
+        # For integer breaks (from https://joshuacook.netlify.app/post/integer-values-ggplot-axis/)
+        integer_breaks <- function(n = 5, ...) {
+          fxn <- function(x) {
+            breaks <- floor(pretty(x, n, ...))
+            names(breaks) <- attr(breaks, "labels")
+            breaks
+          }
+          return(fxn)
+        }
 
-tt_pval <- format.pval(2*pt(abs(tt_tval), df = tt_df,
-                lower.tail = F),
-                digits = 3,eps = 0.001)
+        if(n.draw==1){
+          auttit <- paste0("Confidence interval from ",n.draw," simulated study")
+        } else {
+          auttit <- paste0("Confidence intervals from ",n.draw," simulated studies")
+        }
 
-tt_pval_sm <- format.pval(pt(tt_tval, df = tt_df,
-                 lower.tail = T),
-                 digits = 3,eps = 0.001)
+        vals$conf.int %>%
+          mutate(round = seq(1:n.draw)) %>%
+          ggplot(aes(y = round, xmin = V1,xmax = V2)) +
+          geom_linerange(color = "#d3d3d3", size = 1.25) +
+          geom_vline(xintercept = mu, color = "#b34e24",
+                     size = 1.5) +
+          scale_y_continuous(breaks = integer_breaks()) +
+          labs(x = "''How happy are you?''", y = "Study No.",
+               caption = "The orange line indicates the TRUE population mean.",
+               title = auttit) +
+          theme_darkgray() +
+          theme(panel.grid.major = element_blank(),
+                plot.title = element_text(hjust = 0),
+                plot.caption = element_text(hjust = 1))
 
-tt_pval_la <- format.pval(pt(tt_tval, df = tt_df,
-                 lower.tail = F),
-                 digits = 3,eps = 0.001)
 
-# Brief solution
-output$tt_result_brief <- renderUI({
-    HTML(paste0("The difference between the two group means is: ",t_m1," - ",t_m2," = ",round(ttdiff,digits = 1),".\n
+      })
+    })
+  })
+
+
+  # Statistical distributions
+  output$distplot <- renderPlot({
+
+    if(input$dist_distselect=="Normal"){
+      shinyjs::disable(id = "dist_dfselect")
+      shinyjs::enable(id = "dist_hypselect")
+      if(input$dist_hypselect=="Two-sided"){
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
+                    xlim = c(-4, stats::qnorm(as.numeric(input$dist_signselect)/2)), color = "black") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
+                    xlim = c(stats::qnorm(as.numeric(input$dist_signselect)/2),stats::qnorm(1-(as.numeric(input$dist_signselect)/2))), color = "black") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
+                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect)/2)),4), color = "black") +
+          # annotate("segment", x = stats::qnorm(as.numeric(input$dist_signselect)/2), xend = stats::qnorm(1-as.numeric(input$dist_signselect)/2),
+          #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2)), yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)/2)), arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
+          #          color="grey15", fontface = "bold") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          labs(x = "", y = "Density",
+               title = paste0("Normal distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided): ",
+                              round(stats::qnorm(as.numeric(input$dist_signselect)/2), digits = 3)," & ",
+                              round(stats::qnorm(1-as.numeric(input$dist_signselect)/2), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+      else if(input$dist_hypselect=="Larger than"){
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
+                    xlim = c(-4,stats::qnorm(1-(as.numeric(input$dist_signselect)))), color = "black") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
+                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect))),4), color = "black") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          # annotate("segment", x = -3.99, xend = stats::qnorm(1-as.numeric(input$dist_signselect)),
+          #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, hjust = 1,
+          #          y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
+          #          color="grey15", fontface = "bold") +
+          labs(x = "", y = "Density",
+               title = paste0("Normal distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than): ",
+                              round(stats::qnorm(1-as.numeric(input$dist_signselect)), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+      else if(input$dist_hypselect=="Smaller than"){
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
+                    xlim = c(-4,stats::qnorm((as.numeric(input$dist_signselect)))), color = "black") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
+                    xlim = c(stats::qnorm((as.numeric(input$dist_signselect))),4), color = "black") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          # annotate("segment", x = 3.99, xend = stats::qnorm(as.numeric(input$dist_signselect)),
+          #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, hjust = 0,
+          #          y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
+          #          color="grey15", fontface = "bold") +
+          labs(x = "", y = "Density",
+               title = paste0("Normal distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than): ",
+                              round(stats::qnorm(as.numeric(input$dist_signselect)), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+
+    }else if(input$dist_distselect=="t"){
+      shinyjs::enable(id = "dist_dfselect")
+      shinyjs::enable(id = "dist_hypselect")
+      if(input$dist_hypselect=="Two-sided"){
+
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                    xlim = c((stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)))-5,
+                             stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+                    xlim = c(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
+                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                    xlim = c(stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
+                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))+5), color = "black") +
+          # annotate("segment", x = stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
+          #          xend = stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
+          #          y = stats::dt(qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
+          #          yend = stats::dt(-qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, y=stats::dt(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
+          #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          labs(x = "", y = "Density",
+               title = paste0("t-distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided; df = ",as.numeric(input$dist_dfselect),"): ",
+                              round(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), digits = 3)," & ",
+                              round(stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+      else if(input$dist_hypselect=="Larger than"){
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+                    xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                    xlim = c(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
+          # annotate("segment", x = (stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-4.99,
+          #          xend = stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+          #          y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
+          #          yend = stats::dt(-stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, hjust=1,
+          #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
+          #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          labs(x = "", y = "Density",
+               title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than; df = ",as.numeric(input$dist_dfselect),"): ",
+                              round(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+      else if(input$dist_hypselect=="Smaller than"){
+        ggplot(NULL, aes(c(-4,4))) +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                    xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
+                             stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+                    xlim = c(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
+          # annotate("segment", x = (stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))+4.99,
+          #          xend = stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+          #          y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
+          #          yend = stats::dt(-stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)), arrow = arrow(ends='both'),
+          #          size = 1.5, color = "grey15") +
+          # annotate("text", x=0, hjust=0,
+          #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
+          #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                     size=1.5) +
+          labs(x = "", y = "Density",
+               title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than; df = ",as.numeric(input$dist_dfselect),"): ",
+                              round(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
+          theme_darkgray() +
+          theme(axis.text = element_text(size=12))
+      }
+
+    }else if(input$dist_distselect=="Chi-squared"){
+      shinyjs::enable(id = "dist_dfselect")
+      shinyjs::disable(id = "dist_hypselect")
+
+      ggplot(NULL, aes(c(0,5))) +
+        geom_area(stat = "function", fun = stats::dchisq, fill = "#d3d3d3", color = "black",
+                  xlim = c(0, stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
+                  args = list(df=as.numeric(input$dist_dfselect))) +
+        geom_area(stat = "function", fun = stats::dchisq, fill = "#b34e24", color = "black",
+                  xlim = c(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+                           stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+.5*stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
+                  args = list(df=as.numeric(input$dist_dfselect))) +
+        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+                   size=1.5) +
+        # annotate("segment", arrow = arrow(ends = "both"), size = 1.5, color = "grey15",
+        #          x = 0, xend = stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
+        #          y = stats::dchisq(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df = as.numeric(input$dist_dfselect)),
+        #          yend = stats::dchisq(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df = as.numeric(input$dist_dfselect))) +
+        labs(y = "Density",
+             #caption = paste0("Gray arrow indicates ",100*(1-as.numeric(input$dist_signselect))," % of data"),
+             title = paste0("Critical value = ",round(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),digits = 3),
+                            " for df=",as.numeric(input$dist_dfselect)," and a ",as.numeric(input$dist_signselect)," level of confidence")) +
+        xlab(~ paste(chi ^ 2, "-value")) +
+        theme_darkgray() +
+        theme(axis.text = element_text(size=14))
+    }
+  })
+
+  # p-value calculator: Adjust UI to selected distribution
+  observeEvent(input$p_dist,{
+    if(input$p_dist=="t"){
+      shinyjs::enable("p_dfselect")
+      shinyjs::enable("p_hyp")
+    }else if(input$p_dist=="Chi-squared"){
+      shinyjs::disable("p_hyp")
+      shinyjs::enable("p_dfselect")
+    }else {
+      shinyjs::disable("p_dfselect")
+      shinyjs::enable("p_hyp")
+    }
+  })
+
+  # p-value calculator: Calculate
+  observeEvent(input$p_valselect,{
+
+    output$p_value <- renderText({
+      if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Two-sided"){
+        paste0("Your p-value: ",format.pval(2 * stats::pnorm(q = abs(input$p_valselect), lower.tail = F),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Larger-than"){
+        paste0("Your p-value: ",format.pval(stats::pnorm(q = input$p_valselect, lower.tail = F),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(input$p_dist=="Normal" & !is.na(input$p_valselect) & input$p_hyp=="Smaller-than"){
+        paste0("Your p-value: ",format.pval(stats::pnorm(q = input$p_valselect, lower.tail = T),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Two-sided"){
+        paste0("Your p-value: ",format.pval(2 * stats::pt(q = abs(input$p_valselect), lower.tail = F,df=input$p_dfselect),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Larger-than"){
+        paste0("Your p-value: ",format.pval(stats::pt(q = input$p_valselect, lower.tail = F, df=input$p_dfselect),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(!is.na(input$p_valselect) & input$p_dist=="t" & input$p_hyp=="Smaller-than"){
+        paste0("Your p-value: ",format.pval(stats::pt(q = input$p_valselect, lower.tail = T, df=input$p_dfselect),
+                                            digits = 3,
+                                            eps = 0.001))
+      }else if(!is.na(input$p_valselect) & input$p_dist=="Chi-squared"){
+        paste0("Your p-value: ",format.pval(stats::pchisq(q=input$p_valselect,df=input$p_dfselect,lower.tail = F),
+                                            digits = 3,
+                                            eps = 0.001))
+      }
+
+
+    })
+  })
+
+  # t-test - data
+  observeEvent(input$tt_sim,{
+    enable("tt_solution")
+    set.seed(NULL)
+    n_1 <- format(sample(seq(75,150,1),1), nsmall = 0) # "sample" sizes
+    n_2 <- format(sample(seq(75,150,1),1), nsmall = 0)
+
+    m_1 <- sample(seq(100,500,.1),1)
+    m_2 <- sample(c(m_1 + sample(seq(0.3,92.17,.1),1),
+                    m_1 - sample(seq(0.3,92.17,.1),1)),
+                  1)
+    format(m_1, nsmall = 1)
+    format(m_2, nsmall = 1)
+
+    sd_1 <- sample(seq(75,225,.1),1) # "sample" SDs
+    sd_2 <- sd_1 + round(runif(1),digits = 1)
+    format(sd_1, nsmall = 1)
+    format(sd_2, nsmall = 1)
+
+    vals$mat <- isolate(matrix(data = c(n_1,n_2,m_1,m_2,sd_1,sd_2),
+                               nrow = 2,byrow = F))
+    colnames(vals$mat) <- c("Observations","Mean","Standard deviation")
+    rownames(vals$mat) <- c("Group 1", "Group 2")
+
+    output$tt_table <- renderTable({
+      vals$mat
+    },align = c('c'), rownames = T, colnames = T)
+
+  })
+
+  # t-test - solution
+  observeEvent(input$tt_solution,{
+
+    # Calculation
+
+    t_m1 <- as.numeric(vals$mat[1,2])
+    t_m2 <- as.numeric(vals$mat[2,2])
+
+    t_n1 <- as.numeric(vals$mat[1,1])
+    t_n2 <- as.numeric(vals$mat[2,1])
+
+    t_sd1 <- as.numeric(vals$mat[1,3])
+    t_sd2 <- as.numeric(vals$mat[2,3])
+
+    ttdiff <- as.numeric(vals$mat[1,2]) - as.numeric(vals$mat[2,2]) # difference
+
+    tt_se <- sqrt(((as.numeric(vals$mat[1,1])-1)*as.numeric(vals$mat[1,3])^2 + (as.numeric(vals$mat[2,1])-1)*as.numeric(vals$mat[2,3])^2)/(as.numeric(vals$mat[1,1]) + as.numeric(vals$mat[2,1]) - 2)) * sqrt((1/as.numeric(vals$mat[1,1])) + (1/as.numeric(vals$mat[2,1])))
+
+    tt_tval <- round(ttdiff/tt_se, digits = 2)
+
+    tt_df <- as.numeric(vals$mat[1,1]) + as.numeric(vals$mat[2,1]) - 2
+
+    tt_pval <- format.pval(2*pt(abs(tt_tval), df = tt_df,
+                                lower.tail = F),
+                           digits = 3,eps = 0.001)
+
+    tt_pval_sm <- format.pval(pt(tt_tval, df = tt_df,
+                                 lower.tail = T),
+                              digits = 3,eps = 0.001)
+
+    tt_pval_la <- format.pval(pt(tt_tval, df = tt_df,
+                                 lower.tail = F),
+                              digits = 3,eps = 0.001)
+
+    # Brief solution
+    output$tt_result_brief <- renderUI({
+      HTML(paste0("The difference between the two group means is: ",t_m1," - ",t_m2," = ",round(ttdiff,digits = 1),".\n
            The standard error of this difference is: ",round(tt_se, digits = 3),", and the t-value is accordingly ",format(round(tt_tval,digits = 2),nsmall=2),".",br(),br(),
-           "The corresponding p-value for a two-tailed test (whether or not the two group means are equal or not) is: ",
-           tt_pval," (df = ",tt_df,").",br(),br(),
-           "If we would instead do a one-sided test if the mean in Group 1 is ",strong("smaller")," than the mean in Group 2, the
+                  "The corresponding p-value for a two-tailed test (whether or not the two group means are equal or not) is: ",
+                  tt_pval," (df = ",tt_df,").",br(),br(),
+                  "If we would instead do a one-sided test if the mean in Group 1 is ",strong("smaller")," than the mean in Group 2, the
            p-value would be: ",tt_pval_sm,".",br(),br(),
-           "And if we would test the opposite hypothesis that the mean in Group 1 is really ",strong("larger")," than the mean in Group 2, the
+                  "And if we would test the opposite hypothesis that the mean in Group 1 is really ",strong("larger")," than the mean in Group 2, the
            corresponding one-sided p-value would be: ",tt_pval_la,"."))
-  })
+    })
 
-# Detailed solution
-output$tt_result_det <- renderUI({
-  withMathJax(paste0("The first step in calculating a difference-of-means t-test is very simple: We calculate the
+    # Detailed solution
+    output$tt_result_det <- renderUI({
+      withMathJax(paste0("The first step in calculating a difference-of-means t-test is very simple: We calculate the
               difference between the two group means: ",t_m1," - ",t_m2," = ",round(ttdiff,digits = 1),"$$ $$",
-                     "Once we have done that simple first step, things get (a bit) more serious. We now need to
+                         "Once we have done that simple first step, things get (a bit) more serious. We now need to
                      calculate the standard error of this difference - our measurement of how much 'noise' is in the data.
                      The standard error is calculated with this impressive-looking formula (which is actually less complicated that it might
                      seem at first): $$SE_{\\bar{Y}_1 - \\bar{Y}_2} = \\sqrt{\\left(\\frac{(N_{Y_1}-1)\\times s^2_{Y_1} + (N_{Y_2}-1)\\times s^2_{Y_2}}{N_{Y_1} + N_{Y_2}-2} \\right)} \\times \\sqrt{\\left(\\frac{1}{N_{Y_1}} + \\frac{1}{N_{Y_2}} \\right)}$$
@@ -1300,62 +1300,62 @@ output$tt_result_det <- renderUI({
                      The logic is similar if we do one-sided ('larger-than' or 'smaller-than') hypothesis tests. The difference is only that we then
                      consider only if our t-statistic is significantly higher ('larger-than') or lower ('smaller-than') than a single test statistic. If you go back to the 'Statistical distributions' panel
                      and play with the hypothesis option, you should see the direction of the test logic changing. Can you also see how this corresponds to different p-values you get?"))
-})
-})
+    })
+  })
 
-
-# Chi-squared test
-observeEvent(input$chi_sim,{
-  set.seed(NULL)
-  shinyjs::enable("chi_solution")
-
-# Generate data (based on: https://gsverhoeven.github.io/post/simulating-fake-data/)
-rho <- stats::runif(n=1,min = -.5,max = .5)
-
-nobs <- sample(250:750,
-               1)
-
-m_1 <- stats::runif(n=1,min = .3, max = .7)
-m_2 <- stats::runif(n=1,min = .3, max = .7)
-
-cov.mat <- matrix(c(1,rho,rho,1),
-                  nrow = 2)
-
-vals$dfdat <- data.frame(MASS::mvrnorm(n=nobs,
-                               mu = c(0,0),
-                               Sigma = cov.mat))
-
-vals$dfdat$B1 <- ifelse(vals$dfdat$X1 <qnorm(m_1),1,0)
-vals$dfdat$B2 <- ifelse(vals$dfdat$X2 <qnorm(m_2),1,0)
-
-dftab <- table(vals$dfdat$B1,vals$dfdat$B2)
-rownames(dftab) <- c("Prefers chocolate","Prefers vanilla")
-colnames(dftab) <- c("Morning person","Night person")
-dftab <- stats::addmargins(dftab)
-
-
-# Generate table
-output$chitab <- renderTable({
-  as.data.frame.matrix(dftab)
-},rownames = T, digits = 0)
-
-})
-
-observeEvent(input$chi_solution,{
 
   # Chi-squared test
-chires <- stats::chisq.test(table(vals$dfdat$B1,vals$dfdat$B2),
-                     correct = F)
+  observeEvent(input$chi_sim,{
+    set.seed(NULL)
+    shinyjs::enable("chi_solution")
 
-# Brief solution
-output$chires_brief <- renderUI({
-  HTML(paste0("The &#x1D6D8;<sup>2</sup> value is ",chival,". At 1 degree
+    # Generate data (based on: https://gsverhoeven.github.io/post/simulating-fake-data/)
+    rho <- stats::runif(n=1,min = -.5,max = .5)
+
+    nobs <- sample(250:750,
+                   1)
+
+    m_1 <- stats::runif(n=1,min = .3, max = .7)
+    m_2 <- stats::runif(n=1,min = .3, max = .7)
+
+    cov.mat <- matrix(c(1,rho,rho,1),
+                      nrow = 2)
+
+    vals$dfdat <- data.frame(MASS::mvrnorm(n=nobs,
+                                           mu = c(0,0),
+                                           Sigma = cov.mat))
+
+    vals$dfdat$B1 <- ifelse(vals$dfdat$X1 <qnorm(m_1),1,0)
+    vals$dfdat$B2 <- ifelse(vals$dfdat$X2 <qnorm(m_2),1,0)
+
+    dftab <- table(vals$dfdat$B1,vals$dfdat$B2)
+    rownames(dftab) <- c("Prefers chocolate","Prefers vanilla")
+    colnames(dftab) <- c("Morning person","Night person")
+    dftab <- stats::addmargins(dftab)
+
+
+    # Generate table
+    output$chitab <- renderTable({
+      as.data.frame.matrix(dftab)
+    },rownames = T, digits = 0)
+
+  })
+
+  observeEvent(input$chi_solution,{
+
+    # Chi-squared test
+    chires <- stats::chisq.test(table(vals$dfdat$B1,vals$dfdat$B2),
+                                correct = F)
+
+    # Brief solution
+    output$chires_brief <- renderUI({
+      HTML(paste0("The &#x1D6D8;<sup>2</sup> value is ",chival,". At 1 degree
               of freedom, this corresponds to a <i>p</i>-value of ",format.pval(pchisq(chival,df=1,lower.tail=F),digits=3,eps=0.001),"."))
-})
+    })
 
-# Detailed solution
-output$chires_det1 <- renderUI({
-  HTML(paste0("<p>As you know, the &#x1D6D8;<sup>2</sup> test is in essence nothing more than a test
+    # Detailed solution
+    output$chires_det1 <- renderUI({
+      HTML(paste0("<p>As you know, the &#x1D6D8;<sup>2</sup> test is in essence nothing more than a test
               if the distribution we observe in our table is significantly different from one that we
               would <strong>expect</strong> if there was in reality no relationship between the two
               variables. In other words: Do our observed frequences differ significantly from those
@@ -1363,24 +1363,24 @@ output$chires_det1 <- renderUI({
               We have, of course, the observed frequences &mdash; now we need to calculate the expected
               frequencies. To do so, we first translate our frequency table into one that shows
               column percentages:"))
-})
+    })
 
-# Prob table
-chitab <- table(vals$dfdat$B1,vals$dfdat$B2)
-chitab <- cbind(chitab,chitab[,1]+chitab[,2]) # adding column sum
+    # Prob table
+    chitab <- table(vals$dfdat$B1,vals$dfdat$B2)
+    chitab <- cbind(chitab,chitab[,1]+chitab[,2]) # adding column sum
 
-chiprob <- 100*prop.table(chitab,2)
-chiprob <- stats::addmargins(chiprob,1)
-rownames(chiprob) <- c("Prefers chocolate","Prefers vanilla","Sum")
-colnames(chiprob) <- c("Morning person","Night person","Sum")
+    chiprob <- 100*prop.table(chitab,2)
+    chiprob <- stats::addmargins(chiprob,1)
+    rownames(chiprob) <- c("Prefers chocolate","Prefers vanilla","Sum")
+    colnames(chiprob) <- c("Morning person","Night person","Sum")
 
 
-output$chiprob <- renderTable({
-  as.data.frame.matrix(chiprob)
-},rownames = T, digits = 1)
+    output$chiprob <- renderTable({
+      as.data.frame.matrix(chiprob)
+    },rownames = T, digits = 1)
 
-output$chires_det2 <- renderUI({
-  HTML(paste0("<p>Once we have this, we focus on the third column ('Sum') in this new table. This column
+    output$chires_det2 <- renderUI({
+      HTML(paste0("<p>Once we have this, we focus on the third column ('Sum') in this new table. This column
        shows the <i>baseline</i> probabilities of preferring chocolate or vanilla in our sample.
        <strong>Important:</strong> If there was no relationship in our data, then we would expect that everyone's
        probability to prefer either taste simply corresponds to this baseline. For example,
@@ -1390,29 +1390,29 @@ output$chires_det2 <- renderUI({
               these to calculate our expected frequencies. To do so, we take first the overall number of night persons
               and multiply it by the two baseline probabilities (which we first converted to a range between 0 and 1) for liking chocolate and vanilla. Then we do the same
               with the overall number of morning persons. The table below shows this calculation:</p>"))
-})
+    })
 
-# E calculation table
-baseprobs <- chiprob[,3]/100
-chifreq <- c(chitab[1,1]+chitab[2,1],chitab[1,2]+chitab[2,2])
+    # E calculation table
+    baseprobs <- chiprob[,3]/100
+    chifreq <- c(chitab[1,1]+chitab[2,1],chitab[1,2]+chitab[2,2])
 
-exfreq <- data.frame(morn = c(paste0(round(baseprobs[1],digits = 3)," x ",chifreq[1]," = ",round(baseprobs[1]*chifreq[1],digits = 1)),
-                          paste0(round(baseprobs[2],digits = 3)," x ",chifreq[1]," = ",round(baseprobs[2]*chifreq[1],digits = 1))),
-                 nigh = c(paste0(round(baseprobs[1],digits = 3)," x ",chifreq[2]," = ",round(baseprobs[1]*chifreq[2],digits = 1)),
-                          paste0(round(baseprobs[2],digits = 3)," x ",chifreq[2]," = ",round(baseprobs[2]*chifreq[2],digits = 1))))
-row.names(exfreq) <- c("Prefers chocolate","Prefers vanilla")
-
-
-output$extab_calc <- renderTable({
-  exfreq
-}, rownames = T, include.colnames = F,
-add.to.row = list(pos = list(0),
-                  command = " <tr> <th> </th><th> Morning person </th><th> Night person </th> </tr>"))
+    exfreq <- data.frame(morn = c(paste0(round(baseprobs[1],digits = 3)," x ",chifreq[1]," = ",round(baseprobs[1]*chifreq[1],digits = 1)),
+                                  paste0(round(baseprobs[2],digits = 3)," x ",chifreq[1]," = ",round(baseprobs[2]*chifreq[1],digits = 1))),
+                         nigh = c(paste0(round(baseprobs[1],digits = 3)," x ",chifreq[2]," = ",round(baseprobs[1]*chifreq[2],digits = 1)),
+                                  paste0(round(baseprobs[2],digits = 3)," x ",chifreq[2]," = ",round(baseprobs[2]*chifreq[2],digits = 1))))
+    row.names(exfreq) <- c("Prefers chocolate","Prefers vanilla")
 
 
-# Calculating chi-square value
-output$chicalc <- renderUI({
-  withMathJax(paste0("Almost done with the tedious part! Next, we can calculate the test statistic using
+    output$extab_calc <- renderTable({
+      exfreq
+    }, rownames = T, include.colnames = F,
+    add.to.row = list(pos = list(0),
+                      command = " <tr> <th> </th><th> Morning person </th><th> Night person </th> </tr>"))
+
+
+    # Calculating chi-square value
+    output$chicalc <- renderUI({
+      withMathJax(paste0("Almost done with the tedious part! Next, we can calculate the test statistic using
                      the following formula:
                      $$\\chi^2 = \\sum\\frac{(O - E)^2}{E}$$
                      which means nothing more than we go over each of the cells in the table, subtract the
@@ -1429,165 +1429,165 @@ output$chicalc <- renderUI({
                      ",round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3),"$$
                      ...and finally:
                      $$\\chi^2 = ",round((chitab[1,1] - round(baseprobs[1]*chifreq[1],digits = 1))^2/round(baseprobs[1]*chifreq[1],digits = 1),digits=3)+
-                       round((chitab[1,2]-round(baseprobs[1]*chifreq[2],digits = 1))^2/round(baseprobs[1]*chifreq[2],digits = 1),digits=3)+
-                       round((chitab[2,1]-round(baseprobs[2]*chifreq[1],digits = 1))^2/round(baseprobs[2]*chifreq[1],digits = 1), digits = 3)+
-                       round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3),"$$
+                           round((chitab[1,2]-round(baseprobs[1]*chifreq[2],digits = 1))^2/round(baseprobs[1]*chifreq[2],digits = 1),digits=3)+
+                           round((chitab[2,1]-round(baseprobs[2]*chifreq[1],digits = 1))^2/round(baseprobs[2]*chifreq[1],digits = 1), digits = 3)+
+                           round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3),"$$
                      Now that we have the result, how do we interpret it? There are two options. First, we can compare this value to the critical value for 1 degree of freedom and a given level of significance in the
                      'Statistical distributions' panel. If our test score is higher than the critical value (i.e., if it falls into the orange area or even further out), then we conclude
                      that there is a statistically significant relationship in the data. Alternatively,
                      we can compute a p-value (you can do this yourself in the 'p-value calculator' panel), which in this case is ",format(round(stats::pchisq(chival,df=1,lower.tail=F),digits=3),nsmall = 3),"."))
-})
+    })
 
-# For use above
-chival <- round((chitab[1,1] - round(baseprobs[1]*chifreq[1],digits = 1))^2/round(baseprobs[1]*chifreq[1],digits = 1),digits=3)+
-  round((chitab[1,2]-round(baseprobs[1]*chifreq[2],digits = 1))^2/round(baseprobs[1]*chifreq[2],digits = 1),digits=3)+
-  round((chitab[2,1]-round(baseprobs[2]*chifreq[1],digits = 1))^2/round(baseprobs[2]*chifreq[1],digits = 1), digits = 3)+
-  round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3)
+    # For use above
+    chival <- round((chitab[1,1] - round(baseprobs[1]*chifreq[1],digits = 1))^2/round(baseprobs[1]*chifreq[1],digits = 1),digits=3)+
+      round((chitab[1,2]-round(baseprobs[1]*chifreq[2],digits = 1))^2/round(baseprobs[1]*chifreq[2],digits = 1),digits=3)+
+      round((chitab[2,1]-round(baseprobs[2]*chifreq[1],digits = 1))^2/round(baseprobs[2]*chifreq[1],digits = 1), digits = 3)+
+      round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3)
 
-})
-
-
-# Correlation coefficient
-observeEvent(input$cor_sim, {
-
-  set.seed(NULL)
-  rho <- stats::runif(n=1,
-               min=-1,
-               max=1)
-
-  vals$data <- as.data.frame(MASS::mvrnorm(n=10,
-                                mu = c(0,0),
-                                Sigma = matrix(c(1,rho,rho,1),ncol = 2),
-                                empirical = T))
-
-  vals$data$X <- round((vals$data$V1 - min(vals$data$V1))*10+10, digits = 0)
-  vals$data$Y <- round((vals$data$V2 - min(vals$data$V2))*20+20, digits = 0)
-  output$tab <- renderTable(vals$data[,c("X","Y")],
-                            digits = 0,
-                            rownames = T)
-  enable("cor_solution")
-
-  output$plot <- renderPlot({
-    ggplot(vals$data,aes(x=X,y=Y)) +
-      geom_point(color = "#d3d3d3", size = 3, shape = 4, stroke = 2) +
-      geom_smooth(method='lm',se=F,color="#b34e24",linetype="dashed") + #
-      theme_darkgray()
   })
 
-})
 
-observeEvent(input$cor_solution,{
+  # Correlation coefficient
+  observeEvent(input$cor_sim, {
 
-# Simple solution
-res <- isolate(round(stats::cor(vals$data$X,vals$data$Y,
-                         method = "pearson"),digits=2))
+    set.seed(NULL)
+    rho <- stats::runif(n=1,
+                        min=-1,
+                        max=1)
 
-t <- round((res*sqrt(10-2))/(sqrt(1-res^2)),digits=3)
+    vals$data <- as.data.frame(MASS::mvrnorm(n=10,
+                                             mu = c(0,0),
+                                             Sigma = matrix(c(1,rho,rho,1),ncol = 2),
+                                             empirical = T))
 
-p_val <- format.pval(2 * stats::pt(abs(t), 8, lower.tail = F),digits = 3,eps = 0.001)
+    vals$data$X <- round((vals$data$V1 - min(vals$data$V1))*10+10, digits = 0)
+    vals$data$Y <- round((vals$data$V2 - min(vals$data$V2))*20+20, digits = 0)
+    output$tab <- renderTable(vals$data[,c("X","Y")],
+                              digits = 0,
+                              rownames = T)
+    enable("cor_solution")
 
-output$result <- renderText(
-  paste0("The correlation coefficient is: ",res,", and its t-value is: ",t,".\n
+    output$plot <- renderPlot({
+      ggplot(vals$data,aes(x=X,y=Y)) +
+        geom_point(color = "#d3d3d3", size = 3, shape = 4, stroke = 2) +
+        geom_smooth(method='lm',se=F,color="#b34e24",linetype="dashed") + #
+        theme_darkgray()
+    })
+
+  })
+
+  observeEvent(input$cor_solution,{
+
+    # Simple solution
+    res <- isolate(round(stats::cor(vals$data$X,vals$data$Y,
+                                    method = "pearson"),digits=2))
+
+    t <- round((res*sqrt(10-2))/(sqrt(1-res^2)),digits=3)
+
+    p_val <- format.pval(2 * stats::pt(abs(t), 8, lower.tail = F),digits = 3,eps = 0.001)
+
+    output$result <- renderText(
+      paste0("The correlation coefficient is: ",res,", and its t-value is: ",t,".\n
           The corresponding p-value (two-sided,df=n-2=8) is: ",p_val))
 
 
-# Detailed solution
-output$cor_detail1 <- renderUI({
-  withMathJax("The first step is to calculate the
+    # Detailed solution
+    output$cor_detail1 <- renderUI({
+      withMathJax("The first step is to calculate the
                           covariance between X and Y. The formula to calculate the
                           covariance is the following: $$cov_{X,Y} = \\frac{\\sum_{i=1}^n (X_i - \\bar X)(Y_i - \\bar Y)}{n - 1}$$")
-})
+    })
 
-output$cor_detail2 <- renderUI({
-  HTML("<p>You may notice some similarities between this formula and the formula for
+    output$cor_detail2 <- renderUI({
+      HTML("<p>You may notice some similarities between this formula and the formula for
                           the variance, which was covered earlier: The variance is calculated as the
                           deviation of each observation within a variable from that variable's mean divided by
                           the overall number of observations (minus 1). The calculation of the covariance is
                           similar, but we now have to do a few extra steps.</p>")
-})
+    })
 
-output$cor_detail3 <- renderUI({
-  HTML(paste0("<p>First we calculate the mean values for X and Y, which are:</p>
+    output$cor_detail3 <- renderUI({
+      HTML(paste0("<p>First we calculate the mean values for X and Y, which are:</p>
 
        <p><strong>X&#772; = ",isolate(round(mean(vals$data$X),digits = 3)),"</strong></p>
 
        <p><strong>Y&#772; = ",isolate(round(mean(vals$data$Y),digits = 3)),"</strong></p>"))
-})
+    })
 
-output$cor_detail4 <- renderUI({
-  HTML(paste0("<p>Next we calculate the deviations of each observation from the mean values.
+    output$cor_detail4 <- renderUI({
+      HTML(paste0("<p>Next we calculate the deviations of each observation from the mean values.
                   For example, for the first observation, we get the following results:</p>
 
 
               <p><strong>X<sub>1</sub> - X&#772; = ",isolate(vals$data[1,c("X")])," - ",isolate(round(mean(vals$data$X),digits = 3)), " = ",isolate(round(vals$data[1,3] - round(mean(vals$data$X),digits = 3),digits=3)),"</strong></p>
               <p><strong>Y<sub>1</sub> - Y&#772; =  ",isolate(vals$data[1,c("Y")])," - ",isolate(round(mean(vals$data$Y),digits = 3)), " = ",isolate(round(vals$data[1,4] - round(mean(vals$data$Y),digits = 3),digits=3)),
-              "</strong></p>
+                  "</strong></p>
 
               <p>The following table displays the deviations for each of the observations in our
               dataset.</p>"))
 
-})
+    })
 
-vals$cordata <- vals$data
+    vals$cordata <- vals$data
 
-  vals$cordata$meanX <- isolate(round(mean(vals$cordata$X),digits = 3))
-  vals$cordata$meanY <- isolate(round(mean(vals$cordata$Y),digits = 3))
+    vals$cordata$meanX <- isolate(round(mean(vals$cordata$X),digits = 3))
+    vals$cordata$meanY <- isolate(round(mean(vals$cordata$Y),digits = 3))
 
-  vals$cordata$deviationX <- isolate(vals$cordata[,c("X")] - round(vals$cordata[,c("meanX")],3))
-  vals$cordata$deviationY <- isolate(vals$cordata[,c("Y")] - round(vals$cordata[,c("meanY")],3))
+    vals$cordata$deviationX <- isolate(vals$cordata[,c("X")] - round(vals$cordata[,c("meanX")],3))
+    vals$cordata$deviationY <- isolate(vals$cordata[,c("Y")] - round(vals$cordata[,c("meanY")],3))
 
-output$cor_tab1 <- renderTable(vals$cordata[,c("X","Y","meanX","meanY","deviationX","deviationY")],include.colnames = F,
-                               width = "100%",hover = T,digits = 2,rownames = T,
-                               add.to.row = list(pos = list(0),
-                                                 command = " <tr> <th> </th><th>X</th><th>Y</th><th>X&#772;</th><th>Y&#772;</th><th>(X<sub>i</sub> - X&#772;)</th><th>(Y<sub>i</sub> - Y&#772;)</th></tr>"))
+    output$cor_tab1 <- renderTable(vals$cordata[,c("X","Y","meanX","meanY","deviationX","deviationY")],include.colnames = F,
+                                   width = "100%",hover = T,digits = 2,rownames = T,
+                                   add.to.row = list(pos = list(0),
+                                                     command = " <tr> <th> </th><th>X</th><th>Y</th><th>X&#772;</th><th>Y&#772;</th><th>(X<sub>i</sub> - X&#772;)</th><th>(Y<sub>i</sub> - Y&#772;)</th></tr>"))
 
-output$cor_detail5 <- renderUI({
-  HTML(paste0("<p>In the next step, we multiply the two deviation scores for each of the observations in our data.</p>
+    output$cor_detail5 <- renderUI({
+      HTML(paste0("<p>In the next step, we multiply the two deviation scores for each of the observations in our data.</p>
 
               <p>For example, if we use again the data from our first observation:</p>
 
               <p><strong>(X<sub>1</sub> - X&#772;)&#215;(Y<sub>1</sub> - Y&#772;) = ",isolate(round(vals$cordata[1,c("deviationX")],digits=3))," &#215; ",isolate(round(vals$cordata[1,c("deviationY")],digits=3))," = ",round(round(vals$cordata[1,c("deviationX")],digits=3)*round(vals$cordata[1,c("deviationY")],digits=3),digits=3),"</strong></p>
 
               <p>And, again, we show this for all observations in a table:</p>"))
-})
+    })
 
-vals$cordata$DevX_times_DevY <- round(vals$cordata[c("deviationX")],digits=3)*round(vals$cordata[c("deviationY")],digits=3)
+    vals$cordata$DevX_times_DevY <- round(vals$cordata[c("deviationX")],digits=3)*round(vals$cordata[c("deviationY")],digits=3)
 
 
-output$cor_tab2 <- renderTable(vals$cordata[,c("deviationX","deviationY","DevX_times_DevY")],
-                               include.colnames = F, digits = 2, rownames = T,width = "100%", hover = T,align = "c",
-                               add.to.row = list(pos = list(0),
-                                                 command = " <tr> <th> </th><th>(X<sub>i</sub> - X&#772;)</th><th>(Y<sub>i</sub> - Y&#772;)</th><th>(X<sub>i</sub> - X&#772;)&#215;(Y<sub>i</sub> - Y&#772;)</th></tr>"))
+    output$cor_tab2 <- renderTable(vals$cordata[,c("deviationX","deviationY","DevX_times_DevY")],
+                                   include.colnames = F, digits = 2, rownames = T,width = "100%", hover = T,align = "c",
+                                   add.to.row = list(pos = list(0),
+                                                     command = " <tr> <th> </th><th>(X<sub>i</sub> - X&#772;)</th><th>(Y<sub>i</sub> - Y&#772;)</th><th>(X<sub>i</sub> - X&#772;)&#215;(Y<sub>i</sub> - Y&#772;)</th></tr>"))
 
-output$cor_detail6 <- renderUI({
-  HTML(paste0("<strong>Almost done!</strong> Now that we have the multiplied deviation scores, we simply
+    output$cor_detail6 <- renderUI({
+      HTML(paste0("<strong>Almost done!</strong> Now that we have the multiplied deviation scores, we simply
               sum them up over all observations:</p>
 
               <p><strong> &Sigma;[(X<sub>i</sub> - X&#772;)&#215;(Y<sub>i</sub> - Y&#772;)] = ",round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3),"</strong></p>
 
               <p>Finally, we divide by the number of observations minus 1 to get the <strong>covariance: ",round(round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3)/9,digits=3),"</strong></p>"))
-})
+    })
 
-output$cor_detail7 <- renderUI({
-  withMathJax("Now we have the covariance - but we actually want the correlation! To
+    output$cor_detail7 <- renderUI({
+      withMathJax("Now we have the covariance - but we actually want the correlation! To
                        calculate the correlation coefficient (r), we take the covariance and divide
                        it by the square root of the product of the variances of the two variables:
                        $$r = \\frac{cov_{X,Y}}{\\sqrt{var_X \\times var_Y}}$$
               (The calculation of the variances is not shown here; in case you do not know or do not remember how the variance is calculated, take a look at the 'Measures of spread panel').")
-})
+    })
 
-output$cor_detail8 <- renderUI({
-  HTML(paste0("<p>In our data, <strong>the variance of X is: ",round(var(isolate(vals$cordata[,c("X")])),digits = 3),", and the variance of Y is: ",round(var(isolate(vals$cordata[,c("Y")])),digits = 3),"</strong></p>
+    output$cor_detail8 <- renderUI({
+      HTML(paste0("<p>In our data, <strong>the variance of X is: ",round(var(isolate(vals$cordata[,c("X")])),digits = 3),", and the variance of Y is: ",round(var(isolate(vals$cordata[,c("Y")])),digits = 3),"</strong></p>
 
               <p>If we now plug these values into the equation above, we get:</p>"))
-})
+    })
 
-output$cor_detail9 <- renderUI({
-  HTML(paste0("<p><strong> r = <math><mfrac><mn>",round(round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3)/9,digits=3),"</mn><msqrt><mn>",round(var(isolate(vals$cordata[,c("X")])),digits = 3),"</mn><mo>&#215;</mo><mn>",round(var(isolate(vals$cordata[,c("Y")])),digits = 3),"</mn></msqrt></mfrac></math> =",round(round(round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3)/9,digits=3)/(sqrt(round(var(isolate(vals$cordata[,c("X")])),digits = 3)*round(var(isolate(vals$cordata[,c("Y")])),digits = 3))),digits = 2),"</strong></p>"))
-})
+    output$cor_detail9 <- renderUI({
+      HTML(paste0("<p><strong> r = <math><mfrac><mn>",round(round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3)/9,digits=3),"</mn><msqrt><mn>",round(var(isolate(vals$cordata[,c("X")])),digits = 3),"</mn><mo>&#215;</mo><mn>",round(var(isolate(vals$cordata[,c("Y")])),digits = 3),"</mn></msqrt></mfrac></math> =",round(round(round(sum(vals$cordata[,c("DevX_times_DevY")]),digits=3)/9,digits=3)/(sqrt(round(var(isolate(vals$cordata[,c("X")])),digits = 3)*round(var(isolate(vals$cordata[,c("Y")])),digits = 3))),digits = 2),"</strong></p>"))
+    })
 
-output$cor_detail10 <- renderUI({
-  HTML(paste0("<p>Now that we have the correlation coefficient, we also want to know: Is this significantly different from 0? Can we really reject the null hypothesis?</p>
+    output$cor_detail10 <- renderUI({
+      HTML(paste0("<p>Now that we have the correlation coefficient, we also want to know: Is this significantly different from 0? Can we really reject the null hypothesis?</p>
 
        To perform a formal test, we calculate the <strong>t-statistic</strong> for our correlation coefficient. The formula
        for this calculation looks as follows:</p>
@@ -1597,16 +1597,16 @@ output$cor_detail10 <- renderUI({
        <p>With our values plugged into the formula, we get:</p>
 
        <p> <math> <msub><mi>t</mi><mi>r</mi></msub> <mo>=</mo>  <mfrac><mrow><mn>",isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
-                                                                                                 method = "pearson"),digits=2)),"</mn><msqrt><mn>10</mn><mo>-</mo><mn>2</mn></msqrt> </mrow> <mrow> <msqrt><mn>1</mn><mo>-</mo><msup><mn>",isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
-                                                                                                                                                                                                                                                            method = "pearson"),digits=2)),"</mn><mn>2</mn></sup></msqrt></mrow></mfrac> <mo>=</mo><mn>",
-              round(isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
-                                method = "pearson"),digits=2))*sqrt(10-2)/(sqrt(1-(isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
-                                                                                                      method = "pearson"),digits=2)))^2)),digits = 3),"</mn></math></p>
+                                                                                                            method = "pearson"),digits=2)),"</mn><msqrt><mn>10</mn><mo>-</mo><mn>2</mn></msqrt> </mrow> <mrow> <msqrt><mn>1</mn><mo>-</mo><msup><mn>",isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
+                                                                                                                                                                                                                                                                               method = "pearson"),digits=2)),"</mn><mn>2</mn></sup></msqrt></mrow></mfrac> <mo>=</mo><mn>",
+                  round(isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
+                                                 method = "pearson"),digits=2))*sqrt(10-2)/(sqrt(1-(isolate(round(stats::cor(vals$cordata$X,vals$cordata$Y,
+                                                                                                                             method = "pearson"),digits=2)))^2)),digits = 3),"</mn></math></p>
 
         <p>R tells us that the corresponding <i>p</i>-value is ",p_val,". Does this correspond to what you get if you use the 'p-value calculator'? Is the result now statistically significant or not? What do you see if you use the 'Statistical distributions' panel?</p>"))
-})
+    })
 
-})
+  })
 
 }
 

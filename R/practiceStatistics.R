@@ -12,6 +12,8 @@
 #' (the variance and standard deviation). The dashboard builds on (and can complement) Kellstedt & Whitten's
 #' 'Fundamentals of Political Science Research' (Cambridge Univ. Press, 2018).
 #'
+#' @importFrom MASS mvrnorm
+#'
 #' @examples
 #' \dontrun{
 #' practiceStatistics()
