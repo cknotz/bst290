@@ -6,30 +6,36 @@
 # Start date: Feb 22, 2021
 # First complete version: Nov 3, 2021
 
-# library(MASS)
+#library(MASS)
 library(shiny)
 library(shinydashboard)
 library(shinyWidgets)
-library(dashboardthemes)
+library(fresh)
 library(shinyjs)
 library(ggplot2)
 library(dplyr)
 library(xtable)
+
+# Color scheme for dashboard
+mydark <- create_theme(
+  adminlte_color(
+    light_blue = "#434C5E"),
+  adminlte_global())
 
 # Matching color scheme for graphs
 theme_darkgray <- function(){
 
   theme_minimal() %+replace%
 
-    theme(panel.background = element_rect(fill = "#343e48",color = "#d3d3d3"),
-          plot.background = element_rect(fill="#343e48", color = "#343e48"),
-          panel.grid.major = element_line(color="#d3d3d3", size = .1),
+    theme(panel.background = element_rect(fill = "#ffffff",color = "#d3d3d3"),
+          plot.background = element_rect(fill="#ffffff", color = "#343e48"),
+          panel.grid.major = element_line(color="#38404f", size = .1),
           panel.grid.minor = element_blank(),
-          axis.text = element_text(colour = "#d3d3d3"),
-          axis.title = element_text(color = "#d3d3d3"),
-          plot.caption = element_text(color="#d3d3d3"),
-          plot.title = element_text(color = "#d3d3d3"),
-          legend.text = element_text(color = "#d3d3d3")
+          axis.text = element_text(colour = "#38404f"),
+          axis.title = element_text(color = "#38404f"),
+          plot.caption = element_text(color="#38404f"),
+          plot.title = element_text(color = "#38404f"),
+          legend.text = element_text(color = "#38404f")
 
     )
 }
@@ -54,7 +60,7 @@ ui <- dashboardPage(
   ),
   dashboardBody(
     shinyjs::useShinyjs(),
-    shinyDashboardThemes(theme="grey_dark"),
+    fresh::use_theme(mydark),
     tags$style(type="text/css", "text {font-family: sans-serif}"),
     tags$style(type="text/css",".js-irs-0 .irs-single, .js-irs-0 .irs-bar-edge,
               .js-irs-0 .irs-bar {background: #ff9900;border-color: #ff9900;}
@@ -823,18 +829,18 @@ server <- function(input,output,session){
           group_by(pop) %>%
           summarize(n = n()) %>%
           ggplot(aes(x=pop,y=n)) +
-          geom_bar(stat = "identity", fill = "#d3d3d3") +
-          geom_vline(xintercept = mean(vals$cltpop), color = "#b34e24", size = 1.25) +
+          geom_bar(stat = "identity", fill = "#38404f") +
+          geom_vline(xintercept = mean(vals$cltpop), color = "#faa405", size = 1.25) +
           scale_x_continuous(breaks = seq(10,100,10),
                              limits = c(5,105)) +
           labs(x = "''How happy are you?''",
                y = "Observations",
-               title = "The 'true' population with our target: the population mean",
+               title = "The 'true' population data with our target: the 'true' population mean",
                caption = paste0("The orange line indicates the 'true' population mean: ",round(mean(vals$cltpop), digits = 2))) +
           theme_darkgray()
       }else{
         ggplot(NULL, aes(c(-4,4))) +
-          geom_text(label = "?", color = "#d3d3d3",size = 40,
+          geom_text(label = "?", color = "#38404f",size = 40,
                     aes(y = 2, x = 55)) +
           scale_x_continuous(limits = c(5,105),
                              breaks = seq(10,100,10)) +
@@ -874,12 +880,12 @@ server <- function(input,output,session){
       p <- sims %>%
         ggplot(mapping = aes(x=means)) +
         geom_bar(stat = "count",
-                 width = 1, fill = "#d3d3d3") +
+                 width = 1, fill = "#38404f") +
         geom_vline(xintercept = mean(sims$means),
-                   color = "#b34e24", size = 1.25, linetype = "dashed") +
+                   color = "#faa405", size = 1.25, linetype = "dashed") +
         ylab("Number of samples") +
         xlab("Sample mean(s)") +
-        labs(title = "Our measurement(s) of the population mean: Light gray line(s)",
+        labs(title = "Our measurement(s) of the population mean: dark bar(s)",
              caption = paste0("The orange dashed line indicates the average measurement: ",round(mean(sims$means), digits = 2))) +
         scale_x_continuous(limits = c(5,105),
                            breaks = seq(10,100,10)) +
@@ -936,8 +942,8 @@ server <- function(input,output,session){
         vals$conf.int %>%
           mutate(round = seq(1:n.draw)) %>%
           ggplot(aes(y = round, xmin = V1,xmax = V2)) +
-          geom_linerange(color = "#d3d3d3", size = 1.25) +
-          geom_vline(xintercept = mu, color = "#b34e24",
+          geom_linerange(color = "#38404f", size = 1) +
+          geom_vline(xintercept = mu, color = "#faa405",
                      size = 1.5) +
           scale_y_continuous(breaks = integer_breaks()) +
           labs(x = "''How happy are you?''", y = "Study No.",
@@ -962,18 +968,18 @@ server <- function(input,output,session){
       shinyjs::enable(id = "dist_hypselect")
       if(input$dist_hypselect=="Two-sided"){
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                    xlim = c(-4, stats::qnorm(as.numeric(input$dist_signselect)/2)), color = "black") +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                    xlim = c(stats::qnorm(as.numeric(input$dist_signselect)/2),stats::qnorm(1-(as.numeric(input$dist_signselect)/2))), color = "black") +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect)/2)),4), color = "black") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#faa405",
+                    xlim = c(-4, stats::qnorm(as.numeric(input$dist_signselect)/2)), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#38404f", alpha = .5,
+                    xlim = c(stats::qnorm(as.numeric(input$dist_signselect)/2),stats::qnorm(1-(as.numeric(input$dist_signselect)/2))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#faa405",
+                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect)/2)),4), color = "#38404f") +
           # annotate("segment", x = stats::qnorm(as.numeric(input$dist_signselect)/2), xend = stats::qnorm(1-as.numeric(input$dist_signselect)/2),
           #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2)), yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)/2)), arrow = arrow(ends='both'),
           #          size = 1.5, color = "grey15") +
           # annotate("text", x=0, y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
           #          color="grey15", fontface = "bold") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           labs(x = "", y = "Density",
                title = paste0("Normal distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided): ",
@@ -984,11 +990,11 @@ server <- function(input,output,session){
       }
       else if(input$dist_hypselect=="Larger than"){
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                    xlim = c(-4,stats::qnorm(1-(as.numeric(input$dist_signselect)))), color = "black") +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect))),4), color = "black") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#38404f", alpha = .5,
+                    xlim = c(-4,stats::qnorm(1-(as.numeric(input$dist_signselect)))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#faa405",
+                    xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect))),4), color = "#38404f") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           # annotate("segment", x = -3.99, xend = stats::qnorm(1-as.numeric(input$dist_signselect)),
           #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
@@ -1004,11 +1010,11 @@ server <- function(input,output,session){
       }
       else if(input$dist_hypselect=="Smaller than"){
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#b34e24",
-                    xlim = c(-4,stats::qnorm((as.numeric(input$dist_signselect)))), color = "black") +
-          geom_area(stat = "function", fun = stats::dnorm, fill = "#d3d3d3",
-                    xlim = c(stats::qnorm((as.numeric(input$dist_signselect))),4), color = "black") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#faa405",
+                    xlim = c(-4,stats::qnorm((as.numeric(input$dist_signselect)))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dnorm, fill = "#38404f",alpha = .5,
+                    xlim = c(stats::qnorm((as.numeric(input$dist_signselect))),4), color = "#38404f") +
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           # annotate("segment", x = 3.99, xend = stats::qnorm(as.numeric(input$dist_signselect)),
           #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
@@ -1029,15 +1035,15 @@ server <- function(input,output,session){
       if(input$dist_hypselect=="Two-sided"){
 
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#faa405",
                     xlim = c((stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)))-5,
-                             stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+                             stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#38405f", alpha = .5,
                     xlim = c(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "black") +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#faa405",
                     xlim = c(stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
-                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))+5), color = "black") +
+                             stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect))+5), color = "#38404f") +
           # annotate("segment", x = stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
           #          xend = stats::qt(1-as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)),
           #          y = stats::dt(qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
@@ -1045,7 +1051,7 @@ server <- function(input,output,session){
           #          size = 1.5, color = "grey15") +
           # annotate("text", x=0, y=stats::dt(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided; df = ",as.numeric(input$dist_dfselect),"): ",
@@ -1056,12 +1062,12 @@ server <- function(input,output,session){
       }
       else if(input$dist_hypselect=="Larger than"){
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#38404f", alpha = .5,
                     xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
-                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#faa405",
                     xlim = c(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "#38404f") +
           # annotate("segment", x = (stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-4.99,
           #          xend = stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
           #          y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
@@ -1070,7 +1076,7 @@ server <- function(input,output,session){
           # annotate("text", x=0, hjust=1,
           #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than; df = ",as.numeric(input$dist_dfselect),"): ",
@@ -1080,12 +1086,12 @@ server <- function(input,output,session){
       }
       else if(input$dist_hypselect=="Smaller than"){
         ggplot(NULL, aes(c(-4,4))) +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#b34e24",
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#faa405",
                     xlim = c((stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))-5,
-                             stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "black") +
-          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#d3d3d3",
+                             stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))), color = "#38404f") +
+          geom_area(stat = "function", fun = stats::dt, args = list(df=as.numeric(input$dist_dfselect)), fill = "#38404f", alpha = .5,
                     xlim = c(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
-                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "black") +
+                             stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+5), color = "#38404f") +
           # annotate("segment", x = (stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)))+4.99,
           #          xend = stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
           #          y = stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect)),
@@ -1094,7 +1100,7 @@ server <- function(input,output,session){
           # annotate("text", x=0, hjust=0,
           #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
-          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+          geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                      size=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than; df = ",as.numeric(input$dist_dfselect),"): ",
@@ -1108,14 +1114,14 @@ server <- function(input,output,session){
       shinyjs::disable(id = "dist_hypselect")
 
       ggplot(NULL, aes(c(0,5))) +
-        geom_area(stat = "function", fun = stats::dchisq, fill = "#d3d3d3", color = "black",
+        geom_area(stat = "function", fun = stats::dchisq, fill = "#38404f", color = "#38404f", alpha = .5,
                   xlim = c(0, stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
                   args = list(df=as.numeric(input$dist_dfselect))) +
-        geom_area(stat = "function", fun = stats::dchisq, fill = "#b34e24", color = "black",
+        geom_area(stat = "function", fun = stats::dchisq, fill = "#faa405", color = "#38404f",
                   xlim = c(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
                            stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+.5*stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
                   args = list(df=as.numeric(input$dist_dfselect))) +
-        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "black", linetype = "dashed",
+        geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
                    size=1.5) +
         # annotate("segment", arrow = arrow(ends = "both"), size = 1.5, color = "grey15",
         #          x = 0, xend = stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
@@ -1469,8 +1475,8 @@ server <- function(input,output,session){
 
     output$plot <- renderPlot({
       ggplot(vals$data,aes(x=X,y=Y)) +
-        geom_point(color = "#d3d3d3", size = 3, shape = 4, stroke = 2) +
-        geom_smooth(method='lm',se=F,color="#b34e24",linetype="dashed") + #
+        geom_point(color = "#38404f", size = 2.5, shape = 4, stroke = 2) +
+        geom_smooth(method='lm',se=F,color="#faa405",linetype="dashed") + #
         theme_darkgray()
     })
 

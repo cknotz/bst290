@@ -16,7 +16,7 @@ Imports:
   shiny (>= 1.7.1),
   shinydashboard (>= 0.7.2),
   shinyWidgets (>= 0.6.2),
-  dashboardthemes (>= 1.1.5),
+  fresh (>= 0.2.0),
   shinyjs (>= 2.1.0),
   ggplot2 (>= 3.3.5),
   dplyr (>= 1.0.7),
