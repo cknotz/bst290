@@ -50,7 +50,9 @@ ui <- dashboardPage(
                      menuItem("Measures of spread",tabName = "spread"),
                      menuItem("Statistical distributions", tabName = "dist"),
                      menuItem("The Central Limit Theorem", tabName = "clt"),
-                     menuItem("Confidence intervals", tabName = "ci"),
+                     menuItem("Confidence intervals", tabName = "ci",
+                              menuSubItem("Exploring the logic", tabName = "ci_conc"),
+                              menuSubItem("Do they really work?", tabName = "ci_work")),
                      menuItem("p-value calculator", tabName = "p"),
                      menuItem("Chi-squared test",tabName = "chi"),
                      menuItem("Difference of means test",tabName = "ttest"),
@@ -119,7 +121,7 @@ ui <- dashboardPage(
                                 a particular procedure or concepts.</p>
                                 <p>Also, after a few calculations, equations that at first sight seemed impenetrable
                                 and perhaps even scary become manageable and intuitive. You learn that you can actually understand and master seemingly complicated material.
-                                In consequence, you gain confidence that will help you tackle the more complicated concepts and procedures.</p>")),
+                                The result is that you gain confidence that will help you tackle more complicated concepts and procedures later on.</p>")),
                        box(width = NULL, solidHeader = T, collapsible = T, collapsed = T,
                            title = "The purpose of this application",
                            HTML("<p><strong>And this is the purpose of this application: To let you practice</strong> calculating beginner-level statistical
@@ -127,7 +129,7 @@ ui <- dashboardPage(
                                 will then give you a brief introduction and a set of (random) numbers to calculate with. Once you are done with your calculation
                                 (or in case you get stuck) you can reveal a brief and a detailed solution to each exercise. And you can repeat this as many
                                 times as you like &mdash; the application will spit out numbers for you to crunch until you feel that you really understand each calculation.</p>
-                                <p>In addition, it features a panel to simulate the logic behind the Central Limit Theorem and confidence intervals. Finally, you can visualize
+                                <p>In addition, it features panels to simulate the logic behind the Central Limit Theorem and confidence intervals. Finally, you can visualize
                                 central statistical distributions, which can help you to better understand how to interpret the results of statistical
                                 tests.</p>")
                        ))
@@ -338,18 +340,87 @@ ui <- dashboardPage(
               )),
       ###############
 
-      tabItem(tabName = "ci",
+      tabItem(tabName = "ci_conc",
+              column(width = 4,
+                     box(width = NULL, title = "Understanding confidence intervals",
+                         collapsible = T, collapsed = T, solidHeader = F,
+                         HTML("<p><i>Confidence intervals are tricky!</i> If you are currently learning about them for
+                              the first (or second, or third,...) time but struggling to really grasp how they work and
+                              what they do, then be assured that you are certainly not alone!</p>
+                              <p>This panel offers an illustration of the underlying logic of confidence intervals. In essence,
+                              it walks you through a thought exercise. Read the instructions in the box to the right (''Scenario'')
+                              to learn more and use the controls below to explore the simulation.</p>")),
+                     box(width = NULL, title = "Controls", collapsible = F, collapsed = F,
+                         sliderInput("popmean",label = "True population mean",
+                                     min = 30,max = 80, step = 1, value = 57, ticks = F),
+                         radioGroupButtons("ci_level2",
+                                           label = "Confidence level",
+                                           choices = c("90%" = .1,
+                                                       "95%" = .05,
+                                                       "99%" = .01),
+                                           selected = .05,
+                                           justified = T,
+                                           checkIcon = list(
+                                             yes = icon("ok",
+                                                        lib = "glyphicon"))
+                         ),
+                         radioGroupButtons("showci", label = "Show confidence interval?",
+                                           choices = c("Yes","No"),
+                                           selected = "No"))),
+              column(width = 8,
+                     box(width = NULL, title = "Scenario", collapsible = T, collapsed = T,
+                         solidHeader = T,
+                         HTML("The scenario is the following: You are conducting a study in which you try to
+                              figure out the averave (mean) level of happiness in a population. You have already collected a sample
+                              and calculated a sample mean.</p>
+                              <p>You also know about the <i>Central Limit Theorem</i>: Your particular result is one of many, many others
+                              that are normally distributed around the true population mean. What you do not know, of course, is <i>where
+                              the true population mean is, exactly.</i></p>
+                              <p>But you can think theoretically about which potential values of the true population mean are plausible or
+                              <i>probable</i> and which are not, given your single result. To do so, you can use your understanding of the <i>Central Limit Theorem</i>
+                              and of the Normal distribution.</p>
+                              <p>By moving the slider on the right, you can change the location of the potential true population mean. As you do that,
+                              ask yourself: <i>If the true population mean was really here, how likely is it that I could have ended up with my
+                              particular result?</i></p>")),
+                     box(width = NULL, title = "Which potential population means are plausible - and which are not?", collapsible = F,
+                         plotOutput("cilogplot")),
+                     box(width = NULL, title = "Making sense of what you see", collapsible = T, collapsed = T,
+                         HTML("<p>As you move the population mean around, you will probably quickly figure out that
+                                  there are some values of the true population mean where your particular result
+                                  would be very likely to emerge: Those where your sample mean is in the gray-shaded area. But as you move the slider further to the left or right,
+                                  you notice that your sample mean eventually falls into the orange-shaded <i>extreme ends</i>. In those cases, it is arguably
+                                  not very probable that you would have gotten your result (but still possible!). You will probably conclude that these
+                                  potential values of the true population mean are not very plausible.</p>
+                                  <p>If you then let the graph show you the confidence interval for your sample mean, you will notice that this interval covers
+                                  all those potential true population means that would be plausible given your particular result. And this is one way to think
+                                  about confidence intervals (see e.g., Kellstedt & Whitten 2018, 153-154).</p>
+                                  <p>Strictly speaking, however, the correct interpretation is that this confidence interval simply has a high chance or high probability of
+                              including the true population. And we can also say exactly how high that probability is because we know how the Normal distribution works mathematically.
+                              If you look at the radio buttons in the control panel, you see that they are set to 95%. This means that this confidence interval
+                              now includes the true population mean with a probability of 95%, and that there is a 2.5% probability the true mean is higher and a 2.5% probability it is lower. The
+                              orange-shaded areas represent those 2.5% on either side. If you now switch that level to 99%, you see that the extreme areas get
+                              smaller, but that the confidence interval gets wider. This means, in substantive terms, that the interval now has a higher probability
+                              of including the true population mean, but we need to 'buy' this with a lower degree of precision (we need to consider a higher range of
+                              possible values). The opposite is the case when you set the confidence level down to 90%: Greater precision, but lower probability or confidence.</p>")
+                     )
+              )
+      ),
+
+      tabItem(tabName = "ci_work",
               ###############
               fluidRow(
                 column(width = 4,
-                       box(width = NULL,title = "Confidence intervals", collapsible = F,
+                       box(width = NULL,title = "Do confidence intervals really work?", collapsible = T,
                            collapsed = F, solidHeader = F,
-                           HTML("<p>Confidence intervals are a very important tool in
-                                statistical analysis. Unfortunately, they are also
-                                difficult to really understand. <strong>This panel allows you to explore the logic of
-                                confidence intervals via simulation.</strong> A heads-up: This is abstract and
-                                difficult stuff. You will probably have to go over this a few times until you
-                                <i>really</i> understand everything.</p>")),
+                           HTML("<p>A confidence interval for a <i>sample mean</i> will, statistically speaking, include (or ''cover'')
+                                the true population mean with a chosen probability (e.g., 95%). That is at least
+                                what the statisticians tell us. But does that really work?</p>
+                                <p><b>You can find out for yourself using simulation!</b> In this panel, you can simulate what would happen if
+                                you would draw up to 100 samples from a population, calculate the sample mean and the associated confidence interval,
+                                and see if your confidence interval(s) include the true population mean.</p>
+                                <p>You will see that the theory does indeed work: If you do 100 studies and choose a probability (''confidence level'') of 95%,
+                                then about 95 of your confidence intervals will include the true population mean and about 5 will not &mdash; confirming that
+                                <i>each individual</i> confidence interval has a 95% chance of including the true population mean (being ''correct'').</p>")),
                        box(width = NULL, title = "Controls", collapsible = F,
                            collapsed = F,
                            sliderInput("ci_size",
@@ -958,6 +1029,62 @@ server <- function(input,output,session){
       })
     })
   })
+
+
+  # Confidence intervals, conceptual logic
+  output$cilogplot <- renderPlot({
+
+    if(input$showci=="No"){
+
+      alpha <- as.numeric(input$ci_level2)
+      x_bar <- input$popmean
+      x_sd <- 5
+
+      ggplot(NULL, aes(c(10,100))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#faa405", alpha = .5,
+                  xlim = c(10,qnorm(alpha/2,mean = x_bar, sd = x_sd))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#38404f", alpha = .5,
+                  xlim = c(qnorm(alpha/2,mean = x_bar, sd = x_sd),qnorm(1-(alpha/2),mean = x_bar, sd = x_sd))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#faa405", alpha = .5,
+                  xlim = c(qnorm(1-(alpha/2),mean = x_bar, sd = x_sd),100)) +
+        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", size = 1.25) +
+        geom_vline(xintercept = 55, linetype = "solid", color = "purple") +
+        scale_x_continuous(limits = c(10,100),
+                           breaks = seq(10,100,10)) +
+        labs(y = "Density", x = "''How happy are you?''",
+             caption = "Purple solid line: Sample mean (55)\nDotted gray line: Potential true population mean.") +
+        theme_bw()
+    }else{
+      alpha <- as.numeric(input$ci_level2)
+      x_bar <- input$popmean
+      x_sd <- 5
+
+      ggplot(NULL, aes(c(10,100))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#faa405", alpha = .5,
+                  xlim = c(10,qnorm(alpha/2,mean = x_bar, sd = x_sd))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#38404f", alpha = .5,
+                  xlim = c(qnorm(alpha/2,mean = x_bar, sd = x_sd),qnorm(1-(alpha/2),mean = x_bar, sd = x_sd))) +
+        geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
+                  fill = "#faa405", alpha = .5,
+                  xlim = c(qnorm(1-(alpha/2),mean = x_bar, sd = x_sd),100)) +
+        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", size = 1.25) +
+        geom_vline(xintercept = 55, linetype = "solid", color = "purple") +
+        geom_errorbarh(aes(xmin = 55-qnorm(alpha/2)*5, xmax = 55+qnorm(alpha/2)*5, y = 0.015),
+                       color = "purple", linetype = "dashed",height = 0.001) +
+        scale_x_continuous(limits = c(10,100),
+                           breaks = seq(10,100,10)) +
+        labs(y = "Density", x = "''How happy are you?''",
+             caption = "Purple solid line: Sample mean (55)\nDotted gray line: Potential true population mean.") +
+        theme_bw()
+    }
+
+  })
+
 
 
   # Statistical distributions
