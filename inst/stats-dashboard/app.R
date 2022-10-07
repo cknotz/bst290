@@ -1489,10 +1489,10 @@ server <- function(input,output,session){
     # Detailed solution
     output$chires_det1 <- renderUI({
       HTML(paste0("<p>As you know, the &#x1D6D8;<sup>2</sup> test is in essence nothing more than a test
-              if the distribution we observe in our table is significantly different from one that we
+              if the numbers we observe in our table are significantly different from ones that we
               would <strong>expect</strong> if there was in reality no relationship between the two
-              variables. In other words: Do our observed frequences differ significantly from those
-              we would expect if there was no relationship in the data?</p>
+              variables in the population from which our data came. In other words: Do our observed frequences differ significantly from those
+              we would expect if there was no relationship in the population?</p>
               We have, of course, the observed frequences &mdash; now we need to calculate the expected
               frequencies. To do so, we first translate our frequency table into one that shows
               column percentages:"))
@@ -1515,7 +1515,7 @@ server <- function(input,output,session){
     output$chires_det2 <- renderUI({
       HTML(paste0("<p>Once we have this, we focus on the third column ('Sum') in this new table. This column
        shows the <i>baseline</i> probabilities of preferring chocolate or vanilla in our sample.
-       <strong>Important:</strong> If there was no relationship in our data, then we would expect that everyone's
+       <strong>Important:</strong> If there was no relationship in our population, then we would expect that everyone's
        probability to prefer either taste simply corresponds to this baseline. For example,
        both morning and night persons should have the same ",round(chiprob[1,3],digits=1),"% baseline probability of preferring
        chocolate</p>
@@ -1567,7 +1567,7 @@ server <- function(input,output,session){
                            round((chitab[2,2]-round(baseprobs[2]*chifreq[2],digits = 1))^2/round(baseprobs[2]*chifreq[2],digits = 1), digits = 3),"$$
                      Now that we have the result, how do we interpret it? There are two options. First, we can compare this value to the critical value for 1 degree of freedom and a given level of significance in the
                      'Statistical distributions' panel. If our test score is higher than the critical value (i.e., if it falls into the orange area or even further out), then we conclude
-                     that there is a statistically significant relationship in the data. Alternatively,
+                     that we should reject the Null hypothesis and that there probably (!) is a statistically significant relationship in the data. Alternatively,
                      we can compute a p-value (you can do this yourself in the 'p-value calculator' panel), which in this case is ",format(round(stats::pchisq(chival,df=1,lower.tail=F),digits=3),nsmall = 3),"."))
     })
 
