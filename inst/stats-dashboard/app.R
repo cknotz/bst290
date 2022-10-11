@@ -1257,7 +1257,7 @@ server <- function(input,output,session){
         labs(y = "Density",
              #caption = paste0("Gray arrow indicates ",100*(1-as.numeric(input$dist_signselect))," % of data"),
              title = paste0("Critical value = ",round(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),digits = 3),
-                            " for df=",as.numeric(input$dist_dfselect)," and a ",as.numeric(input$dist_signselect)," level of confidence")) +
+                            " for df=",as.numeric(input$dist_dfselect)," and a ",as.numeric(input$dist_signselect)," level of significance")) +
         xlab(~ paste(chi ^ 2, "-value")) +
         theme_darkgray() +
         theme(axis.text = element_text(size=14))
