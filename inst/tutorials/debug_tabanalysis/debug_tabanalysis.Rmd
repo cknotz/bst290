@@ -42,7 +42,7 @@ question("Which variable is the *dependent* and which is the *independent* varia
 ### Frequency table
 
 First, let's create a simple cross tabulation of the two variables that shows *frequencies*. The code chunk below is almost complete, but you still have to add one variable:
-```{r ctab, exercise = T}
+```{r ctab, exercise = TRUE}
 table(ess$vote, )
 ```
 
@@ -60,7 +60,7 @@ table(ess$vote,ess$gndr)
 ### Percentage table
 
 A percentage table showing column percentages is a better way to show the relationship between the two categorical variables. Can you complete the code below --- and make sure that you place the variables in the correct positions!
-```{r ktab, exercise = T}
+```{r ktab, exercise = TRUE}
 bst290::krysstabell(dataset = ess,
                     rowvar = ,
                     colvar = )
@@ -82,7 +82,7 @@ bst290::krysstabell(dataset = ess,
 ### Running a $\chi^2$ test
 
 The code below is not quite complete --- can you make it run?
-```{r chitest, exercise = T}
+```{r chitest, exercise = TRUE}
 table(ess$vote,ess$gndr)
 chisq.test()
 ```

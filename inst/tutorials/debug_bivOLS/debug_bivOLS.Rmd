@@ -98,7 +98,7 @@ There are two things to do here:
 1. Can you add the correct model formula to the code below?
 2. Somehow the results are not being shown? Can you add code to get `R` to print out a summary of the estimation results?
 
-```{r mod1, exercise = T}
+```{r mod1, exercise = TRUE}
 model1 <- lm( ,
               data = ess)
 

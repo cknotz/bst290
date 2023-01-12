@@ -36,7 +36,7 @@ question("...which is the *dependent* and which is the *independent variable* he
 ## Descriptive analysis {data-progressive=TRUE}
 
 As in the main tutorial, let's first look at the differences descriptively. The code below should use the `ess` data, group the data by gender (`gndr`), and then calculate the average value of body height (`height`) for each group --- can you complete it?
-```{r plyr, exercise = T}
+```{r plyr, exercise = TRUE}
 ess %>% 
   group_by() %>% 
   summarize()
@@ -60,7 +60,7 @@ ess %>%
 ##
 
 Now that we have the summary statistics, it would be great to be able to show them in a bar graph. Can you complete the code to do that?
-```{r gr1, exercise = T}
+```{r gr1, exercise = TRUE}
 ess %>% 
   group_by(gndr) %>% 
   summarize(avgheight = mean(height, na.rm = T)) %>% 
@@ -89,7 +89,7 @@ ess %>%
 So, there is a difference in the average height of men compared to women (surprise, surprise...). But, as before: is that difference also *statistically significant*?
 
 Let's find out! Can you complete the code to run a *t*-test with `t.test()`? The variables are `gndr` and `height`, and the dataset is `ess`:
-```{r ttest, exercise = T}
+```{r ttest, exercise = TRUE}
 t.test()
 ```
 

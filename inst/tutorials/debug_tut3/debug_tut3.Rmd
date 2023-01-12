@@ -21,7 +21,7 @@ In all exercises, you will work with the small `ess` dataset that you used in th
 ### Problem No. 1
 
 Here you want to calculate the average age of your respondents --- but `R` refuses...
-```{r ex1, exercise=T}
+```{r ex1, exercise=TRUE}
 average(ess$agea)
 ```
 
@@ -41,7 +41,7 @@ mean(ess$agea)
 <!-- ### Problem No. 2 -->
 
 <!-- Now you want to calculate the average level of trust in other people (`ppltrst`). You have the correct function, `mean()`, but you get `NA` as a result. Disappointing. What could be the problem here? -->
-<!-- ```{r ex2, exercise = T} -->
+<!-- ```{r ex2, exercise = TRUE} -->
 <!-- mean(ess$ppltrst) -->
 <!-- ``` -->
 
@@ -68,7 +68,7 @@ mean(ess$agea)
 ### Problem No. 2
 
 You want to see the first 20 observations of the `ess` dataset -- but `R` only shows you the first six. How can you get 20?
-```{r ex3, exercise = T}
+```{r ex3, exercise = TRUE}
 head(ess)
 ```
 
@@ -89,7 +89,7 @@ head(ess,
 
 You want to calculate the standard deviation of the `agea` variable, and you definitely have the correct function and variable --- but something still causes an error:
 
-```{r ex4, exercise = T}
+```{r ex4, exercise = TRUE}
 sd(ess@agea)
 ```
 

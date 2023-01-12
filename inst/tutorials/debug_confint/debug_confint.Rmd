@@ -39,7 +39,7 @@ ess %>%
 ## Analysis {data-progressive=TRUE}
 
 Since we want the confidence interval *for the sample mean*, we should first find out what the sample mean is. Can you add code below to calculate the mean of the `weight` variable in the `ess` dataset?
-```{r sammean, exercise = T}
+```{r sammean, exercise = TRUE}
 
 ```
 
@@ -67,7 +67,7 @@ question("Which function would you use to let `R` calculate a confidence interva
 ###
 
 Since you know what the right function is (or your memory has been refreshed now), can you use the correct function to calculate a 95% confidence interval for the sample mean of the `weight` variable?
-```{r ci1, exercise = T}
+```{r ci1, exercise = TRUE}
 
 
 ```
@@ -82,7 +82,7 @@ t.test(x = ess$weight)
 ###
 
 Can you now change the confidence level to 99%?
-```{r ci2, exercise = T}
+```{r ci2, exercise = TRUE}
 t.test(x = ess$weight)
 ```
 
@@ -96,7 +96,7 @@ t.test(x = ess$weight, conf.level = 0.99)
 ###
 
 Can you also set the confidence level to 83%?
-```{r ci3, exercise = T}
+```{r ci3, exercise = TRUE}
 t.test(x = ess$weight, conf.level = 0.99)
 ```
 

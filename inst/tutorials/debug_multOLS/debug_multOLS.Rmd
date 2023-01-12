@@ -82,7 +82,7 @@ table(ess$gndr)
 ## Estimating the model {data-progressive=TRUE}
 
 Now over to you: Below is the code we used for our earlier *bivariate* regression model --- can you modify it so that the model also includes gender (`gndr`) as an additional independent variable?
-```{r mod2, exercise = T}
+```{r mod2, exercise = TRUE}
 model2 <- lm(happy_num ~ height,
              data = ess)
 

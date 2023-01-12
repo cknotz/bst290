@@ -23,7 +23,7 @@ Here are again some exercises that require you to fix problems with code chunks.
 ### Problem No. 1
 
 In this scenario, you want to select three variables from the `ess` dataset, but all you get is an error message:
-```{r ex1, exercise = T}
+```{r ex1, exercise = TRUE}
 ess %>% 
   select(idno,gndr,agea
 ```
@@ -44,7 +44,7 @@ ess %>%
 ### Problem No. 2
 
 Now you want to link two operations, where the first selects variables and the second filters observations. But, again, something does not work:
-```{r ex2, exercise = T}
+```{r ex2, exercise = TRUE}
 ess %>% 
   select(idno,cntry,agea,vote,stflife)
   filter(agea>=25)
@@ -68,7 +68,7 @@ ess %>%
 ### Problem No. 3
 
 Here you want to filter the data so that only women are left (where `gndr` is equal to `Female`), but somehow `R` refuses to do what you want:
-```{r ex3, exercise = T}
+```{r ex3, exercise = TRUE}
 ess %>% 
   filter(gndr="Female")
 ```
@@ -91,7 +91,7 @@ ess %>%
 OK, this one might be a bit mean --- but maybe you can figure it out anyways? 
 
 You want to select some variables from the `ess` dataset, this time without using the pipe but by specifying the dataset explicitly in the `select()` command:
-```{r ex4, exercise = T}
+```{r ex4, exercise = TRUE}
 select(data = ess,
        agea,idno,gndr)
 ```

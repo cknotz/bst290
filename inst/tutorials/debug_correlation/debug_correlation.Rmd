@@ -83,7 +83,7 @@ question("When two variables are *positively* related, then the Pearson correlat
 ##
 
 OK, you should now have an idea of what to expect: a *positive* relationship, meaning a Pearson correlation coefficient that is between 0 and 1. Let's see if this is true by calculating it. Can you complete the code below to get the correlation coefficient:
-```{r cor, exercise = T}
+```{r cor, exercise = TRUE}
 cor(x = , y = ,
     use = "complete.obs")
 ```
@@ -108,7 +108,7 @@ Now we know the exact correlation coefficient (*r* = `r round(res, digits = 3)`)
 The next question is: *Is this correlation significant?* Does this finding reflect a systematic relationship in the underlying population, or does this just reflect the fact that we are working with a sample that contains "noise"?
 
 To conduct a formal test for the statistical significance of a correlation coefficient, you would use the `cor.test()` function. Can you complete the code below to make the function run?
-```{r corest, exercise = T}
+```{r corest, exercise = TRUE}
 cor.test(x = , y = )
 ```
 
