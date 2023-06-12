@@ -19,6 +19,8 @@
 #' 10 unique categories).
 #' @param export Should the result be made export-ready (TRUE/FALSE)?
 #'
+#' @param norsk Results in Norwegian (NB)?
+#'
 #' @return A data.frame or, if export function is switched on (export=TRUE), a
 #' printed out table formatted for easy export to MS Word.
 #'
@@ -44,7 +46,7 @@
 #'
 #'
 #' @export
-oppsum_grupp <- function(dataset,variable,by.var,export=NULL){
+oppsum_grupp <- function(dataset,variable,by.var,export=NULL,norsk=NULL){
 
   # Helper function
   stop_quietly <- function() {
@@ -215,10 +217,15 @@ oppsum_grupp <- function(dataset,variable,by.var,export=NULL){
   rm(avg,sd,med,q25,q75,min,max,nas,obs)
 
   # Pretty output
-  colnames(bytabell) <- c(by.var,"Observations",
-                          "Average","Stand. Dev.","25th percentile",
-                          "Median","75th percentile","Minimum","Maximum",
-                          "Missing")
+  if(isTRUE(norsk)){
+    colnames(bytabell) <- c(by.var,"Observasjoner","Gjennomsnitt","25. persentil","Median",
+                            "75. persentil","Standardavvik","Minimum","Maksimum","Manglende")
+  }else{
+    colnames(bytabell) <- c(by.var,"Observations",
+                            "Average","Stand. Dev.","25th percentile",
+                            "Median","75th percentile","Minimum","Maximum",
+                            "Missing")
+  }
 
   if(export==T){
     return(utils::write.table(format(bytabell,digits=2,nsmall=2),

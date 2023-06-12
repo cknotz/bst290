@@ -18,6 +18,8 @@
 #' be used.
 #' @param export Should the table be made export-ready (TRUE/FALSE)?
 #'
+#' @param norsk Results in Norwegian (NB)?
+#'
 #' @return A data.frame or, if export function is switched on (export=TRUE), a
 #' printed out table formatted for easy export to MS Word.
 #'
@@ -45,7 +47,7 @@
 #' @importFrom utils write.table
 #'
 #' @export
-oppsumtabell <- function(dataset,variables=NULL,variable=NULL,export=NULL) {
+oppsumtabell <- function(dataset,variables=NULL,variable=NULL,export=NULL,norsk=NULL) {
 
   # Helper function (from https://stackoverflow.com/questions/14469522/stop-an-r-program-without-error)
   stop_quietly <- function() {
@@ -73,8 +75,13 @@ oppsumtabell <- function(dataset,variables=NULL,variable=NULL,export=NULL) {
   }
 
   # Labels
-  stats <- c("Observations","Average","25th percentile","Median","75th percentile",
-             "Stand. Dev.","Minimum","Maximum","Missing")
+  if(isTRUE(norsk)){
+    stats <- c("Observasjoner","Gjennomsnitt","25. persentil","Median",
+               "75. persentil","Standardavvik","Minimum","Maksimum","Manglende")
+  }else{
+    stats <- c("Observations","Average","25th percentile","Median","75th percentile",
+               "Stand. Dev.","Minimum","Maximum","Missing")
+  }
 
   # Set default
   if(is.null(export)){

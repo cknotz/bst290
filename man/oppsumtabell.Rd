@@ -4,7 +4,13 @@
 \alias{oppsumtabell}
 \title{Create univariate summary tables}
 \usage{
-oppsumtabell(dataset, variables = NULL, variable = NULL, export = NULL)
+oppsumtabell(
+  dataset,
+  variables = NULL,
+  variable = NULL,
+  export = NULL,
+  norsk = NULL
+)
 }
 \arguments{
 \item{dataset}{Your dataset (a data.frame-type object).}
@@ -16,6 +22,8 @@ summary statistics. Specify them as a string or a string vector.}
 be used.}
 
 \item{export}{Should the table be made export-ready (TRUE/FALSE)?}
+
+\item{norsk}{Results in Norwegian (NB)?}
 }
 \value{
 A data.frame or, if export function is switched on (export=TRUE), a

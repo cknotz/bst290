@@ -4,7 +4,7 @@
 \alias{oppsum_grupp}
 \title{Create a summary table for one variable grouped by another variable}
 \usage{
-oppsum_grupp(dataset, variable, by.var, export = NULL)
+oppsum_grupp(dataset, variable, by.var, export = NULL, norsk = NULL)
 }
 \arguments{
 \item{dataset}{Your dataset (a data.frame-type object).}
@@ -17,6 +17,8 @@ are calculated (should ideally be a categorical variable with not more than
 10 unique categories).}
 
 \item{export}{Should the result be made export-ready (TRUE/FALSE)?}
+
+\item{norsk}{Results in Norwegian (NB)?}
 }
 \value{
 A data.frame or, if export function is switched on (export=TRUE), a
