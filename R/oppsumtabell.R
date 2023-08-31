@@ -164,7 +164,11 @@ oppsumtabell <- function(dataset,variables=NULL,variable=NULL,export=NULL,norsk=
     sumtab.df <- as.data.frame(sumtab)
     sumtab.df <- cbind(stats,sumtab.df)
     rownames(sumtab.df) <- NULL
+    if(isTRUE(norsk)){
+    colnames(sumtab.df) <- c("Variabel",variables)
+    }else{
     colnames(sumtab.df) <- c("Variable",variables)
+    }
 
     # Regular export
     if(export==T){
