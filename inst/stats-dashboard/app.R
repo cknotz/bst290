@@ -29,7 +29,7 @@ theme_darkgray <- function(){
 
     theme(panel.background = element_rect(fill = "#ffffff",color = "#d3d3d3"),
           plot.background = element_rect(fill="#ffffff", color = "#343e48"),
-          panel.grid.major = element_line(color="#38404f", size = .1),
+          panel.grid.major = element_line(color="#38404f", linewidth = .1),
           panel.grid.minor = element_blank(),
           axis.text = element_text(colour = "#38404f"),
           axis.title = element_text(color = "#38404f"),
@@ -901,7 +901,7 @@ server <- function(input,output,session){
           summarize(n = n()) %>%
           ggplot(aes(x=pop,y=n)) +
           geom_bar(stat = "identity", fill = "#38404f") +
-          geom_vline(xintercept = mean(vals$cltpop), color = "#faa405", size = 1.25) +
+          geom_vline(xintercept = mean(vals$cltpop), color = "#faa405", linewidth = 1.25) +
           scale_x_continuous(breaks = seq(10,100,10),
                              limits = c(5,105)) +
           labs(x = "''How happy are you?''",
@@ -953,7 +953,7 @@ server <- function(input,output,session){
         geom_bar(stat = "count",
                  width = 1, fill = "#38404f") +
         geom_vline(xintercept = mean(sims$means),
-                   color = "#faa405", size = 1.25, linetype = "dashed") +
+                   color = "#faa405", linewidth = 1.25, linetype = "dashed") +
         ylab("Number of samples") +
         xlab("Sample mean(s)") +
         labs(title = "Our measurement(s) of the population mean: dark bar(s)",
@@ -1013,9 +1013,9 @@ server <- function(input,output,session){
         vals$conf.int %>%
           mutate(round = seq(1:n.draw)) %>%
           ggplot(aes(y = round, xmin = V1,xmax = V2)) +
-          geom_linerange(color = "#38404f", size = 1) +
+          geom_linerange(color = "#38404f", linewidth = 1) +
           geom_vline(xintercept = mu, color = "#faa405",
-                     size = 1.5) +
+                     linewidth = 1.5) +
           scale_y_continuous(breaks = integer_breaks()) +
           labs(x = "''How happy are you?''", y = "Study No.",
                caption = "The orange line indicates the TRUE population mean.",
@@ -1050,7 +1050,7 @@ server <- function(input,output,session){
         geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
                   fill = "#faa405", alpha = .5,
                   xlim = c(qnorm(1-(alpha/2),mean = x_bar, sd = x_sd),100)) +
-        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", size = 1.25) +
+        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", linewidth = 1.25) +
         geom_vline(xintercept = 55, linetype = "solid", color = "purple") +
         scale_x_continuous(limits = c(10,100),
                            breaks = seq(10,100,10)) +
@@ -1072,7 +1072,7 @@ server <- function(input,output,session){
         geom_area(stat = "function", fun = dnorm, args = list(mean = x_bar, sd = x_sd),
                   fill = "#faa405", alpha = .5,
                   xlim = c(qnorm(1-(alpha/2),mean = x_bar, sd = x_sd),100)) +
-        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", size = 1.25) +
+        geom_vline(xintercept = x_bar, linetype = "dotted", color = "grey45", linewidth = 1.25) +
         geom_vline(xintercept = 55, linetype = "solid", color = "purple") +
         geom_errorbarh(aes(xmin = 55-qnorm(alpha/2)*5, xmax = 55+qnorm(alpha/2)*5, y = 0.015),
                        color = "purple", linetype = "dashed",height = 0.001) +
@@ -1107,7 +1107,7 @@ server <- function(input,output,session){
           # annotate("text", x=0, y=stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)/2))+.015,label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"),
           #          color="grey15", fontface = "bold") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           labs(x = "", y = "Density",
                title = paste0("Normal distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided): ",
                               round(stats::qnorm(as.numeric(input$dist_signselect)/2), digits = 3)," & ",
@@ -1122,7 +1122,7 @@ server <- function(input,output,session){
           geom_area(stat = "function", fun = stats::dnorm, fill = "#faa405",
                     xlim = c(stats::qnorm(1-(as.numeric(input$dist_signselect))),4), color = "#38404f") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           # annotate("segment", x = -3.99, xend = stats::qnorm(1-as.numeric(input$dist_signselect)),
           #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
           #          size = 1.5, color = "grey15") +
@@ -1142,7 +1142,7 @@ server <- function(input,output,session){
           geom_area(stat = "function", fun = stats::dnorm, fill = "#38404f",alpha = .5,
                     xlim = c(stats::qnorm((as.numeric(input$dist_signselect))),4), color = "#38404f") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           # annotate("segment", x = 3.99, xend = stats::qnorm(as.numeric(input$dist_signselect)),
           #          y = stats::dnorm(stats::qnorm(as.numeric(input$dist_signselect)))/2, yend = stats::dnorm(-stats::qnorm(as.numeric(input$dist_signselect)))/2, arrow = arrow(ends='both'),
           #          size = 1.5, color = "grey15") +
@@ -1179,7 +1179,7 @@ server <- function(input,output,session){
           # annotate("text", x=0, y=stats::dt(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical values for a ",as.numeric(input$dist_signselect)," significance level (two-sided; df = ",as.numeric(input$dist_dfselect),"): ",
                               round(stats::qt(as.numeric(input$dist_signselect)/2, df=as.numeric(input$dist_dfselect)), digits = 3)," & ",
@@ -1204,7 +1204,7 @@ server <- function(input,output,session){
           #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (larger than; df = ",as.numeric(input$dist_dfselect),"): ",
                               round(stats::qt(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
@@ -1228,7 +1228,7 @@ server <- function(input,output,session){
           #          y=stats::dt(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df=as.numeric(input$dist_dfselect))+0.015,
           #          label = paste0(100*(1-as.numeric(input$dist_signselect)),"% of data"), color="grey15", fontface = "bold") +
           geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                     size=1.5) +
+                     linewidth=1.5) +
           labs(x = "", y = "Density",
                title = paste0("t-distribution critical value for a ",as.numeric(input$dist_signselect)," significance level (smaller than; df = ",as.numeric(input$dist_dfselect),"): ",
                               round(stats::qt(as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), digits = 3))) +
@@ -1249,7 +1249,7 @@ server <- function(input,output,session){
                            stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))+.5*stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect))),
                   args = list(df=as.numeric(input$dist_dfselect))) +
         geom_vline(xintercept = as.numeric(input$dist_valselect), color = "#38404f", linetype = "dashed",
-                   size=1.5) +
+                   linewidth=1.5) +
         # annotate("segment", arrow = arrow(ends = "both"), size = 1.5, color = "grey15",
         #          x = 0, xend = stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)),
         #          y = stats::dchisq(stats::qchisq(1-as.numeric(input$dist_signselect), df=as.numeric(input$dist_dfselect)), df = as.numeric(input$dist_dfselect)),
