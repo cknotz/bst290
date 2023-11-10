@@ -18,7 +18,7 @@ Imports:
   shinyWidgets (>= 0.6.2),
   fresh (>= 0.2.0),
   shinyjs (>= 2.1.0),
-  ggplot2 (>= 3.3.5),
+  ggplot2 (>= 3.4.4),
   dplyr (>= 1.0.7),
   xtable (>= 1.8.4),
   haven (>= 2.4.3),
